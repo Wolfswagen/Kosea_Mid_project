@@ -3,60 +3,106 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.table.*;
 
-public class InsertFrame extends DAO {
+public abstract class InsertFrame extends DAO {
 
 	JFrame f;
-//  패널(검색 카테고리 선택/검색어 입력/검색 버튼/부분 검색 여부)
+//  패널(수정/행 추가/행 삭제/뒤로)
 	JPanel p;
 	JButton cfm;
+	JButton add;
+	JButton del;
+	JButton back;
 
-//  조회 테이블 
+//  입력 테이블	
 	DefaultTableModel model;
 	JScrollPane sp;
 	JTable table;
 	String[] column;
+	String[] defrow;
 
 	public InsertFrame() {
 //		초기화 블럭 시작
 		setColumn();
 
 		f = new JFrame(this.toString());
-		f.setSize(1000, 500);
+		f.setSize(1200, 500);
 
 		/* 패널부 초기화 */
+
 		cfm = new JButton("수정");
+		add = new JButton("행 추가");
+		del = new JButton("행 삭제");
+		back = new JButton("뒤로");
 		p = new JPanel();
+		p.setLayout(new FlowLayout(FlowLayout.RIGHT, 30, 5));
 
 		/* 테이블 초기화 */
-		model = new DefaultTableModel(column, 100) {
+
+		model = new DefaultTableModel(column, 0) {
 			private static final long serialVersionUID = -4113365722825486170L;
 
 			/* 테이블 수정 불가 설정 */
 			public boolean isCellEditable(int i, int c) {
-				if (c == 0) {
-					model.setValueAt("자동입력", i, c);
+				String name = model.getColumnName(c);
+				if (name.equals("product_code") || name.equals("register_date") || name.equals("customer_code")) {
 					return false;
-
 				} else {
 					return true;
 				}
 			}
 		};
-		table = new JTable(model);
-		sp = new JScrollPane(table);
+		model.addRow(defrow);
 
+		table = new JTable(model);
+
+		table.getTableHeader().setReorderingAllowed(false);
+		sp = new JScrollPane(table);
 //		초기화 블럭 끝
 
 //		이벤트 설정
-
-		cfm.addActionListener(new ActionListener() {
-
+		/* 행추가 버튼 */
+		add.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				getData();
-
+				model.addRow(defrow);
 			}
-
+		});
+		/* 행삭제 버튼 */
+		del.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (model.getRowCount() > 0) {
+					model.removeRow(model.getRowCount() - 1);
+				}
+			}
+		});
+		/* 수정 버튼 */
+		cfm.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int result = 0;
+				result = JOptionPane.showConfirmDialog(sp, "입력하시겠습니까?", "확인창", JOptionPane.YES_NO_OPTION);
+				if (result == 0) {
+					try {
+						insertData();
+					} catch (Exception r) {
+						System.out.println(r.getMessage());
+						r.printStackTrace();
+						return;
+					}
+					model.setNumRows(0);
+					model.addRow(defrow);
+				}
+			}
+		});
+		/* 뒤로 버튼 */
+		back.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				MainFrame sf = new MainFrame();
+				sf.initFrame();
+				f.dispose();
+			}
 		});
 
 		/* 종료 버튼 */
@@ -70,7 +116,10 @@ public class InsertFrame extends DAO {
 
 	public void initFrame() {
 		/* 패널부 출력 */
+		p.add(add);
+		p.add(del);
 		p.add(cfm);
+		p.add(back);
 
 		/* 프레임 출력 */
 		f.add(sp, BorderLayout.CENTER);
@@ -80,24 +129,9 @@ public class InsertFrame extends DAO {
 	}
 
 //  테이블 칼럼 설정
-	public void setColumn() {
-		column = new String[] { "product_code", "category", "product_name", "status", "amount", "original_price",
-				"discount", "multi_purchase_discount", "discount_rate", "register_date", "shipping" };
+	public abstract void setColumn();
 
-	}
-
-	public void getData() {
-		int cnt = 0;
-
-	}
-
-	public void insertData() {
-
-	}
-
-	public static void main(String[] args) {
-		InsertFrame i = new InsertFrame();
-		i.initFrame();
-	}
+//	insert 쿼리 작성
+	public abstract void insertData();
 
 }

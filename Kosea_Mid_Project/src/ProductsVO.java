@@ -11,6 +11,11 @@ public class ProductsVO {
 	private String reg_date;
 	private String shipping;
 
+	final static String COLUMN[] = new String[] { "product_code", "category", "product_name", "status", "amount",
+			"original_price", "discount", "multi_purchase_discount", "discount_rate", "register_date", "shipping" };
+	final static String DEFROW[] = new String[] { "자동입력", "OUTER", "", "판매중", "0", "0", "0", "0", "0", "자동입력",
+			"조건부 무료" };
+
 	public ProductsVO(int pcode, String category, String pname, String status, int amount, int org_price, int discount,
 			int mul_dc, double dc_rate, String reg_date, String shipping) {
 		this.pcode = pcode;
@@ -25,8 +30,6 @@ public class ProductsVO {
 		this.reg_date = reg_date;
 		this.shipping = shipping;
 	}
-
-
 
 	public Object[] toList() {
 		Object[] result = { pcode, category, pname, status, amount, org_price, discount, mul_dc, dc_rate, reg_date,

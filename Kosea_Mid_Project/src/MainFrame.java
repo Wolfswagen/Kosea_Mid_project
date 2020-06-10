@@ -2,16 +2,17 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class SearchFrame {
+public class MainFrame {
 
 	JFrame f;
 	JComboBox<String> choice;
-	JButton btn;
+	JButton read;
+	JButton create;
 
-	public SearchFrame() {
-		f = new JFrame("search");
+	public MainFrame() {
+		f = new JFrame("Main");
 		f.setLayout(new FlowLayout());
-		f.setSize(300, 100);
+		f.setSize(500, 130);
 		f.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				System.exit(0);
@@ -20,8 +21,8 @@ public class SearchFrame {
 
 		choice = new JComboBox<String>(new String[] { "Products", "Customer" });
 
-		btn = new JButton("조회");
-		btn.addActionListener(new ActionListener() {
+		read = new JButton("조회");
+		read.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (choice.getSelectedItem().equals("Products")) {
@@ -35,17 +36,33 @@ public class SearchFrame {
 			}
 		});
 
+		create = new JButton("삽입");
+		create.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (choice.getSelectedItem().equals("Products")) {
+					InsertProducts ip = new InsertProducts();
+					ip.initFrame();
+				} else {
+					InsertCustomers ic = new InsertCustomers();
+					ic.initFrame();
+				}
+				f.dispose();
+			}
+		});
+
 	}
 
 	public void initFrame() {
 		f.add(choice);
-		f.add(btn);
+		f.add(read);
+		f.add(create);
 
 		f.setVisible(true);
 	}
 
 	public static void main(String[] args) {
-		SearchFrame sf = new SearchFrame();
+		MainFrame sf = new MainFrame();
 		sf.initFrame();
 
 	}

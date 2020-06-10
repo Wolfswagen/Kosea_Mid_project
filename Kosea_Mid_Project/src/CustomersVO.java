@@ -7,6 +7,10 @@ public class CustomersVO {
 	private String zip;
 	private String ccc;
 
+	final static String COLUMN[] = { "customer_code", "customer_name", "customer_ID", "address", "phone", "zip_code",
+			"custom_clearance_code" };
+	final static String DEFROW[] = { "자동입력", "", "", "", "", "", "" };
+
 	public CustomersVO(int ccode, String cname, String cid, String address, String phone, String zip, String ccc) {
 		this.ccode = ccode;
 		this.cname = cname;

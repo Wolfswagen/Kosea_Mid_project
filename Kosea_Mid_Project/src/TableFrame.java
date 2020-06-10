@@ -44,6 +44,7 @@ public abstract class TableFrame {
 		};
 		search();
 		table = new JTable(model);
+		table.getTableHeader().setReorderingAllowed(false);
 		sp = new JScrollPane(table);
 
 //		초기화 블럭 끝
@@ -65,7 +66,7 @@ public abstract class TableFrame {
 		back.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				SearchFrame sf = new SearchFrame();
+				MainFrame sf = new MainFrame();
 				sf.initFrame();
 				f.dispose();
 			}

@@ -21,9 +21,8 @@ public class ProductsFrame extends TableFrame {
 		return "product";
 	}
 
-	public void setColumn() {
-		column = new String[] { "product_code", "category", "product_name", "status", "amount", "original_price",
-				"discount", "multi_purchase_discount", "discount_rate", "register_date", "shipping" };
+	public void setColumn() { 
+		this.column = ProductsVO.COLUMN;
 	}
 
 }

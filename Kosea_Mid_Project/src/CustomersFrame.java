@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class CustomersFrame extends TableFrame {
-	
+
 	public CustomersFrame() {
 		super();
 
@@ -23,9 +23,7 @@ public class CustomersFrame extends TableFrame {
 	}
 
 	public void setColumn() {
-		column = new String[] { "customer_code", "customer_name", "customer_ID", "address", "phone", "zip_code",
-				"custom_clearance_code" };
-
+		this.column = CustomersVO.COLUMN;
 	}
 
 }
