@@ -1,5 +1,7 @@
 import java.util.*;
 
+import javax.swing.JOptionPane;
+
 public class ReadProductsDAO extends ConnectDAO {
 
 	public ArrayList<ProductsVO> list(String atr, String tpl, boolean distinct) {
@@ -24,7 +26,6 @@ public class ReadProductsDAO extends ConnectDAO {
 					} else {
 						query = "SELECT * FROM products WHERE " + atr + " = " + tpl + " ORDER BY product_code";
 					}
-
 					break;
 				case "category":
 				case "product_name":
@@ -65,6 +66,7 @@ public class ReadProductsDAO extends ConnectDAO {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			System.out.println("SQL> " + query); /* 오류시 쿼리 확인 */
+			JOptionPane.showMessageDialog(null, e.getMessage(), "오류", 0);
 		}
 		return list;
 	}

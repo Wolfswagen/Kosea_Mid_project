@@ -1,11 +1,12 @@
 import java.sql.SQLException;
 
+import javax.swing.JOptionPane;
+
 public class InsertProductsDAO extends ConnectDAO {
 
 //	insert 쿼리 작성
 	public void write(ProductsVO pvo) {
 		connDB();
-
 		String query = "SELECT max(PRODUCT_CODE) FROM PRODUCTS WHERE category = '" + pvo.getCategory() + "'";
 
 		try {
@@ -22,6 +23,7 @@ public class InsertProductsDAO extends ConnectDAO {
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 			System.out.println(query);
+			JOptionPane.showMessageDialog(null, e.getMessage(), "오류", 0);
 		}
 
 	}

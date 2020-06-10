@@ -14,7 +14,7 @@ public class ReadCustomersFrame extends ReadTableFrame {
 		products = dao.list(cmb.getSelectedItem().toString(), inp.getText(), chk.isSelected());
 
 		for (int i = 0; i < products.size(); i++) {
-			model.addRow(products.get(i).toList());
+			model.addRow(products.get(i).toArray());
 		}
 	}
 

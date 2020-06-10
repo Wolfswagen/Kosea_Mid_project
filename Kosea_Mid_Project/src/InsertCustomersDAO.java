@@ -1,11 +1,12 @@
 import java.sql.SQLException;
 
+import javax.swing.JOptionPane;
+
 public class InsertCustomersDAO extends ConnectDAO {
 
 //	insert 쿼리 작성
 	public void write(CustomersVO cvo) {
 		connDB();
-
 		String query = "SELECT max(CUSTOMER_CODE) fROM CUSTOMERS";
 
 		try {
@@ -14,13 +15,15 @@ public class InsertCustomersDAO extends ConnectDAO {
 			while (rs.next()) {
 				max = rs.getInt("max(CUSTOMER_CODE)") + 1;
 			}
-			query = "INSERT INTO CUSTOMERS VALUES(" + max + ", '" + cvo.getCname() + "', '" + cvo.getCid() + "', '" + cvo.getAddress() + "', '"
-					+ cvo.getPhone() + "', '" + cvo.getZip() + "', '" + cvo.getCcc() + "')";
+			query = "INSERT INTO CUSTOMERS VALUES(" + max + ", '" + cvo.getCname() + "', '" + cvo.getCid() + "', '"
+					+ cvo.getAddress() + "', '" + cvo.getPhone() + "', '" + cvo.getZip() + "', '" + cvo.getCcc() + "')";
 			rs = stmt.executeQuery(query);
 
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 			System.out.println(query);
+			JOptionPane.showMessageDialog(null, e.getMessage(), "오류", 0);
+
 		}
 
 	}

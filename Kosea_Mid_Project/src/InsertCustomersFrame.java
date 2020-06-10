@@ -11,6 +11,7 @@ public class InsertCustomersFrame extends InsertTableFrame {
 		this.defrow = CustomersVO.DEFROW;
 	}
 
+//	테이블 입력 DB insert
 	public void insert() {
 		InsertCustomersDAO dao = new InsertCustomersDAO();
 		for (int i = 0; i < table.getRowCount(); i++) {

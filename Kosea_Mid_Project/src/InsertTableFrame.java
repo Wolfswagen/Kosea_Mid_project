@@ -3,7 +3,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.table.*;
 
-public abstract class InsertTableFrame extends ConnectDAO {
+public abstract class InsertTableFrame {
 
 	JFrame f;
 //  패널(수정/행 추가/행 삭제/뒤로)
@@ -29,7 +29,7 @@ public abstract class InsertTableFrame extends ConnectDAO {
 
 		/* 패널부 초기화 */
 
-		cfm = new JButton("수정");
+		cfm = new JButton("입력");
 		add = new JButton("행 추가");
 		del = new JButton("행 삭제");
 		back = new JButton("뒤로");
@@ -40,6 +40,7 @@ public abstract class InsertTableFrame extends ConnectDAO {
 
 		model = new DefaultTableModel(column, 0) {
 			private static final long serialVersionUID = -4113365722825486170L;
+
 			/* 테이블 수정 불가 설정 */
 			public boolean isCellEditable(int i, int c) {
 				String name = model.getColumnName(c);
@@ -122,7 +123,7 @@ public abstract class InsertTableFrame extends ConnectDAO {
 
 		/* 프레임 출력 */
 		f.add(sp, BorderLayout.CENTER);
-		f.add(p, BorderLayout.SOUTH);
+		f.add(p, BorderLayout.NORTH);
 
 		f.setVisible(true);
 	}

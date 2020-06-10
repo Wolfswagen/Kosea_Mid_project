@@ -5,7 +5,7 @@ public class InsertProductsFrame extends InsertTableFrame {
 
 	public InsertProductsFrame() {
 		super();
-		addCellComboBox();
+		setCellComboBox();
 	}
 
 //  테이블 칼럼 설정
@@ -14,22 +14,22 @@ public class InsertProductsFrame extends InsertTableFrame {
 		this.defrow = ProductsVO.DEFROW;
 	}
 
-//	table combobox 생성
-	public void changeCellEditor(JTable table, TableColumn column, String[] tpl) {
+//	table combobox 추가
+	public void addCellComboBox(TableColumn column, String[] tpl) {
 		JComboBox<String> comboBox = new JComboBox<String>(tpl);
 		column.setCellEditor(new DefaultCellEditor(comboBox));
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
 		column.setCellRenderer(renderer);
 	}
 
-	public void addCellComboBox() {
-		changeCellEditor(table, table.getColumnModel().getColumn(1),
+	public void setCellComboBox() {
+		addCellComboBox(table.getColumnModel().getColumn(1),
 				new String[] { "OUTER", "TOP", "BOTTOM", "ONEPIECE", "SHOES", "ACC", "SUMMER" });
-		changeCellEditor(table, table.getColumnModel().getColumn(3), new String[] { "판매중", "품절" });
-		changeCellEditor(table, table.getColumnModel().getColumn(10), new String[] { "조건부 무료", "무료" });
+		addCellComboBox(table.getColumnModel().getColumn(3), new String[] { "판매중", "품절" });
+		addCellComboBox(table.getColumnModel().getColumn(10), new String[] { "조건부 무료", "무료" });
 	}
 
-	@Override
+//	테이블 입력 DB insert
 	public void insert() {
 		InsertProductsDAO dao = new InsertProductsDAO();
 		for (int i = 0; i < table.getRowCount(); i++) {

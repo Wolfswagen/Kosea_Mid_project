@@ -13,7 +13,7 @@ public class ReadProductsFrame extends ReadTableFrame {
 		products = dao.list(cmb.getSelectedItem().toString(), inp.getText(), chk.isSelected());
 
 		for (int i = 0; i < products.size(); i++) {
-			model.addRow(products.get(i).toList());
+			model.addRow(products.get(i).toArray());
 		}
 	}
 
@@ -21,7 +21,7 @@ public class ReadProductsFrame extends ReadTableFrame {
 		return "product";
 	}
 
-	public void setColumn() { 
+	public void setColumn() {
 		this.column = ProductsVO.COLUMN;
 	}
 

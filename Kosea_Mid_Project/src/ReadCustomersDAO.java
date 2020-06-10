@@ -1,5 +1,7 @@
 import java.util.*;
 
+import javax.swing.JOptionPane;
+
 public class ReadCustomersDAO extends ConnectDAO {
 
 	public ArrayList<CustomersVO> list(String atr, String tpl, boolean chk) {
@@ -50,6 +52,7 @@ public class ReadCustomersDAO extends ConnectDAO {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			System.out.println("SQL> " + query); /* 오류시 쿼리 확인 */
+			JOptionPane.showMessageDialog(null, e.getMessage(), "오류", 0);
 		}
 		return list;
 	}
