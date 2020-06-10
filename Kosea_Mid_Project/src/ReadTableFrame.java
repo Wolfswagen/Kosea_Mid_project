@@ -3,7 +3,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.table.*;
 
-public abstract class TableFrame {
+public abstract class ReadTableFrame {
 	JFrame f;
 //  패널(검색 카테고리 선택/검색어 입력/검색 버튼/부분 검색 여부)
 	JPanel p;
@@ -19,7 +19,7 @@ public abstract class TableFrame {
 	JTable table;
 	String[] column;
 
-	public TableFrame() {
+	public ReadTableFrame() {
 //		초기화 블럭 시작
 		setColumn();
 
@@ -42,8 +42,9 @@ public abstract class TableFrame {
 				return false;
 			}
 		};
-		search();
+		select();
 		table = new JTable(model);
+		table.getTableHeader().setReorderingAllowed(false);
 		sp = new JScrollPane(table);
 
 //		초기화 블럭 끝
@@ -55,7 +56,7 @@ public abstract class TableFrame {
 			public void actionPerformed(ActionEvent e) {
 				model = (DefaultTableModel) table.getModel();
 				model.setNumRows(0);
-				search();
+				select();
 
 				table.setModel(model);
 				table.repaint();
@@ -65,7 +66,7 @@ public abstract class TableFrame {
 		back.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				SearchFrame sf = new SearchFrame();
+				MainFrame sf = new MainFrame();
 				sf.initFrame();
 				f.dispose();
 			}
@@ -98,6 +99,6 @@ public abstract class TableFrame {
 	public abstract void setColumn();
 
 //	SELECT 결과 조회
-	public abstract void search();
+	public abstract void select();
 
 }

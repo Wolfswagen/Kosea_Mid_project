@@ -1,15 +1,15 @@
 import java.util.*;
 
-public class CustomersFrame extends TableFrame {
-	
-	public CustomersFrame() {
+public class ReadCustomersFrame extends ReadTableFrame {
+
+	public ReadCustomersFrame() {
 		super();
 
 	}
 
 //	SELECT 결과 조회
-	public void search() {
-		CustomersDAO dao = new CustomersDAO();
+	public void select() {
+		ReadCustomersDAO dao = new ReadCustomersDAO();
 		ArrayList<CustomersVO> products = new ArrayList<CustomersVO>();
 		products = dao.list(cmb.getSelectedItem().toString(), inp.getText(), chk.isSelected());
 
@@ -23,9 +23,7 @@ public class CustomersFrame extends TableFrame {
 	}
 
 	public void setColumn() {
-		column = new String[] { "customer_code", "customer_name", "customer_ID", "address", "phone", "zip_code",
-				"custom_clearance_code" };
-
+		this.column = CustomersVO.COLUMN;
 	}
 
 }

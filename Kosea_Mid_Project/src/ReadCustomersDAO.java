@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class CustomersDAO extends DAO {
+public class ReadCustomersDAO extends ConnectDAO {
 
 	public ArrayList<CustomersVO> list(String atr, String tpl, boolean chk) {
 		ArrayList<CustomersVO> list = new ArrayList<CustomersVO>();
@@ -46,6 +46,7 @@ public class CustomersDAO extends DAO {
 				CustomersVO data = new CustomersVO(ccode, cname, cid, address, phone, zip, ccc);
 				list.add(data);
 			}
+
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			System.out.println("SQL> " + query); /* 오류시 쿼리 확인 */

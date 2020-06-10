@@ -1,8 +1,8 @@
 import java.util.*;
 
-public class ProductsDAO extends DAO {
+public class ReadProductsDAO extends ConnectDAO {
 
-	public ArrayList<ProductsVO> list(String atr, String tpl, boolean chk) {
+	public ArrayList<ProductsVO> list(String atr, String tpl, boolean distinct) {
 		ArrayList<ProductsVO> list = new ArrayList<ProductsVO>();
 		String query = "";
 		try {
@@ -18,7 +18,7 @@ public class ProductsDAO extends DAO {
 				case "discount":
 				case "multi_purchase_discount":
 				case "discount_rate":
-					if (chk) {
+					if (distinct) {
 						query = "SELECT * FROM products WHERE (" + atr + " LIKE '%" + tpl + "' OR " + atr + " LIKE '"
 								+ tpl + "%' OR " + atr + " LIKE '%" + tpl + "%') ORDER BY product_code";
 					} else {
@@ -31,7 +31,7 @@ public class ProductsDAO extends DAO {
 				case "status":
 				case "register_date":
 				case "shipping":
-					if (chk) {
+					if (distinct) {
 						query = "SELECT * FROM products WHERE (" + atr + " LIKE '%" + tpl + "' OR " + atr + " LIKE '"
 								+ tpl + "%' OR " + atr + " LIKE '%" + tpl + "%') ORDER BY product_code";
 
