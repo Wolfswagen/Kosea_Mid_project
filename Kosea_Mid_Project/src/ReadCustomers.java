@@ -1,10 +1,9 @@
 import java.util.*;
 
-public class ReadCustomersFrame extends ReadTableFrame {
+public class ReadCustomers extends ReadTableFrame {
 
-	public ReadCustomersFrame() {
+	public ReadCustomers() {
 		super();
-
 	}
 
 //	SELECT 결과 조회
@@ -14,12 +13,12 @@ public class ReadCustomersFrame extends ReadTableFrame {
 		products = dao.list(cmb.getSelectedItem().toString(), inp.getText(), chk.isSelected());
 
 		for (int i = 0; i < products.size(); i++) {
-			model.addRow(products.get(i).toArray());
+			readModel.addRow(products.get(i).toArray());
 		}
 	}
 
 	public String toString() {
-		return "customer";
+		return "Customers";
 	}
 
 	public void setColumn() {

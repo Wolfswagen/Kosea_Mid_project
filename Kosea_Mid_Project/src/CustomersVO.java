@@ -10,6 +10,16 @@ public class CustomersVO {
 	private String phone;
 	private String zip;
 	private String ccc;
+	
+	public CustomersVO(int ccode, String cname, String cid, String address, String phone, String zip, String ccc) {
+		this.ccode = ccode;
+		this.cname = cname;
+		this.cid = cid;
+		this.address = address;
+		this.phone = phone;
+		this.zip = zip;
+		this.ccc = ccc;
+	}
 
 //	getter Ω√¿€
 	public int getCcode() {
@@ -41,15 +51,7 @@ public class CustomersVO {
 	}
 //	getter ≥°
 
-	public CustomersVO(int ccode, String cname, String cid, String address, String phone, String zip, String ccc) {
-		this.ccode = ccode;
-		this.cname = cname;
-		this.cid = cid;
-		this.address = address;
-		this.phone = phone;
-		this.zip = zip;
-		this.ccc = ccc;
-	}
+
 
 	public Object[] toArray() {
 		Object[] result = { ccode, cname, cid, address, phone, zip, ccc };

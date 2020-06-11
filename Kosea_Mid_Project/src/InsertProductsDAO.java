@@ -1,11 +1,9 @@
-import java.sql.SQLException;
-
-import javax.swing.JOptionPane;
+import java.sql.*;
 
 public class InsertProductsDAO extends ConnectDAO {
 
 //	insert 쿼리 작성
-	public void write(ProductsVO pvo) {
+	public void write(ProductsVO pvo) throws SQLException {
 		connDB();
 		String query = "SELECT max(PRODUCT_CODE) FROM PRODUCTS WHERE category = '" + pvo.getCategory() + "'";
 
@@ -19,13 +17,8 @@ public class InsertProductsDAO extends ConnectDAO {
 					+ pvo.getStatus() + "', " + pvo.getAmount() + ", " + pvo.getOrg_price() + ", " + pvo.getDiscount()
 					+ ", " + pvo.getMul_dc() + ", " + pvo.getDc_rate() + ", SYSDATE, '" + pvo.getShipping() + "')";
 			rs = stmt.executeQuery(query);
-
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-			System.out.println(query);
-			JOptionPane.showMessageDialog(null, e.getMessage(), "오류", 0);
+			throw e;
 		}
-
 	}
-
 }

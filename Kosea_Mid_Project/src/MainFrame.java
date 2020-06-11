@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class MainFrame extends ConnectDAO {
+public class MainFrame {
 
 	JFrame f;
 	JComboBox<String> choice;
@@ -29,10 +29,10 @@ public class MainFrame extends ConnectDAO {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (choice.getSelectedItem().equals("Products")) {
-					ReadProductsFrame pf = new ReadProductsFrame();
+					ReadProducts pf = new ReadProducts();
 					pf.initFrame();
 				} else {
-					ReadCustomersFrame cf = new ReadCustomersFrame();
+					ReadCustomers cf = new ReadCustomers();
 					cf.initFrame();
 				}
 				f.dispose();
@@ -44,10 +44,10 @@ public class MainFrame extends ConnectDAO {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (choice.getSelectedItem().equals("Products")) {
-					InsertProductsFrame ip = new InsertProductsFrame();
+					InsertProducts ip = new InsertProducts();
 					ip.initFrame();
 				} else {
-					InsertCustomersFrame ic = new InsertCustomersFrame();
+					InsertCustomers ic = new InsertCustomers();
 					ic.initFrame();
 				}
 				f.dispose();
@@ -55,6 +55,20 @@ public class MainFrame extends ConnectDAO {
 		});
 
 		update = new JButton("수정");
+		update.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (choice.getSelectedItem().equals("Products")) {
+					UpdateProducts up = new UpdateProducts();
+					up.initFrame();
+				} else {
+					UpdateCustomers uc = new UpdateCustomers();
+					uc.initFrame();
+				}
+				f.dispose();
+			}
+		});
+
 		delete = new JButton("삭제");
 
 		exit = new JButton("종료");
@@ -64,8 +78,7 @@ public class MainFrame extends ConnectDAO {
 				System.exit(0);
 			}
 		});
-		
-		
+
 	}
 
 	public void initFrame() {
@@ -82,7 +95,6 @@ public class MainFrame extends ConnectDAO {
 	public static void main(String[] args) {
 		MainFrame sf = new MainFrame();
 		sf.initFrame();
-
 	}
 
 }

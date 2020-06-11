@@ -1,7 +1,7 @@
 import java.util.*;
 
-public class ReadProductsFrame extends ReadTableFrame {
-	public ReadProductsFrame() {
+public class ReadProducts extends ReadTableFrame {
+	public ReadProducts() {
 		super();
 
 	}
@@ -13,12 +13,12 @@ public class ReadProductsFrame extends ReadTableFrame {
 		products = dao.list(cmb.getSelectedItem().toString(), inp.getText(), chk.isSelected());
 
 		for (int i = 0; i < products.size(); i++) {
-			model.addRow(products.get(i).toArray());
+			readModel.addRow(products.get(i).toArray());
 		}
 	}
 
 	public String toString() {
-		return "product";
+		return "Products";
 	}
 
 	public void setColumn() {

@@ -16,7 +16,22 @@ public class ProductsVO {
 	private String reg_date;
 	private String shipping;
 
-//	getter 끝
+	public ProductsVO(int pcode, String category, String pname, String status, int amount, int org_price, int discount,
+			int mul_dc, double dc_rate, String reg_date, String shipping) {
+		this.pcode = pcode;
+		this.category = category;
+		this.pname = pname;
+		this.status = status;
+		this.amount = amount;
+		this.org_price = org_price;
+		this.discount = discount;
+		this.mul_dc = mul_dc;
+		this.dc_rate = dc_rate;
+		this.reg_date = reg_date;
+		this.shipping = shipping;
+	}
+	
+//	getter 시작
 	public int getPcode() {
 		return pcode;
 	}
@@ -62,20 +77,7 @@ public class ProductsVO {
 	}
 //	getter 끝
 
-	public ProductsVO(int pcode, String category, String pname, String status, int amount, int org_price, int discount,
-			int mul_dc, double dc_rate, String reg_date, String shipping) {
-		this.pcode = pcode;
-		this.category = category;
-		this.pname = pname;
-		this.status = status;
-		this.amount = amount;
-		this.org_price = org_price;
-		this.discount = discount;
-		this.mul_dc = mul_dc;
-		this.dc_rate = dc_rate;
-		this.reg_date = reg_date;
-		this.shipping = shipping;
-	}
+
 
 	public Object[] toArray() {
 		Object[] result = { pcode, category, pname, status, amount, org_price, discount, mul_dc, dc_rate, reg_date,
