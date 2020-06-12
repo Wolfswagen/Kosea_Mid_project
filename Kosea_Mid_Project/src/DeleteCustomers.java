@@ -36,7 +36,7 @@ public class DeleteCustomers extends DeleteTableFrame {
 	}
 
 	public String toString() {
-		return "Customers";
+		return "DeleteCustomers";
 	}
 
 }

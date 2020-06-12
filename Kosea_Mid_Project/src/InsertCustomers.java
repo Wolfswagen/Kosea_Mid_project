@@ -34,6 +34,6 @@ public class InsertCustomers extends InsertTableFrame {
 	}
 
 	public String toString() {
-		return "Customers";
+		return "InsertCustomers";
 	}
 }

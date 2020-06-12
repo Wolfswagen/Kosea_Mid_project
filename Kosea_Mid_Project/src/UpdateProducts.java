@@ -48,7 +48,7 @@ public class UpdateProducts extends UpdateTableFrame {
 	}
 
 	public String toString() {
-		return "Products";
+		return "UpdateProducts";
 	}
 
 	public void setCellComboBox() {

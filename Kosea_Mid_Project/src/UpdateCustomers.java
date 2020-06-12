@@ -45,7 +45,7 @@ public class UpdateCustomers extends UpdateTableFrame {
 	}
 
 	public String toString() {
-		return "Customers";
+		return "UpdateCustomers";
 	}
 
 }

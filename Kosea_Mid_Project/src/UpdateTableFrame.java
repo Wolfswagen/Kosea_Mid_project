@@ -52,20 +52,21 @@ public abstract class UpdateTableFrame extends TableFrame {
 		sel.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (table.getRowCount() > 0) {
-					if (table.getSelectedRowCount() > 0) {
-						while (table.getSelectedRowCount() > 0) {
-							insertModel.addRow(readModel.getDataVector().get(table.getSelectedRow()));
-							readModel.removeRow(table.getSelectedRow());
-						}
+				if (table.getSelectedRowCount() > 0) {
+					while (table.getSelectedRowCount() > 0) {
+						insertModel.addRow(readModel.getDataVector().get(table.getSelectedRow()));
+						readModel.removeRow(table.getSelectedRow());
 					}
 					table.setModel(insertModel);
-					JOptionPane.showMessageDialog(sp, table.getRowCount() + "개 행이 선택되었습니다.");
 					setCellComboBox();
 					cfm.setEnabled(true);
 					can.setEnabled(true);
 					sel.setEnabled(false);
+					cmb.setEnabled(false);
+					inp.setEditable(false);
+					src.setEnabled(false);
 				}
+				JOptionPane.showMessageDialog(sp, insertModel.getRowCount() + "개 행이 선택되었습니다.");
 			}
 		});
 
@@ -81,7 +82,11 @@ public abstract class UpdateTableFrame extends TableFrame {
 						select();
 						table.setModel(readModel);
 						cfm.setEnabled(false);
+						can.setEnabled(false);
 						sel.setEnabled(true);
+						cmb.setEnabled(true);
+						inp.setEditable(true);
+						src.setEnabled(true);
 					} catch (Exception e1) {
 						JOptionPane.showMessageDialog(table, e1.getMessage(), "오류", 0);
 					}
@@ -98,6 +103,9 @@ public abstract class UpdateTableFrame extends TableFrame {
 				cfm.setEnabled(false);
 				can.setEnabled(false);
 				sel.setEnabled(true);
+				cmb.setEnabled(true);
+				inp.setEditable(true);
+				src.setEnabled(true);
 			}
 		});
 

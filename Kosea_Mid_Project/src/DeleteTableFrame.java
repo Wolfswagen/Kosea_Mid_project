@@ -63,19 +63,20 @@ public abstract class DeleteTableFrame extends TableFrame {
 		sel.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (table.getRowCount() > 0) {
-					if (table.getSelectedRowCount() > 0) {
-						while (table.getSelectedRowCount() > 0) {
-							readModel2.addRow(readModel.getDataVector().get(table.getSelectedRow()));
-							readModel.removeRow(table.getSelectedRow());
-						}
+				if (table.getSelectedRowCount() > 0) {
+					while (table.getSelectedRowCount() > 0) {
+						readModel2.addRow(readModel.getDataVector().get(table.getSelectedRow()));
+						readModel.removeRow(table.getSelectedRow());
 					}
 					table.setModel(readModel2);
-					JOptionPane.showMessageDialog(sp, table.getRowCount() + "개 행이 선택되었습니다.");
 					cfm.setEnabled(true);
 					can.setEnabled(true);
 					sel.setEnabled(false);
+					cmb.setEnabled(false);
+					inp.setEditable(false);
+					src.setEnabled(false);
 				}
+				JOptionPane.showMessageDialog(sp, readModel2.getRowCount() + "개 행이 선택되었습니다.");
 			}
 		});
 
@@ -92,7 +93,11 @@ public abstract class DeleteTableFrame extends TableFrame {
 							select();
 							table.setModel(readModel);
 							cfm.setEnabled(false);
+							can.setEnabled(false);
 							sel.setEnabled(true);
+							cmb.setEnabled(true);
+							inp.setEditable(true);
+							src.setEnabled(true);
 						} catch (Exception e1) {
 							JOptionPane.showMessageDialog(table, e1.getMessage(), "오류", 0);
 						}
@@ -107,9 +112,13 @@ public abstract class DeleteTableFrame extends TableFrame {
 				readModel2.setNumRows(0);
 				select();
 				table.setModel(readModel);
+
 				cfm.setEnabled(false);
 				can.setEnabled(false);
 				sel.setEnabled(true);
+				cmb.setEnabled(true);
+				inp.setEditable(true);
+				src.setEnabled(true);
 			}
 		});
 

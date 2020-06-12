@@ -18,7 +18,7 @@ public class ReadProducts extends ReadTableFrame {
 	}
 
 	public String toString() {
-		return "Products";
+		return "ReadProducts";
 	}
 
 	public void setColumn() {
