@@ -4,7 +4,7 @@ import javax.swing.JOptionPane;
 
 public class ReadProductsDAO extends ConnectDAO {
 
-	public ArrayList<ProductsVO> list(String atr, String tpl, boolean distinct) {
+	public ArrayList<ProductsVO> list(String atr, String tpl, boolean partial) {
 		ArrayList<ProductsVO> list = new ArrayList<ProductsVO>();
 		String query = "";
 		try {
@@ -20,7 +20,7 @@ public class ReadProductsDAO extends ConnectDAO {
 				case "discount":
 				case "multi_purchase_discount":
 				case "discount_rate":
-					if (distinct) {
+					if (partial) {
 						query = "SELECT * FROM products WHERE (" + atr + " LIKE '%" + tpl + "' OR " + atr + " LIKE '"
 								+ tpl + "%' OR " + atr + " LIKE '%" + tpl + "%') ORDER BY product_code";
 					} else {
@@ -32,13 +32,12 @@ public class ReadProductsDAO extends ConnectDAO {
 				case "status":
 				case "register_date":
 				case "shipping":
-					if (distinct) {
+					if (partial) {
 						query = "SELECT * FROM products WHERE (" + atr + " LIKE '%" + tpl + "' OR " + atr + " LIKE '"
 								+ tpl + "%' OR " + atr + " LIKE '%" + tpl + "%') ORDER BY product_code";
 
 					} else {
-						query = "SELECT * FROM products WHERE " + atr + " = '" + tpl.toUpperCase()
-								+ "' ORDER BY product_code";
+						query = "SELECT * FROM products WHERE " + atr + " = '" + tpl + "' ORDER BY product_code";
 					}
 					break;
 				default:

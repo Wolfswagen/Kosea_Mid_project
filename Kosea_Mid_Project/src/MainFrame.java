@@ -70,6 +70,19 @@ public class MainFrame {
 		});
 
 		delete = new JButton("삭제");
+		delete.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (choice.getSelectedItem().equals("Products")) {
+					DeleteProducts dp = new DeleteProducts();
+					dp.initFrame();
+				} else {
+					DeleteCustomers dc = new DeleteCustomers();
+					dc.initFrame();
+				}
+				f.dispose();
+			}
+		});
 
 		exit = new JButton("종료");
 		exit.addActionListener(new ActionListener() {

@@ -1,8 +1,9 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
-public abstract class UpdateTableFrame extends TableFrame {
+public abstract class DeleteTableFrame extends TableFrame {
 //  상단 패널(카테고리/검색창/검색버튼/부분검색)
 	JComboBox<String> cmb;
 	JTextField inp;
@@ -16,9 +17,19 @@ public abstract class UpdateTableFrame extends TableFrame {
 	JButton cfm;
 	JButton can;
 
-	public UpdateTableFrame() {
+	DefaultTableModel readModel2;
+
+	public DeleteTableFrame() {
 		super();
-//		초기화 블럭 시
+		readModel2 = new DefaultTableModel(column, 0) {
+			private static final long serialVersionUID = -4113365722825486170L;
+
+			/* 테이블 수정 불가 설정 */
+			public boolean isCellEditable(int i, int c) {
+				return false;
+			}
+		};
+//		초기화 블럭
 		/* 상단 패널부 초기화 */
 		cmb = new JComboBox<String>(column);
 		inp = new JTextField("", 40);
@@ -27,7 +38,7 @@ public abstract class UpdateTableFrame extends TableFrame {
 		up = new JPanel();
 
 		/* 하단 패널부 초기화 */
-		cfm = new JButton("수정");
+		cfm = new JButton("삭제");
 		cfm.setEnabled(false);
 		sel = new JButton("선택");
 		can = new JButton("취소");
@@ -55,13 +66,12 @@ public abstract class UpdateTableFrame extends TableFrame {
 				if (table.getRowCount() > 0) {
 					if (table.getSelectedRowCount() > 0) {
 						while (table.getSelectedRowCount() > 0) {
-							insertModel.addRow(readModel.getDataVector().get(table.getSelectedRow()));
+							readModel2.addRow(readModel.getDataVector().get(table.getSelectedRow()));
 							readModel.removeRow(table.getSelectedRow());
 						}
 					}
-					table.setModel(insertModel);
+					table.setModel(readModel2);
 					JOptionPane.showMessageDialog(sp, table.getRowCount() + "개 행이 선택되었습니다.");
-					setCellComboBox();
 					cfm.setEnabled(true);
 					can.setEnabled(true);
 					sel.setEnabled(false);
@@ -73,17 +83,19 @@ public abstract class UpdateTableFrame extends TableFrame {
 		cfm.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int result = 0;
-				result = JOptionPane.showConfirmDialog(sp, "수정하시겠습니까?", "확인", JOptionPane.YES_NO_OPTION);
+				int result = JOptionPane.showConfirmDialog(sp, "삭제하시겠습니까?", "확인", JOptionPane.YES_NO_OPTION);
 				if (result == 0) {
-					try {
-						update();
-						select();
-						table.setModel(readModel);
-						cfm.setEnabled(false);
-						sel.setEnabled(true);
-					} catch (Exception e1) {
-						JOptionPane.showMessageDialog(table, e1.getMessage(), "오류", 0);
+					int result2 = JOptionPane.showConfirmDialog(sp, "정말 삭제하시겠습니까?", "확인", JOptionPane.YES_NO_OPTION);
+					if (result2 == 0) {
+						try {
+							delete();
+							select();
+							table.setModel(readModel);
+							cfm.setEnabled(false);
+							sel.setEnabled(true);
+						} catch (Exception e1) {
+							JOptionPane.showMessageDialog(table, e1.getMessage(), "오류", 0);
+						}
 					}
 				}
 			}
@@ -92,7 +104,7 @@ public abstract class UpdateTableFrame extends TableFrame {
 		can.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				insertModel.setNumRows(0);
+				readModel2.setNumRows(0);
 				select();
 				table.setModel(readModel);
 				cfm.setEnabled(false);
@@ -125,10 +137,7 @@ public abstract class UpdateTableFrame extends TableFrame {
 	}
 
 //	update 쿼리 작성
-	public abstract void update() throws Exception;
+	public abstract void delete() throws Exception;
 
 	public abstract void select();
-
-	public void setCellComboBox() {
-	};
 }

@@ -4,7 +4,7 @@ import javax.swing.JOptionPane;
 
 public class ReadCustomersDAO extends ConnectDAO {
 
-	public ArrayList<CustomersVO> list(String atr, String tpl, boolean distinct) {
+	public ArrayList<CustomersVO> list(String atr, String tpl, boolean partial) {
 		ArrayList<CustomersVO> list = new ArrayList<CustomersVO>();
 		String query = "";
 		try {
@@ -14,7 +14,7 @@ public class ReadCustomersDAO extends ConnectDAO {
 			} else {
 
 				if (atr.equals("customer_code")) {
-					if (distinct) {
+					if (partial) {
 						query = "SELECT * FROM customers WHERE (" + atr + " LIKE '%" + tpl + "' OR " + atr + " LIKE '"
 								+ tpl + "%' OR " + atr + " LIKE '%" + tpl + "%') ORDER BY customer_code";
 					} else {
@@ -22,18 +22,16 @@ public class ReadCustomersDAO extends ConnectDAO {
 					}
 				} else {
 
-					if (distinct) {
+					if (partial) {
 						query = "SELECT * FROM customers WHERE (" + atr + " LIKE '%" + tpl + "' OR " + atr + " LIKE '"
 								+ tpl + "%' OR " + atr + " LIKE '%" + tpl + "%') ORDER BY customer_code";
 
 					} else {
-						query = "SELECT * FROM customers WHERE " + atr + " = '" + tpl.toUpperCase()
-								+ "' ORDER BY customer_code";
+						query = "SELECT * FROM customers WHERE " + atr + " = '" + tpl + "' ORDER BY customer_code";
 					}
 
 				}
 			}
-
 			rs = stmt.executeQuery(query);
 
 			while (rs.next()) {
