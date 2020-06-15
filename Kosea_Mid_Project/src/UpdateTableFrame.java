@@ -1,8 +1,10 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+
 import javax.swing.*;
 
-public abstract class UpdateTableFrame extends TableFrame {
+public class UpdateTableFrame extends TableFrame {
 //  상단 패널(카테고리/검색창/검색버튼/부분검색)
 	JComboBox<String> cmb;
 	JTextField inp;
@@ -16,8 +18,8 @@ public abstract class UpdateTableFrame extends TableFrame {
 	JButton cfm;
 	JButton can;
 
-	public UpdateTableFrame() {
-		super();
+	public UpdateTableFrame(String name) {
+		super(name);
 //		초기화 블럭 시
 		/* 상단 패널부 초기화 */
 		cmb = new JComboBox<String>(column);
@@ -58,7 +60,9 @@ public abstract class UpdateTableFrame extends TableFrame {
 						readModel.removeRow(table.getSelectedRow());
 					}
 					table.setModel(insertModel);
-					setCellComboBox();
+					if (name.equals("Products")) {
+						setCellComboBox();
+					}
 					cfm.setEnabled(true);
 					can.setEnabled(true);
 					sel.setEnabled(false);
@@ -133,10 +137,55 @@ public abstract class UpdateTableFrame extends TableFrame {
 	}
 
 //	update 쿼리 작성
-	public abstract void update() throws Exception;
+	public void update() throws Exception {
+		UpdateDAO dao = new UpdateDAO();
+		while (table.getRowCount() > 0) {
+			TableVO data;
+			if (this.name.equals("Products")) {
+				data = new ProductsVO();
+			} else {
+				data = new CustomersVO();
+			}
+			for (int i = 0; i < data.column.size(); i++) {
+				data.tuple.add(table.getValueAt(0, i));
+			}
+			try {
+				dao.set(this.name, data.tuple);
+				insertModel.removeRow(0);
+			} catch (Exception e) {
+				throw e;
+			}
+		}
+	}
 
-	public abstract void select();
+	public void select() {
+		readModel.setNumRows(0);
+		ReadDAO dao = new ReadDAO();
+		ArrayList<TableVO> products;
+		products = dao.list(this.name, cmb.getSelectedItem().toString(), inp.getText(), chk.isSelected());
+
+		for (int i = 0; i < products.size(); i++) {
+			readModel.addRow(products.get(i).tuple);
+		}
+	}
 
 	public void setCellComboBox() {
-	};
+		addCellComboBox(table.getColumnModel().getColumn(1),
+				new String[] { "OUTER", "TOP", "BOTTOM", "ONEPIECE", "SHOES", "ACC", "SUMMER" });
+		addCellComboBox(table.getColumnModel().getColumn(3), new String[] { "판매중", "품절" });
+		addCellComboBox(table.getColumnModel().getColumn(10), new String[] { "조건부 무료", "무료" });
+	}
+
+	public void setColumn() {
+		if (this.name.equals("Products")) {
+			this.column = ProductsVO.COLUMN;
+		} else {
+			this.column = CustomersVO.COLUMN;
+		}
+
+	}
+
+	public String toString() {
+		return "Update " + this.name;
+	}
 }

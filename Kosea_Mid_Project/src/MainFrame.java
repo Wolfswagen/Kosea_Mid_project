@@ -22,19 +22,14 @@ public class MainFrame {
 			}
 		});
 
-		choice = new JComboBox<String>(new String[] { "Products", "Customer" });
+		choice = new JComboBox<String>(new String[] { "Products", "Customers" });
 
 		read = new JButton("Á¶È¸");
 		read.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (choice.getSelectedItem().equals("Products")) {
-					ReadProducts pf = new ReadProducts();
-					pf.initFrame();
-				} else {
-					ReadCustomers cf = new ReadCustomers();
-					cf.initFrame();
-				}
+				ReadTableFrame rt = new ReadTableFrame(choice.getSelectedItem().toString());
+				rt.initFrame();
 				f.dispose();
 			}
 		});
@@ -43,13 +38,8 @@ public class MainFrame {
 		create.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (choice.getSelectedItem().equals("Products")) {
-					InsertProducts ip = new InsertProducts();
-					ip.initFrame();
-				} else {
-					InsertCustomers ic = new InsertCustomers();
-					ic.initFrame();
-				}
+				InsertTableFrame it = new InsertTableFrame(choice.getSelectedItem().toString());
+				it.initFrame();
 				f.dispose();
 			}
 		});
@@ -58,13 +48,8 @@ public class MainFrame {
 		update.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (choice.getSelectedItem().equals("Products")) {
-					UpdateProducts up = new UpdateProducts();
-					up.initFrame();
-				} else {
-					UpdateCustomers uc = new UpdateCustomers();
-					uc.initFrame();
-				}
+				UpdateTableFrame ut = new UpdateTableFrame(choice.getSelectedItem().toString());
+				ut.initFrame();
 				f.dispose();
 			}
 		});
@@ -73,13 +58,8 @@ public class MainFrame {
 		delete.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (choice.getSelectedItem().equals("Products")) {
-					DeleteProducts dp = new DeleteProducts();
-					dp.initFrame();
-				} else {
-					DeleteCustomers dc = new DeleteCustomers();
-					dc.initFrame();
-				}
+				DeleteTableFrame dt = new DeleteTableFrame(choice.getSelectedItem().toString());
+				dt.initFrame();
 				f.dispose();
 			}
 		});

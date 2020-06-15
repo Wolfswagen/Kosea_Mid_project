@@ -2,7 +2,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public abstract class InsertTableFrame extends TableFrame {
+public class InsertTableFrame extends TableFrame {
 //  패널(수정/행 추가/행 삭제)
 	JPanel p;
 	JButton cfm;
@@ -12,10 +12,10 @@ public abstract class InsertTableFrame extends TableFrame {
 //  입력 테이블
 	String[] defrow;
 
-	public InsertTableFrame() {
-		super();
+	public InsertTableFrame(String name) {
+		super(name);
 
-//		초기화 블럭 시
+//		초기화 블럭
 		/* 패널부 초기화 */
 		cfm = new JButton("입력");
 		add = new JButton("행 추가");
@@ -25,7 +25,10 @@ public abstract class InsertTableFrame extends TableFrame {
 		/* 테이블 모델 초기화 */
 		table.setModel(insertModel);
 		insertModel.addRow(defrow);
-//		초기화 블럭 끝
+		
+		if (name.equals("Products")) {
+			setCellComboBox();
+		}
 
 //		이벤트 설정
 		/* 행추가 버튼 */
@@ -86,6 +89,50 @@ public abstract class InsertTableFrame extends TableFrame {
 	}
 
 //	insert 쿼리 작성
-	public abstract void insert() throws Exception;
+	public void insert() throws Exception {
+		InsertDAO dao = new InsertDAO();
+
+		while (table.getRowCount() > 0) {
+			TableVO data;
+			if (this.name.equals("Products")) {
+				data = new ProductsVO();
+			} else {
+				data = new CustomersVO();
+			}
+			for (int i = 0; i < data.column.size(); i++) {
+				data.tuple.add(table.getValueAt(0, i));
+			}
+			try {
+				dao.write(this.name, data.tuple);
+				insertModel.removeRow(0);
+			} catch (Exception e) {
+				throw e;
+			}
+		}
+
+	}
+
+	@Override
+	public void setColumn() {
+		if (this.name.equals("Products")) {
+			this.column = ProductsVO.COLUMN;
+			this.defrow = ProductsVO.DEFROW;
+		} else {
+			this.column = CustomersVO.COLUMN;
+			this.defrow = CustomersVO.DEFROW;
+		}
+
+	}
+	
+	public void setCellComboBox() {
+		addCellComboBox(table.getColumnModel().getColumn(1),
+				new String[] { "OUTER", "TOP", "BOTTOM", "ONEPIECE", "SHOES", "ACC", "SUMMER" });
+		addCellComboBox(table.getColumnModel().getColumn(3), new String[] { "판매중", "품절" });
+		addCellComboBox(table.getColumnModel().getColumn(10), new String[] { "조건부 무료", "무료" });
+	}
+	
+	public String toString() {
+		return "Insert " + this.name;
+	}
 
 }

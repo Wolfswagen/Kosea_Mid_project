@@ -1,94 +1,42 @@
-public class ProductsVO {
+public class ProductsVO extends TableVO {
 	final static String COLUMN[] = new String[] { "product_code", "category", "product_name", "status", "amount",
 			"original_price", "discount", "multi_purchase_discount", "discount_rate", "register_date", "shipping" };
 	final static String DEFROW[] = new String[] { "자동입력", "OUTER", "", "판매중", "0", "0", "0", "0", "0", "자동입력",
 			"조건부 무료" };
 
-	private int pcode;
-	private String category;
-	private String pname;
-	private String status;
-	private int amount;
-	private int org_price;
-	private int discount;
-	private int mul_dc;
-	private double dc_rate;
-	private String reg_date;
-	private String shipping;
-
-	public ProductsVO(int pcode, String category, String pname, String status, int amount, int org_price, int discount,
-			int mul_dc, double dc_rate, String reg_date, String shipping) {
-		this.pcode = pcode;
-		this.category = category;
-		this.pname = pname;
-		this.status = status;
-		this.amount = amount;
-		this.org_price = org_price;
-		this.discount = discount;
-		this.mul_dc = mul_dc;
-		this.dc_rate = dc_rate;
-		this.reg_date = reg_date;
-		this.shipping = shipping;
-	}
-	
-//	getter 시작
-	public int getPcode() {
-		return pcode;
-	}
-
-	public String getPname() {
-		return pname;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public int getAmount() {
-		return amount;
-	}
-
-	public int getOrg_price() {
-		return org_price;
-	}
-
-	public int getDiscount() {
-		return discount;
-	}
-
-	public int getMul_dc() {
-		return mul_dc;
-	}
-
-	public double getDc_rate() {
-		return dc_rate;
-	}
-
-	public String getReg_date() {
-		return reg_date;
-	}
-
-	public String getShipping() {
-		return shipping;
-	}
-
-	public String getCategory() {
-		return category;
-	}
-//	getter 끝
-
-
-
-	public Object[] toArray() {
-		Object[] result = { pcode, category, pname, status, amount, org_price, discount, mul_dc, dc_rate, reg_date,
-				shipping };
-
-		return result;
+	public ProductsVO() {
+		super();
 
 	}
 
-	public String toString() {
-		return String.valueOf(pcode) + " " + pname;
+	@Override
+	public void setColumn() {
+		this.column.add("product_code");
+		this.column.add("category");
+		this.column.add("product_name");
+		this.column.add("status");
+		this.column.add("amount");
+		this.column.add("original_price");
+		this.column.add("discount");
+		this.column.add("multi_purchase_discount");
+		this.column.add("discount_rate");
+		this.column.add("register_date");
+		this.column.add("shipping");
+	}
+
+	@Override
+	public void setDefrow() {
+		this.defrow.add("자동입력");
+		this.defrow.add("OUTER");
+		this.defrow.add("");
+		this.defrow.add("판매중");
+		this.defrow.add("0");
+		this.defrow.add("0");
+		this.defrow.add("0");
+		this.defrow.add("0");
+		this.defrow.add("0");
+		this.defrow.add("자동입력");
+		this.defrow.add("조건부 무료");
 
 	}
 

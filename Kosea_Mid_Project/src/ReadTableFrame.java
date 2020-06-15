@@ -1,8 +1,10 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+
 import javax.swing.*;
 
-public abstract class ReadTableFrame extends TableFrame {
+public class ReadTableFrame extends TableFrame {
 
 //  패널(검색 카테고리 선택/검색어 입력/검색 버튼/부분 검색 여부)
 	JPanel p;
@@ -11,8 +13,9 @@ public abstract class ReadTableFrame extends TableFrame {
 	JButton cfm;
 	JCheckBox chk;
 
-	public ReadTableFrame() {
-		super();
+	public ReadTableFrame(String name) {
+		super(name);
+
 //		초기화 블럭 시작
 		/* 패널부 초기화 */
 		inp = new JTextField("", 40);
@@ -53,6 +56,28 @@ public abstract class ReadTableFrame extends TableFrame {
 	}
 
 //	SELECT 결과 조회
-	public abstract void select();
+	public void select() {
+		ReadDAO dao = new ReadDAO();
+		ArrayList<TableVO> products;
+		products = dao.list(this.name, cmb.getSelectedItem().toString(), inp.getText(), chk.isSelected());
+
+		for (int i = 0; i < products.size(); i++) {
+			readModel.addRow(products.get(i).tuple);
+		}
+	}
+
+	@Override
+	public void setColumn() {
+		if (this.name.equals("Products")) {
+			this.column = ProductsVO.COLUMN;
+		} else {
+			this.column = CustomersVO.COLUMN;
+		}
+
+	}
+
+	public String toString() {
+		return "Read " + this.name;
+	}
 
 }

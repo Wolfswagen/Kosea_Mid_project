@@ -13,9 +13,11 @@ public abstract class TableFrame {
 	JScrollPane sp;
 	JTable table;
 	String[] column;
+	String name;
 
-	public TableFrame() {
+	public TableFrame(String name) {
 //		초기화 블럭
+		this.name = name;
 		setColumn();
 
 		f = new JFrame(this.toString());
@@ -42,7 +44,6 @@ public abstract class TableFrame {
 				} else {
 					return true;
 				}
-
 			}
 		};
 

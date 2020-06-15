@@ -1,9 +1,11 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-public abstract class DeleteTableFrame extends TableFrame {
+public class DeleteTableFrame extends TableFrame {
 //  상단 패널(카테고리/검색창/검색버튼/부분검색)
 	JComboBox<String> cmb;
 	JTextField inp;
@@ -19,8 +21,8 @@ public abstract class DeleteTableFrame extends TableFrame {
 
 	DefaultTableModel readModel2;
 
-	public DeleteTableFrame() {
-		super();
+	public DeleteTableFrame(String name) {
+		super(name);
 		readModel2 = new DefaultTableModel(column, 0) {
 			private static final long serialVersionUID = -4113365722825486170L;
 
@@ -80,7 +82,7 @@ public abstract class DeleteTableFrame extends TableFrame {
 			}
 		});
 
-		/* 수정 버튼 */
+		/* 삭제 버튼 */
 		cfm.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -145,8 +147,42 @@ public abstract class DeleteTableFrame extends TableFrame {
 		f.setVisible(true);
 	}
 
-//	update 쿼리 작성
-	public abstract void delete() throws Exception;
+	public void delete() throws Exception {
+		DeleteQueryDAO dao = new DeleteQueryDAO();
+		while (table.getRowCount() > 0) {
+			int ccode = Integer.parseInt(table.getValueAt(0, 0).toString());
+			try {
+				dao.erase(this.name, ccode);
+				readModel2.removeRow(0);
+			} catch (Exception e) {
+				throw e;
+			}
+		}
+	}
 
-	public abstract void select();
+	public void select() {
+		readModel.setNumRows(0);
+		ReadDAO dao = new ReadDAO();
+		ArrayList<TableVO> products;
+		products = dao.list(this.name, cmb.getSelectedItem().toString(), inp.getText(), chk.isSelected());
+
+		for (int i = 0; i < products.size(); i++) {
+			readModel.addRow(products.get(i).tuple);
+		}
+	}
+
+	@Override
+	public void setColumn() {
+		if (this.name.equals("Products")) {
+			this.column = ProductsVO.COLUMN;
+		} else {
+			this.column = CustomersVO.COLUMN;
+		}
+
+	}
+
+	public String toString() {
+		return "Read " + this.name;
+	}
+
 }

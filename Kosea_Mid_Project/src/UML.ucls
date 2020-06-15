@@ -1,25 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.2.4" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
   associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
-  <class id="1" language="java" name="ReadProductsDAO" project="Kosea_Mid_Project" 
-    file="/Kosea_Mid_Project/src/ReadProductsDAO.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="104" width="156" x="602" y="-46"/>    
-    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="2" language="java" name="ReadProducts" project="Kosea_Mid_Project" 
-    file="/Kosea_Mid_Project/src/ReadProducts.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="142" width="146" x="803" y="529"/>    
-    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="3" language="java" name="InsertProducts" project="Kosea_Mid_Project" 
+  <class id="1" language="java" name="InsertProducts" project="Kosea_Mid_Project" 
     file="/Kosea_Mid_Project/src/InsertProducts.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="156" width="155" x="812" y="1046"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -28,7 +10,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="4" language="java" name="MainFrame" project="Kosea_Mid_Project" 
+  <class id="2" language="java" name="MainFrame" project="Kosea_Mid_Project" 
     file="/Kosea_Mid_Project/src/MainFrame.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="152" width="87" x="290" y="142"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -37,7 +19,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="5" language="java" name="ConnectDAO" project="Kosea_Mid_Project" 
+  <class id="3" language="java" name="ConnectDAO" project="Kosea_Mid_Project" 
     file="/Kosea_Mid_Project/src/ConnectDAO.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="147" width="256" x="600" y="99"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -46,16 +28,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="6" language="java" name="ReadCustomers" project="Kosea_Mid_Project" 
-    file="/Kosea_Mid_Project/src/ReadCustomers.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="136" width="157" x="476" y="534"/>    
-    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="7" language="java" name="ProductsVO" project="Kosea_Mid_Project" 
+  <class id="4" language="java" name="ProductsVO" project="Kosea_Mid_Project" 
     file="/Kosea_Mid_Project/src/ProductsVO.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="552" width="123" x="3" y="-38"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -64,16 +37,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="8" language="java" name="ReadCustomersDAO" project="Kosea_Mid_Project" 
-    file="/Kosea_Mid_Project/src/ReadCustomersDAO.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="119" width="146" x="772" y="-46"/>    
-    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="9" language="java" name="InsertCustomers" project="Kosea_Mid_Project" 
+  <class id="5" language="java" name="InsertCustomers" project="Kosea_Mid_Project" 
     file="/Kosea_Mid_Project/src/InsertCustomers.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="130" width="161" x="486" y="1068"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -82,7 +46,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="10" language="java" name="CustomersVO" project="Kosea_Mid_Project" 
+  <class id="6" language="java" name="CustomersVO" project="Kosea_Mid_Project" 
     file="/Kosea_Mid_Project/src/CustomersVO.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="404" width="136" x="139" y="2"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -91,7 +55,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="11" language="java" name="InsertTableFrame" project="Kosea_Mid_Project" 
+  <class id="7" language="java" name="InsertTableFrame" project="Kosea_Mid_Project" 
     file="/Kosea_Mid_Project/src/InsertTableFrame.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="212" width="130" x="658" y="998"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -100,8 +64,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="12" language="java" name="InsertCustomersDAO" project="Kosea_Mid_Project" 
-    file="/Kosea_Mid_Project/src/InsertCustomersDAO.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="8" language="java" name="InsertDAO" project="Kosea_Mid_Project" 
+    file="/Kosea_Mid_Project/src/InsertDAO.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="106" width="150" x="607" y="273"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -109,7 +73,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="13" language="java" name="InsertProductsDAO" project="Kosea_Mid_Project" 
+  <class id="9" language="java" name="InsertProductsDAO" project="Kosea_Mid_Project" 
     file="/Kosea_Mid_Project/src/InsertProductsDAO.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="111" width="139" x="762" y="271"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -118,7 +82,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="14" language="java" name="ReadTableFrame" project="Kosea_Mid_Project" 
+  <class id="10" language="java" name="ReadTableFrame" project="Kosea_Mid_Project" 
     file="/Kosea_Mid_Project/src/ReadTableFrame.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="216" width="127" x="659" y="486"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -127,7 +91,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="15" language="java" name="TableFrame" project="Kosea_Mid_Project" 
+  <class id="11" language="java" name="TableFrame" project="Kosea_Mid_Project" 
     file="/Kosea_Mid_Project/src/TableFrame.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="266" width="407" x="512" y="710"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -136,7 +100,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="16" language="java" name="UpdateCustomersDAO" project="Kosea_Mid_Project" 
+  <class id="12" language="java" name="UpdateCustomersDAO" project="Kosea_Mid_Project" 
     file="/Kosea_Mid_Project/src/UpdateCustomersDAO.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="980" y="128"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -145,7 +109,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="17" language="java" name="UpdateTableFrame" project="Kosea_Mid_Project" 
+  <class id="13" language="java" name="UpdateTableFrame" project="Kosea_Mid_Project" 
     file="/Kosea_Mid_Project/src/UpdateTableFrame.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1089" y="840"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -154,7 +118,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="18" language="java" name="UpdateCustomers" project="Kosea_Mid_Project" 
+  <class id="14" language="java" name="UpdateCustomers" project="Kosea_Mid_Project" 
     file="/Kosea_Mid_Project/src/UpdateCustomers.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1098" y="1086"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -163,7 +127,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="19" language="java" name="UpdateProducts" project="Kosea_Mid_Project" 
+  <class id="15" language="java" name="UpdateProducts" project="Kosea_Mid_Project" 
     file="/Kosea_Mid_Project/src/UpdateProducts.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1077" y="579"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -172,8 +136,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="20" language="java" name="UpdateProductsDAO" project="Kosea_Mid_Project" 
-    file="/Kosea_Mid_Project/src/UpdateProductsDAO.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="16" language="java" name="UpdateDAO" project="Kosea_Mid_Project" 
+    file="/Kosea_Mid_Project/src/UpdateDAO.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="979" y="240"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -181,7 +145,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="21" language="java" name="DeleteCustomers" project="Kosea_Mid_Project" 
+  <class id="17" language="java" name="DeleteCustomers" project="Kosea_Mid_Project" 
     file="/Kosea_Mid_Project/src/DeleteCustomers.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="369" y="601"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -190,8 +154,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="22" language="java" name="DeleteCustomersDAO" project="Kosea_Mid_Project" 
-    file="/Kosea_Mid_Project/src/DeleteCustomersDAO.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="18" language="java" name="DeleteQueryDAO" project="Kosea_Mid_Project" 
+    file="/Kosea_Mid_Project/src/DeleteQueryDAO.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="485" y="123"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -199,7 +163,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="23" language="java" name="DeleteTableFrame" project="Kosea_Mid_Project" 
+  <class id="19" language="java" name="DeleteTableFrame" project="Kosea_Mid_Project" 
     file="/Kosea_Mid_Project/src/DeleteTableFrame.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="364" y="846"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -208,7 +172,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="24" language="java" name="DeleteProducts" project="Kosea_Mid_Project" 
+  <class id="20" language="java" name="DeleteProducts" project="Kosea_Mid_Project" 
     file="/Kosea_Mid_Project/src/DeleteProducts.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="359" y="1125"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -217,7 +181,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="25" language="java" name="DeleteProductsDAO" project="Kosea_Mid_Project" 
+  <class id="21" language="java" name="DeleteProductsDAO" project="Kosea_Mid_Project" 
     file="/Kosea_Mid_Project/src/DeleteProductsDAO.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="479" y="247"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -226,85 +190,69 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
+  <generalization id="22">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="3"/>  
+  </generalization>  
+  <generalization id="23">    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="3"/>  
+  </generalization>  
+  <generalization id="24">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="11"/>  
+  </generalization>  
+  <generalization id="25">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="3"/>  
+  </generalization>  
   <generalization id="26">    
-    <end type="SOURCE" refId="20"/>    
-    <end type="TARGET" refId="5"/>  
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="11"/>  
   </generalization>  
   <generalization id="27">    
-    <end type="SOURCE" refId="12"/>    
-    <end type="TARGET" refId="5"/>  
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="11"/>  
   </generalization>  
   <generalization id="28">    
-    <end type="SOURCE" refId="17"/>    
-    <end type="TARGET" refId="15"/>  
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="11"/>  
   </generalization>  
   <generalization id="29">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="5"/>  
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="19"/>  
   </generalization>  
   <generalization id="30">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="11"/>  
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="13"/>  
   </generalization>  
   <generalization id="31">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="14"/>  
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="3"/>  
   </generalization>  
   <generalization id="32">    
-    <end type="SOURCE" refId="11"/>    
-    <end type="TARGET" refId="15"/>  
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="3"/>  
   </generalization>  
   <generalization id="33">    
-    <end type="SOURCE" refId="25"/>    
-    <end type="TARGET" refId="5"/>  
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="19"/>  
   </generalization>  
   <generalization id="34">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="14"/>  
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="7"/>  
   </generalization>  
   <generalization id="35">    
-    <end type="SOURCE" refId="16"/>    
-    <end type="TARGET" refId="5"/>  
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="13"/>  
   </generalization>  
   <generalization id="36">    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="5"/>  
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="7"/>  
   </generalization>  
   <generalization id="37">    
-    <end type="SOURCE" refId="19"/>    
-    <end type="TARGET" refId="17"/>  
-  </generalization>  
-  <generalization id="38">    
-    <end type="SOURCE" refId="9"/>    
-    <end type="TARGET" refId="11"/>  
-  </generalization>  
-  <generalization id="39">    
-    <end type="SOURCE" refId="18"/>    
-    <end type="TARGET" refId="17"/>  
-  </generalization>  
-  <generalization id="40">    
-    <end type="SOURCE" refId="22"/>    
-    <end type="TARGET" refId="5"/>  
-  </generalization>  
-  <generalization id="41">    
-    <end type="SOURCE" refId="21"/>    
-    <end type="TARGET" refId="23"/>  
-  </generalization>  
-  <generalization id="42">    
-    <end type="SOURCE" refId="24"/>    
-    <end type="TARGET" refId="23"/>  
-  </generalization>  
-  <generalization id="43">    
-    <end type="SOURCE" refId="13"/>    
-    <end type="TARGET" refId="5"/>  
-  </generalization>  
-  <generalization id="44">    
-    <end type="SOURCE" refId="14"/>    
-    <end type="TARGET" refId="15"/>  
-  </generalization>  
-  <generalization id="45">    
-    <end type="SOURCE" refId="23"/>    
-    <end type="TARGET" refId="15"/>  
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="3"/>  
   </generalization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    

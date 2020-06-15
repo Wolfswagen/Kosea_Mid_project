@@ -13,5 +13,5 @@ public class DeleteProductsDAO extends ConnectDAO {
 		}
 
 	}
-
+	
 }
