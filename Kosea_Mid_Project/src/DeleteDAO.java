@@ -1,6 +1,6 @@
 import java.sql.*;
 
-public class DeleteQueryDAO extends ConnectDAO {
+public class DeleteDAO extends ConnectDAO {
 
 //	delete Äõ¸® ÀÛ¼º
 	public void erase(String tname, int ccode) throws SQLException {
@@ -13,8 +13,7 @@ public class DeleteQueryDAO extends ConnectDAO {
 		}
 		try {
 			String query = "DELETE FROM " + tname + " WHERE "+ col[0] +" = " + ccode;
-			System.out.println(query);
-			rs = stmt.executeQuery(query);
+			stmt.executeQuery(query);
 		} catch (SQLException e) {
 			throw e;
 		}

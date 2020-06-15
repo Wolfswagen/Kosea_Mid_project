@@ -24,7 +24,7 @@ public class UpdateDAO extends ConnectDAO {
 			}
 		}
 		try {
-			rs = stmt.executeQuery(query);
+			stmt.executeQuery(query);
 		} catch (SQLException e) {
 			throw e;
 		}

@@ -5,8 +5,6 @@ public abstract class TableVO {
 	final protected ArrayList<String> defrow = new ArrayList<String>();
 	protected Vector<Object> tuple = new Vector<Object>();
 
-	
-	
 	public TableVO() {
 		setColumn();
 		setDefrow();

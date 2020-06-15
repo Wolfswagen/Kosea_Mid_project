@@ -148,7 +148,7 @@ public class DeleteTableFrame extends TableFrame {
 	}
 
 	public void delete() throws Exception {
-		DeleteQueryDAO dao = new DeleteQueryDAO();
+		DeleteDAO dao = new DeleteDAO();
 		while (table.getRowCount() > 0) {
 			int ccode = Integer.parseInt(table.getValueAt(0, 0).toString());
 			try {
