@@ -1,11 +1,13 @@
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Vector;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
-public class UpdateTableFrame2 extends TableFrame2 {
+public class DeleteTableFrame extends TableFrame {
 //  상단 패널(카테고리/검색창/검색버튼/부분검색)
 	JComboBox<String> cmb;
 	JTextField inp;
@@ -19,9 +21,19 @@ public class UpdateTableFrame2 extends TableFrame2 {
 	JButton cfm;
 	JButton can;
 
-	public UpdateTableFrame2(String name) throws SQLException {
+	DefaultTableModel readModel2;
+
+	public DeleteTableFrame(String name) throws SQLException {
 		super(name);
-//		초기화 블럭 시
+		readModel2 = new DefaultTableModel(column, 0) {
+			private static final long serialVersionUID = -4113365722825486170L;
+
+			/* 테이블 수정 불가 설정 */
+			public boolean isCellEditable(int i, int c) {
+				return false;
+			}
+		};
+//		초기화 블럭
 		/* 상단 패널부 초기화 */
 		cmb = new JComboBox<String>(column);
 		inp = new JTextField("", 40);
@@ -30,7 +42,7 @@ public class UpdateTableFrame2 extends TableFrame2 {
 		up = new JPanel();
 
 		/* 하단 패널부 초기화 */
-		cfm = new JButton("수정");
+		cfm = new JButton("삭제");
 		cfm.setEnabled(false);
 		sel = new JButton("선택");
 		can = new JButton("취소");
@@ -48,12 +60,7 @@ public class UpdateTableFrame2 extends TableFrame2 {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				readModel.setNumRows(0);
-				try {
-					select();
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				select();
 			}
 		});
 		/* 선택 버튼 */
@@ -62,13 +69,10 @@ public class UpdateTableFrame2 extends TableFrame2 {
 			public void actionPerformed(ActionEvent e) {
 				if (table.getSelectedRowCount() > 0) {
 					while (table.getSelectedRowCount() > 0) {
-						insertModel.addRow(readModel.getDataVector().get(table.getSelectedRow()));
+						readModel2.addRow(readModel.getDataVector().get(table.getSelectedRow()));
 						readModel.removeRow(table.getSelectedRow());
 					}
-					table.setModel(insertModel);
-					if (name.equals("Products")) {
-						setCellComboBox();
-					}
+					table.setModel(readModel2);
 					cfm.setEnabled(true);
 					can.setEnabled(true);
 					sel.setEnabled(false);
@@ -76,19 +80,19 @@ public class UpdateTableFrame2 extends TableFrame2 {
 					inp.setEditable(false);
 					src.setEnabled(false);
 				}
-				JOptionPane.showMessageDialog(sp, insertModel.getRowCount() + "개 행이 선택되었습니다.");
+				JOptionPane.showMessageDialog(sp, readModel2.getRowCount() + "개 행이 선택되었습니다.");
 			}
 		});
 
-		/* 수정 버튼 */
+		/* 삭제 버튼 */
 		cfm.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int result = 0;
-				result = JOptionPane.showConfirmDialog(sp, "수정하시겠습니까?", "확인", JOptionPane.YES_NO_OPTION);
+				int result = JOptionPane.showConfirmDialog(sp, "삭제하시겠습니까?", "확인", JOptionPane.YES_NO_OPTION);
 				if (result == 0) {
-					try {
-						update();
+					int result2 = JOptionPane.showConfirmDialog(sp, "정말 삭제하시겠습니까?", "확인", JOptionPane.YES_NO_OPTION);
+					if (result2 == 0) {
+						delete();
 						select();
 						table.setModel(readModel);
 						cfm.setEnabled(false);
@@ -97,8 +101,6 @@ public class UpdateTableFrame2 extends TableFrame2 {
 						cmb.setEnabled(true);
 						inp.setEditable(true);
 						src.setEnabled(true);
-					} catch (Exception e1) {
-						JOptionPane.showMessageDialog(table, e1.getMessage(), "오류", 0);
 					}
 				}
 			}
@@ -107,13 +109,10 @@ public class UpdateTableFrame2 extends TableFrame2 {
 		can.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				insertModel.setNumRows(0);
-				try {
-					select();
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-				}
+				readModel2.setNumRows(0);
+				select();
 				table.setModel(readModel);
+
 				cfm.setEnabled(false);
 				can.setEnabled(false);
 				sel.setEnabled(true);
@@ -122,17 +121,17 @@ public class UpdateTableFrame2 extends TableFrame2 {
 				src.setEnabled(true);
 			}
 		});
+		select();
 
 	}
 
-	public void initFrame() throws SQLException {
+	public void initFrame() {
 		/* 패널부 출력 */
 		up.add(cmb);
 		up.add(inp);
 		up.add(src);
 		up.add(chk);
 		up.add(back);
-		select();
 
 		dp.add(sel);
 		dp.add(cfm);
@@ -146,38 +145,40 @@ public class UpdateTableFrame2 extends TableFrame2 {
 		f.setVisible(true);
 	}
 
-//	update 쿼리 작성
-	public void update() throws Exception {
-		UpdateDAO2 dao = new UpdateDAO2(this.name);
-		while (table.getRowCount() > 0) {
-			Vector<Object> data = new Vector<Object>();
-			for (int i = 0; i < column.size(); i++) {
-				data.add(table.getValueAt(0, i));
+	public void delete() {
+
+		try {
+			DeleteDAO dao = new DeleteDAO(this.name);
+			while (table.getRowCount() > 0) {
+				int ccode = Integer.parseInt(table.getValueAt(0, 0).toString());
+				dao.erase(this.name, ccode);
+				readModel2.removeRow(0);
 			}
-			dao.set(this.name, data);
-			insertModel.removeRow(0);
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, e.getMessage(), "오류", 0);
+			e.printStackTrace();
 		}
+
 	}
 
-	public void select() throws SQLException {
+	public void select() {
 		readModel.setNumRows(0);
-		ReadDAO2 dao = new ReadDAO2(this.name);
-		ArrayList<Vector<Object>> products;
-		products = dao.list(this.name, cmb.getSelectedItem().toString(), inp.getText(), chk.isSelected());
+		try {
+			ReadDAO dao = new ReadDAO(this.name);
+			ArrayList<Vector<Object>> products = dao.list(this.name, cmb.getSelectedItem().toString(), inp.getText(),
+					chk.isSelected());
 
-		for (int i = 0; i < products.size(); i++) {
-			readModel.addRow(products.get(i));
+			for (int i = 0; i < products.size(); i++) {
+				readModel.addRow(products.get(i));
+			}
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, e.getMessage(), "오류", 0);
+			e.printStackTrace();
 		}
-	}
-
-	public void setCellComboBox() {
-		addCellComboBox(table.getColumnModel().getColumn(1),
-				new String[] { "OUTER", "TOP", "BOTTOM", "ONEPIECE", "SHOES", "ACC", "SUMMER" });
-		addCellComboBox(table.getColumnModel().getColumn(3), new String[] { "판매중", "품절" });
-		addCellComboBox(table.getColumnModel().getColumn(10), new String[] { "조건부 무료", "무료" });
 	}
 
 	public String toString() {
-		return "Update " + this.name;
+		return "Read " + this.name;
 	}
+
 }

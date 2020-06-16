@@ -1,9 +1,9 @@
 import java.sql.*;
 import java.util.Vector;
 
-public class UpdateDAO2 extends TableVO2 {
+public class UpdateDAO extends TableVO {
 
-public UpdateDAO2(String tname) throws SQLException {
+public UpdateDAO(String tname) throws SQLException {
 		super(tname);
 		// TODO Auto-generated constructor stub
 	}

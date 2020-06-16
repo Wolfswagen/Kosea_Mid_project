@@ -5,7 +5,7 @@ import java.util.Vector;
 
 import javax.swing.*;
 
-public class InsertTableFrame2 extends TableFrame2 {
+public class InsertTableFrame extends TableFrame {
 //  패널(수정/행 추가/행 삭제)
 	JPanel p;
 	JButton cfm;
@@ -14,7 +14,7 @@ public class InsertTableFrame2 extends TableFrame2 {
 
 //  입력 테이블
 
-	public InsertTableFrame2(String name) throws SQLException {
+	public InsertTableFrame(String name) throws SQLException {
 		super(name);
 
 //		초기화 블럭
@@ -64,13 +64,9 @@ public class InsertTableFrame2 extends TableFrame2 {
 				int result = 0;
 				result = JOptionPane.showConfirmDialog(sp, "입력하시겠습니까?", "확인", JOptionPane.YES_NO_OPTION);
 				if (result == 0) {
-					try {
-						insert();
-						insertModel.setNumRows(0);
-						insertModel.addRow(defrow);
-					} catch (Exception e1) {
-						JOptionPane.showMessageDialog(table, e1.getMessage(), "오류", 0);
-					}
+					insert();
+					insertModel.setNumRows(0);
+					insertModel.addRow(defrow);
 				}
 			}
 		});
@@ -91,25 +87,25 @@ public class InsertTableFrame2 extends TableFrame2 {
 	}
 
 //	insert 쿼리 작성
-	public void insert() throws Exception {
-		InsertDAO2 dao = new InsertDAO2(this.name);
-
-		while (table.getRowCount() > 0) {
-			Vector<Object> data = new Vector<Object>();
-			for (int i = 0; i < dao.column.size(); i++) {
-				data.add(table.getValueAt(0, i));
-			}
-			try {
+	public void insert() {
+		InsertDAO dao;
+		try {
+			dao = new InsertDAO(this.name);
+			while (table.getRowCount() > 0) {
+				Vector<Object> data = new Vector<Object>();
+				for (int i = 0; i < dao.column.size(); i++) {
+					data.add(table.getValueAt(0, i));
+				}
 				dao.write(this.name, data);
 				insertModel.removeRow(0);
-			} catch (Exception e) {
-				throw e;
 			}
+
+		} catch (SQLException e1) {
+			JOptionPane.showMessageDialog(null, e1.getMessage(), "오류", 0);
+			e1.printStackTrace();
 		}
 
 	}
-
-
 
 	public void setCellComboBox() {
 		addCellComboBox(table.getColumnModel().getColumn(1),
@@ -120,11 +116,6 @@ public class InsertTableFrame2 extends TableFrame2 {
 
 	public String toString() {
 		return "Insert " + this.name;
-	}
-
-	public static void main(String[] args) throws SQLException {
-		InsertTableFrame2 d = new InsertTableFrame2("Sales");
-		d.initFrame();
 	}
 
 }

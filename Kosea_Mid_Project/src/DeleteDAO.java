@@ -1,8 +1,8 @@
 import java.sql.*;
 
-public class DeleteDAO2 extends TableVO2 {
+public class DeleteDAO extends TableVO {
 
-	public DeleteDAO2(String tname) throws SQLException {
+	public DeleteDAO(String tname) throws SQLException {
 		super(tname);
 	}
 

@@ -6,10 +6,9 @@ import java.util.Vector;
 import javax.swing.*;
 import javax.swing.table.*;
 
-public abstract class TableFrame2 {
+public abstract class TableFrame {
 	JFrame f;
 	JButton back;
-
 //  테이블 
 	DefaultTableModel readModel;
 	DefaultTableModel insertModel;
@@ -19,7 +18,7 @@ public abstract class TableFrame2 {
 	Vector<String> defrow;
 	String name;
 
-	public TableFrame2(String name) throws SQLException {
+	public TableFrame(String name) throws SQLException {
 //		초기화 블럭
 		this.name = name;
 		setColumn();
@@ -76,10 +75,11 @@ public abstract class TableFrame2 {
 	}
 
 //	frame 시작
-	public abstract void initFrame() throws SQLException;
+	public abstract void initFrame();
 
 	public void setColumn() throws SQLException {
-		TableVO2 col = new TableVO2(name);
+		TableVO col;
+		col = new TableVO(name);
 		this.column = col.getColumn();
 		this.defrow = col.defrow;
 	}

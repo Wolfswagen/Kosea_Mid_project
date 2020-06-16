@@ -29,13 +29,12 @@ public class MainFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					ReadTableFrame2 rt = new ReadTableFrame2(choice.getSelectedItem().toString());
+					ReadTableFrame rt = new ReadTableFrame(choice.getSelectedItem().toString());
 					rt.initFrame();
 				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "오류", 0);
 					e1.printStackTrace();
 				}
-
 				f.dispose();
 			}
 		});
@@ -45,9 +44,10 @@ public class MainFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					InsertTableFrame2 it = new InsertTableFrame2(choice.getSelectedItem().toString());
+					InsertTableFrame it = new InsertTableFrame(choice.getSelectedItem().toString());
 					it.initFrame();
 				} catch (SQLException e1) {
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "오류", 0);
 					e1.printStackTrace();
 				}
 
@@ -60,9 +60,10 @@ public class MainFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					UpdateTableFrame2 ut = new UpdateTableFrame2(choice.getSelectedItem().toString());
+					UpdateTableFrame ut = new UpdateTableFrame(choice.getSelectedItem().toString());
 					ut.initFrame();
 				} catch (SQLException e1) {
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "오류", 0);
 					e1.printStackTrace();
 				}
 				f.dispose();
@@ -74,9 +75,10 @@ public class MainFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					DeleteTableFrame2 dt = new DeleteTableFrame2(choice.getSelectedItem().toString());
+					DeleteTableFrame dt = new DeleteTableFrame(choice.getSelectedItem().toString());
 					dt.initFrame();
 				} catch (SQLException e1) {
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "오류", 0);
 					e1.printStackTrace();
 				}
 

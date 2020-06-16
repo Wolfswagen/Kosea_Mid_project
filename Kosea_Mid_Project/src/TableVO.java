@@ -1,7 +1,9 @@
 import java.sql.*;
 import java.util.*;
 
-public class TableVO2 {
+import javax.swing.JOptionPane;
+
+public class TableVO {
 	final private String DRIVER = "oracle.jdbc.driver.OracleDriver";
 	final private String URL = "jdbc:oracle:thin:@localhost:1521:orcl";
 	final private String USER = "kosea";
@@ -16,8 +18,9 @@ public class TableVO2 {
 	final protected Vector<String> defrow = new Vector<String>();
 	protected Vector<Object> tuple = new Vector<Object>();
 
-	public TableVO2(String tname) throws SQLException {
+	public TableVO(String tname) throws SQLException {
 		connDB(tname);
+
 		md = stmt.executeQuery("SELECT Column_name FROM cols WHERE TABLE_name = '" + tname.toUpperCase() + "'");
 		while (md.next()) {
 			column.add(md.getString("column_name"));
@@ -45,16 +48,13 @@ public class TableVO2 {
 			stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
 		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage(), "¿À·ù", 0);
 			e.printStackTrace();
 		}
 	}
 
-	public Vector<String> getColumn() {
-		try {
-			con.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+	public Vector<String> getColumn() throws SQLException {
+		con.close();
 		return this.column;
 	}
 }
