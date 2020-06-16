@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.SQLException;
 
 public class MainFrame {
 	JFrame f;
@@ -21,14 +22,20 @@ public class MainFrame {
 			}
 		});
 
-		choice = new JComboBox<String>(new String[] { "Products", "Customers"});
+		choice = new JComboBox<String>(new String[] { "Products", "Customers" });
 
 		read = new JButton("Á¶È¸");
 		read.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ReadTableFrame rt = new ReadTableFrame(choice.getSelectedItem().toString());
-				rt.initFrame();
+				try {
+					ReadTableFrame2 rt = new ReadTableFrame2(choice.getSelectedItem().toString());
+					rt.initFrame();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+
 				f.dispose();
 			}
 		});
@@ -37,8 +44,13 @@ public class MainFrame {
 		create.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				InsertTableFrame it = new InsertTableFrame(choice.getSelectedItem().toString());
-				it.initFrame();
+				try {
+					InsertTableFrame2 it = new InsertTableFrame2(choice.getSelectedItem().toString());
+					it.initFrame();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+
 				f.dispose();
 			}
 		});
@@ -47,8 +59,12 @@ public class MainFrame {
 		update.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				UpdateTableFrame ut = new UpdateTableFrame(choice.getSelectedItem().toString());
-				ut.initFrame();
+				try {
+					UpdateTableFrame2 ut = new UpdateTableFrame2(choice.getSelectedItem().toString());
+					ut.initFrame();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
 				f.dispose();
 			}
 		});
@@ -57,8 +73,13 @@ public class MainFrame {
 		delete.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				DeleteTableFrame dt = new DeleteTableFrame(choice.getSelectedItem().toString());
-				dt.initFrame();
+				try {
+					DeleteTableFrame2 dt = new DeleteTableFrame2(choice.getSelectedItem().toString());
+					dt.initFrame();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+
 				f.dispose();
 			}
 		});

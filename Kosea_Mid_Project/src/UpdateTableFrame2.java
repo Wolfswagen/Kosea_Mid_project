@@ -1,10 +1,11 @@
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
+import java.sql.SQLException;
+import java.util.*;
 
 import javax.swing.*;
 
-public class UpdateTableFrame extends TableFrame {
+public class UpdateTableFrame2 extends TableFrame2 {
 //  상단 패널(카테고리/검색창/검색버튼/부분검색)
 	JComboBox<String> cmb;
 	JTextField inp;
@@ -18,7 +19,7 @@ public class UpdateTableFrame extends TableFrame {
 	JButton cfm;
 	JButton can;
 
-	public UpdateTableFrame(String name) {
+	public UpdateTableFrame2(String name) throws SQLException {
 		super(name);
 //		초기화 블럭 시
 		/* 상단 패널부 초기화 */
@@ -47,7 +48,12 @@ public class UpdateTableFrame extends TableFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				readModel.setNumRows(0);
-				select();
+				try {
+					select();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		/* 선택 버튼 */
@@ -102,7 +108,11 @@ public class UpdateTableFrame extends TableFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				insertModel.setNumRows(0);
-				select();
+				try {
+					select();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
 				table.setModel(readModel);
 				cfm.setEnabled(false);
 				can.setEnabled(false);
@@ -115,7 +125,7 @@ public class UpdateTableFrame extends TableFrame {
 
 	}
 
-	public void initFrame() {
+	public void initFrame() throws SQLException {
 		/* 패널부 출력 */
 		up.add(cmb);
 		up.add(inp);
@@ -138,34 +148,25 @@ public class UpdateTableFrame extends TableFrame {
 
 //	update 쿼리 작성
 	public void update() throws Exception {
-		UpdateDAO dao = new UpdateDAO();
+		UpdateDAO2 dao = new UpdateDAO2(this.name);
 		while (table.getRowCount() > 0) {
-			TableVO data;
-			if (this.name.equals("Products")) {
-				data = new ProductsVO();
-			} else {
-				data = new CustomersVO();
+			Vector<Object> data = new Vector<Object>();
+			for (int i = 0; i < column.size(); i++) {
+				data.add(table.getValueAt(0, i));
 			}
-			for (int i = 0; i < data.column.size(); i++) {
-				data.tuple.add(table.getValueAt(0, i));
-			}
-			try {
-				dao.set(this.name, data.tuple);
-				insertModel.removeRow(0);
-			} catch (Exception e) {
-				throw e;
-			}
+			dao.set(this.name, data);
+			insertModel.removeRow(0);
 		}
 	}
 
-	public void select() {
+	public void select() throws SQLException {
 		readModel.setNumRows(0);
-		ReadDAO dao = new ReadDAO();
-		ArrayList<TableVO> products;
+		ReadDAO2 dao = new ReadDAO2(this.name);
+		ArrayList<Vector<Object>> products;
 		products = dao.list(this.name, cmb.getSelectedItem().toString(), inp.getText(), chk.isSelected());
 
 		for (int i = 0; i < products.size(); i++) {
-			readModel.addRow(products.get(i).tuple);
+			readModel.addRow(products.get(i));
 		}
 	}
 
@@ -174,15 +175,6 @@ public class UpdateTableFrame extends TableFrame {
 				new String[] { "OUTER", "TOP", "BOTTOM", "ONEPIECE", "SHOES", "ACC", "SUMMER" });
 		addCellComboBox(table.getColumnModel().getColumn(3), new String[] { "판매중", "품절" });
 		addCellComboBox(table.getColumnModel().getColumn(10), new String[] { "조건부 무료", "무료" });
-	}
-
-	public void setColumn() {
-		if (this.name.equals("Products")) {
-			this.column = ProductsVO.COLUMN;
-		} else {
-			this.column = CustomersVO.COLUMN;
-		}
-
 	}
 
 	public String toString() {

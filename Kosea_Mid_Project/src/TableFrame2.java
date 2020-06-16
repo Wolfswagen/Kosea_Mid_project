@@ -1,9 +1,12 @@
 
 import java.awt.event.*;
+import java.sql.SQLException;
+import java.util.Vector;
+
 import javax.swing.*;
 import javax.swing.table.*;
 
-public abstract class TableFrame {
+public abstract class TableFrame2 {
 	JFrame f;
 	JButton back;
 
@@ -12,10 +15,11 @@ public abstract class TableFrame {
 	DefaultTableModel insertModel;
 	JScrollPane sp;
 	JTable table;
-	String[] column;
+	Vector<String> column;
+	Vector<String> defrow;
 	String name;
 
-	public TableFrame(String name) {
+	public TableFrame2(String name) throws SQLException {
 //		초기화 블럭
 		this.name = name;
 		setColumn();
@@ -72,10 +76,13 @@ public abstract class TableFrame {
 	}
 
 //	frame 시작
-	public abstract void initFrame();
+	public abstract void initFrame() throws SQLException;
 
-//  테이블 칼럼 설정
-	public abstract void setColumn();
+	public void setColumn() throws SQLException {
+		TableVO2 col = new TableVO2(name);
+		this.column = col.getColumn();
+		this.defrow = col.defrow;
+	}
 
 //	table combobox 추가
 	public void addCellComboBox(TableColumn column, String[] tpl) {

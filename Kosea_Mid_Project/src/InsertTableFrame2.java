@@ -1,8 +1,11 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.SQLException;
+import java.util.Vector;
+
 import javax.swing.*;
 
-public class InsertTableFrame extends TableFrame {
+public class InsertTableFrame2 extends TableFrame2 {
 //  패널(수정/행 추가/행 삭제)
 	JPanel p;
 	JButton cfm;
@@ -10,9 +13,8 @@ public class InsertTableFrame extends TableFrame {
 	JButton del;
 
 //  입력 테이블
-	String[] defrow;
 
-	public InsertTableFrame(String name) {
+	public InsertTableFrame2(String name) throws SQLException {
 		super(name);
 
 //		초기화 블럭
@@ -90,20 +92,15 @@ public class InsertTableFrame extends TableFrame {
 
 //	insert 쿼리 작성
 	public void insert() throws Exception {
-		InsertDAO dao = new InsertDAO();
+		InsertDAO2 dao = new InsertDAO2(this.name);
 
 		while (table.getRowCount() > 0) {
-			TableVO data;
-			if (this.name.equals("Products")) {
-				data = new ProductsVO();
-			} else {
-				data = new CustomersVO();
-			}
-			for (int i = 0; i < data.column.size(); i++) {
-				data.tuple.add(table.getValueAt(0, i));
+			Vector<Object> data = new Vector<Object>();
+			for (int i = 0; i < dao.column.size(); i++) {
+				data.add(table.getValueAt(0, i));
 			}
 			try {
-				dao.write(this.name, data.tuple);
+				dao.write(this.name, data);
 				insertModel.removeRow(0);
 			} catch (Exception e) {
 				throw e;
@@ -112,17 +109,7 @@ public class InsertTableFrame extends TableFrame {
 
 	}
 
-	@Override
-	public void setColumn() {
-		if (this.name.equals("Products")) {
-			this.column = ProductsVO.COLUMN;
-			this.defrow = ProductsVO.DEFROW;
-		} else {
-			this.column = CustomersVO.COLUMN;
-			this.defrow = CustomersVO.DEFROW;
-		}
 
-	}
 
 	public void setCellComboBox() {
 		addCellComboBox(table.getColumnModel().getColumn(1),
@@ -133,6 +120,11 @@ public class InsertTableFrame extends TableFrame {
 
 	public String toString() {
 		return "Insert " + this.name;
+	}
+
+	public static void main(String[] args) throws SQLException {
+		InsertTableFrame2 d = new InsertTableFrame2("Sales");
+		d.initFrame();
 	}
 
 }

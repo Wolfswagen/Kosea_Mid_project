@@ -1,20 +1,18 @@
 import java.sql.*;
 import java.util.Vector;
 
-public class UpdateDAO extends ConnectDAO {
+public class UpdateDAO2 extends TableVO2 {
 
-//	insert 쿼리 작성
+public UpdateDAO2(String tname) throws SQLException {
+		super(tname);
+		// TODO Auto-generated constructor stub
+	}
+
+	//	insert 쿼리 작성
 	public void set(String tname, Vector<Object> data) throws SQLException {
-		connDB();
-		String[] def;
-		if (tname.equals("Products")) {
-			def = ProductsVO.DEFROW;
-		} else {
-			def = CustomersVO.DEFROW;
-		}
 		String query = "CALL UPDATE_" + tname + "(" + data.get(0)+ ", '";
 		for (int i = 0; i < data.size(); i++) {
-			if (def[i].equals("자동입력")) {
+			if (this.defrow.get(i).equals("자동입력")) {
 			} else {
 				if (i < data.size() - 1) {
 					query += data.get(i) + "', '";

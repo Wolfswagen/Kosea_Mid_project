@@ -1,11 +1,13 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Vector;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-public class DeleteTableFrame extends TableFrame {
+public class DeleteTableFrame2 extends TableFrame2 {
 //  상단 패널(카테고리/검색창/검색버튼/부분검색)
 	JComboBox<String> cmb;
 	JTextField inp;
@@ -21,7 +23,7 @@ public class DeleteTableFrame extends TableFrame {
 
 	DefaultTableModel readModel2;
 
-	public DeleteTableFrame(String name) {
+	public DeleteTableFrame2(String name) throws SQLException {
 		super(name);
 		readModel2 = new DefaultTableModel(column, 0) {
 			private static final long serialVersionUID = -4113365722825486170L;
@@ -58,7 +60,12 @@ public class DeleteTableFrame extends TableFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				readModel.setNumRows(0);
-				select();
+				try {
+					select();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		/* 선택 버튼 */
@@ -112,7 +119,12 @@ public class DeleteTableFrame extends TableFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				readModel2.setNumRows(0);
-				select();
+				try {
+					select();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				table.setModel(readModel);
 
 				cfm.setEnabled(false);
@@ -126,7 +138,7 @@ public class DeleteTableFrame extends TableFrame {
 
 	}
 
-	public void initFrame() {
+	public void initFrame() throws SQLException {
 		/* 패널부 출력 */
 		up.add(cmb);
 		up.add(inp);
@@ -148,37 +160,23 @@ public class DeleteTableFrame extends TableFrame {
 	}
 
 	public void delete() throws Exception {
-		DeleteDAO dao = new DeleteDAO();
+		DeleteDAO2 dao = new DeleteDAO2(this.name);
 		while (table.getRowCount() > 0) {
 			int ccode = Integer.parseInt(table.getValueAt(0, 0).toString());
-			try {
-				dao.erase(this.name, ccode);
-				readModel2.removeRow(0);
-			} catch (Exception e) {
-				throw e;
-			}
+			dao.erase(this.name, ccode);
+			readModel2.removeRow(0);
 		}
 	}
 
-	public void select() {
+	public void select() throws SQLException {
 		readModel.setNumRows(0);
-		ReadDAO dao = new ReadDAO();
-		ArrayList<TableVO> products;
+		ReadDAO2 dao = new ReadDAO2(this.name);
+		ArrayList<Vector<Object>> products;
 		products = dao.list(this.name, cmb.getSelectedItem().toString(), inp.getText(), chk.isSelected());
 
 		for (int i = 0; i < products.size(); i++) {
-			readModel.addRow(products.get(i).tuple);
+			readModel.addRow(products.get(i));
 		}
-	}
-
-	@Override
-	public void setColumn() {
-		if (this.name.equals("Products")) {
-			this.column = ProductsVO.COLUMN;
-		} else {
-			this.column = CustomersVO.COLUMN;
-		}
-
 	}
 
 	public String toString() {

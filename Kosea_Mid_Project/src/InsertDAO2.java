@@ -1,11 +1,16 @@
 import java.sql.*;
 import java.util.*;
 
-public class InsertDAO extends ConnectDAO {
+import javax.swing.JOptionPane;
+
+public class InsertDAO2 extends TableVO2 {
+	
+	public InsertDAO2(String tname) throws SQLException {
+		super(tname);
+	}
 
 //	insert 쿼리 작성
-	public void write(String tname, Vector<Object> tuple) throws SQLException {
-		connDB();
+	public void write(String tname, Vector<Object> tuple){
 		String query = "CALL INSERT_" + tname + "('";
 		for (int i = 0; i < tuple.size(); i++) {
 			if (tuple.get(i).equals("자동입력")) {
@@ -21,7 +26,8 @@ public class InsertDAO extends ConnectDAO {
 		try {
 			rs = stmt.executeQuery(query);
 		} catch (SQLException e) {
-			throw e;
+			JOptionPane.showMessageDialog(null, e.getMessage(), "오류", 0);
+			e.printStackTrace();
 		}
 	}
 

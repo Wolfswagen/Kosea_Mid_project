@@ -1,10 +1,11 @@
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
+import java.sql.SQLException;
+import java.util.*;
 
 import javax.swing.*;
 
-public class ReadTableFrame extends TableFrame {
+public class ReadTableFrame2 extends TableFrame2 {
 
 //  패널(검색 카테고리 선택/검색어 입력/검색 버튼/부분 검색 여부)
 	JPanel p;
@@ -13,7 +14,7 @@ public class ReadTableFrame extends TableFrame {
 	JButton cfm;
 	JCheckBox chk;
 
-	public ReadTableFrame(String name) {
+	public ReadTableFrame2(String name) throws SQLException {
 		super(name);
 
 //		초기화 블럭 시작
@@ -34,12 +35,16 @@ public class ReadTableFrame extends TableFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				readModel.setNumRows(0);
-				select();
+				try {
+					select();
+				} catch (SQLException e1) {
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "오류", 0);
+				}
 			}
 		});
 	}
 
-	public void initFrame() {
+	public void initFrame() throws SQLException {
 		/* 패널부 출력 */
 		p.add(cmb);
 		p.add(inp);
@@ -56,29 +61,19 @@ public class ReadTableFrame extends TableFrame {
 	}
 
 //	SELECT 결과 조회
-	public void select() {
-		ReadDAO dao = new ReadDAO();
-		ArrayList<TableVO> products;
+	public void select() throws SQLException {
+		ReadDAO2 dao = new ReadDAO2(this.name);
+		ArrayList<Vector<Object>> products;
 		products = dao.list(this.name, cmb.getSelectedItem().toString(), inp.getText(), chk.isSelected());
 
 		for (int i = 0; i < products.size(); i++) {
-			readModel.addRow(products.get(i).tuple);
-		}
-	}
-
-	@Override
-	public void setColumn() {
-		if (this.name.equals("Products")) {
-			this.column = ProductsVO.COLUMN;
-		} else if (this.name.equals("Customers")) {
-			this.column = CustomersVO.COLUMN;
-		} else {
-			column = Sales_Customers_DetailsVO.COLUMN;
+			readModel.addRow(products.get(i));
 		}
 	}
 
 	public String toString() {
 		return "Read " + this.name;
 	}
+
 
 }
