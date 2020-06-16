@@ -70,10 +70,11 @@ public class ReadTableFrame extends TableFrame {
 	public void setColumn() {
 		if (this.name.equals("Products")) {
 			this.column = ProductsVO.COLUMN;
-		} else {
+		} else if (this.name.equals("Customers")) {
 			this.column = CustomersVO.COLUMN;
+		} else {
+			column = Sales_Customers_DetailsVO.COLUMN;
 		}
-
 	}
 
 	public String toString() {

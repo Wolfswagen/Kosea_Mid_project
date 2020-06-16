@@ -25,7 +25,7 @@ public class InsertTableFrame extends TableFrame {
 		/* 테이블 모델 초기화 */
 		table.setModel(insertModel);
 		insertModel.addRow(defrow);
-		
+
 		if (name.equals("Products")) {
 			setCellComboBox();
 		}
@@ -123,14 +123,14 @@ public class InsertTableFrame extends TableFrame {
 		}
 
 	}
-	
+
 	public void setCellComboBox() {
 		addCellComboBox(table.getColumnModel().getColumn(1),
 				new String[] { "OUTER", "TOP", "BOTTOM", "ONEPIECE", "SHOES", "ACC", "SUMMER" });
 		addCellComboBox(table.getColumnModel().getColumn(3), new String[] { "판매중", "품절" });
 		addCellComboBox(table.getColumnModel().getColumn(10), new String[] { "조건부 무료", "무료" });
 	}
-	
+
 	public String toString() {
 		return "Insert " + this.name;
 	}

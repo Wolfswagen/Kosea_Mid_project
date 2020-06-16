@@ -3,7 +3,6 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class MainFrame {
-
 	JFrame f;
 	JComboBox<String> choice;
 	JButton read;
@@ -22,7 +21,7 @@ public class MainFrame {
 			}
 		});
 
-		choice = new JComboBox<String>(new String[] { "Products", "Customers" });
+		choice = new JComboBox<String>(new String[] { "Products", "Customers"});
 
 		read = new JButton("Á¶È¸");
 		read.addActionListener(new ActionListener() {

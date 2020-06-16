@@ -11,8 +11,10 @@ public class ReadDAO extends ConnectDAO {
 
 		if (tname.equals("Products")) {
 			column = ProductsVO.COLUMN;
-		} else {
+		} else if(tname.equals("Customers")) {
 			column = CustomersVO.COLUMN;
+		} else {
+			column = Sales_Customers_DetailsVO.COLUMN;
 		}
 
 		try {
@@ -33,8 +35,10 @@ public class ReadDAO extends ConnectDAO {
 				TableVO data;
 				if (tname.equals("Products")) {
 					data = new ProductsVO();
-				} else {
+				} else if(tname.equals("Customers")) {
 					data = new CustomersVO();
+				} else {
+					data = new Sales_Customers_DetailsVO();
 				}
 				for (int i = 0; i < data.column.size(); i++) {
 					data.tuple.add(rs.getObject(data.column.get(i)));
