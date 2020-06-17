@@ -7,8 +7,8 @@ public class DeleteDAO extends TableVO {
 	}
 
 	// delete Äõ¸® ÀÛ¼º
-	public void erase(String tname, int ccode) throws SQLException {
-		String query = "DELETE FROM " + tname + " WHERE " + column.get(0) + " = " + ccode;
+	public void erase(int ccode) throws SQLException {
+		String query = "DELETE FROM " + name + " WHERE " + column.get(0) + " = " + ccode;
 		stmt.executeQuery(query);
 	}
 }

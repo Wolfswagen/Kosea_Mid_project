@@ -34,10 +34,16 @@ public class ReadTableFrame extends TableFrame {
 		cfm.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				readModel.setNumRows(0);
-				select();
+				try {
+					readModel.setNumRows(0);
+					select();
+				} catch (SQLException e1) {
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "오류", 0);
+					e1.printStackTrace();
+				}
 			}
 		});
+		select();
 
 	}
 
@@ -48,7 +54,6 @@ public class ReadTableFrame extends TableFrame {
 		p.add(cfm);
 		p.add(chk);
 		p.add(back);
-		select();
 
 		/* 프레임 출력 */
 		f.add(p, BorderLayout.NORTH);
@@ -58,18 +63,12 @@ public class ReadTableFrame extends TableFrame {
 	}
 
 //	SELECT 결과 조회
-	public void select() {
-		ReadDAO dao;
-		ArrayList<Vector<Object>> products;
-		try {
-			dao = new ReadDAO(this.name);
-			products = dao.list(this.name, cmb.getSelectedItem().toString(), inp.getText(), chk.isSelected());
-			for (int i = 0; i < products.size(); i++) {
-				readModel.addRow(products.get(i));
-			}
-		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, e.getMessage(), "오류", 0);
-			e.printStackTrace();
+	public void select() throws SQLException {
+		ReadDAO dao = new ReadDAO(this.name);
+		ArrayList<Vector<Object>> products = dao.list(cmb.getSelectedItem().toString(), inp.getText(),
+				chk.isSelected());
+		for (int i = 0; i < products.size(); i++) {
+			readModel.addRow(products.get(i));
 		}
 
 	}

@@ -15,13 +15,14 @@ public abstract class TableFrame {
 	JScrollPane sp;
 	JTable table;
 	Vector<String> column;
-	Vector<String> defrow;
+	String[] defrow;
 	String name;
 
 	public TableFrame(String name) throws SQLException {
 //		초기화 블럭
 		this.name = name;
-		setColumn();
+		this.column = setColumn();
+		this.defrow = setDefrow();
 
 		f = new JFrame(this.toString());
 		f.setSize(1000, 500);
@@ -77,11 +78,23 @@ public abstract class TableFrame {
 //	frame 시작
 	public abstract void initFrame();
 
-	public void setColumn() throws SQLException {
-		TableVO col;
-		col = new TableVO(name);
-		this.column = col.getColumn();
-		this.defrow = col.defrow;
+	public Vector<String> setColumn() throws SQLException {
+		return setColumn(this.name);
+
+	}
+
+	public Vector<String> setColumn(String table) throws SQLException {
+		TableVO col = new TableVO(table);
+		return col.getColumn();
+	}
+
+	public String[] setDefrow() throws SQLException {
+		TableVO col = new TableVO(this.name);
+		String[] row = new String[col.defrow.size()];
+		for (int i = 0; i < col.defrow.size(); i++) {
+			row[i] = col.defrow.get(i);
+		}
+		return row;
 	}
 
 //	table combobox 추가

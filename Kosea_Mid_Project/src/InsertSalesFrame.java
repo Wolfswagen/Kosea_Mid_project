@@ -4,55 +4,49 @@ import java.sql.SQLException;
 import java.util.Vector;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
-public class InsertTableFrame extends TableFrame {
+public class InsertSalesFrame extends SalesFrame {
 //  패널(수정/행 추가/행 삭제)
 	JPanel p;
 	JButton cfm;
-	JButton add;
-	JButton del;
+	DefaultTableModel insertModel;
 
-	public InsertTableFrame(String name) throws SQLException {
+	public InsertSalesFrame(String name) throws SQLException {
 		super(name);
+
+		this.name = name;
+		column = setColumn(this.name);
+		this.defrow = setDefrow(this.name);
+
+		f.setSize(1000, 400);
+
+		insertModel = new DefaultTableModel(column, 0) {
+			private static final long serialVersionUID = -4113365722825486170L;
+
+			/* 테이블 수정 불가 설정 */
+			public boolean isCellEditable(int i, int c) {
+				String cname = insertModel.getColumnName(c);
+				if (cname.equals("Sales_code")) {
+					return false;
+				} else {
+					return true;
+				}
+			}
+		};
+
+		back = new JButton("뒤로");
+
 //		초기화 블럭
 		/* 패널부 초기화 */
 		cfm = new JButton("입력");
-		add = new JButton("행 추가");
-		del = new JButton("행 삭제");
 		p = new JPanel();
 		p.setLayout(new FlowLayout(FlowLayout.RIGHT, 30, 5));
 		/* 테이블 모델 초기화 */
 		table.setModel(insertModel);
 		insertModel.addRow(defrow);
 
-		if (name.equals("Products")) {
-			setCellComboBox();
-		}
-
 //		이벤트 설정
-		/* 행추가 버튼 */
-		add.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				insertModel.addRow(defrow);
-			}
-		});
-		/* 행삭제 버튼 */
-		del.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (table.getRowCount() > 0) {
-					if (table.getSelectedRowCount() > 0) {
-						while (table.getSelectedRowCount() > 0) {
-							insertModel.removeRow(table.getSelectedRow());
-						}
-					} else {
-						insertModel.removeRow(insertModel.getRowCount() - 1);
-					}
-				}
-			}
-		});
-
 		/* 입력 버튼 */
 		cfm.addActionListener(new ActionListener() {
 
@@ -65,21 +59,38 @@ public class InsertTableFrame extends TableFrame {
 						insert();
 						insertModel.setNumRows(0);
 						insertModel.addRow(defrow);
-
-					} catch (SQLException e1) {
+						table.setModel(insertModel);
+						JOptionPane.showMessageDialog(null, "입력이 완료되었습니다.", "확인", 1);
+						f.dispose();
+					} catch (Exception e1) {
 						JOptionPane.showMessageDialog(null, e1.getMessage(), "오류", 0);
 						e1.printStackTrace();
 					}
-				}
 
+				}
+			}
+		});
+
+		/* 뒤로 가기 */
+		back.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				f.dispose();
+			}
+
+		});
+
+		f.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				f.dispose();
 			}
 		});
 	}
 
 	public void initFrame() {
 		/* 패널부 출력 */
-		p.add(add);
-		p.add(del);
+
 		p.add(cfm);
 		p.add(back);
 
@@ -92,28 +103,25 @@ public class InsertTableFrame extends TableFrame {
 
 //	insert 쿼리 작성
 	public void insert() throws SQLException {
-
 		InsertDAO dao = new InsertDAO(this.name);
 		while (table.getRowCount() > 0) {
 			Vector<Object> data = new Vector<Object>();
+
 			for (int i = 0; i < dao.column.size(); i++) {
 				data.add(table.getValueAt(0, i));
 			}
 			dao.write(data);
 			insertModel.removeRow(0);
 		}
-
-	}
-
-	public void setCellComboBox() {
-		addCellComboBox(table.getColumnModel().getColumn(1),
-				new String[] { "OUTER", "TOP", "BOTTOM", "ONEPIECE", "SHOES", "ACC", "SUMMER" });
-		addCellComboBox(table.getColumnModel().getColumn(3), new String[] { "판매중", "품절" });
-		addCellComboBox(table.getColumnModel().getColumn(10), new String[] { "조건부 무료", "무료" });
 	}
 
 	public String toString() {
 		return "Insert " + this.name;
+	}
+
+	public static void main(String[] args) throws SQLException {
+		InsertSalesFrame i = new InsertSalesFrame("Sales");
+		i.initFrame();
 	}
 
 }

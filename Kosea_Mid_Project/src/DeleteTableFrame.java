@@ -59,8 +59,13 @@ public class DeleteTableFrame extends TableFrame {
 		src.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				readModel.setNumRows(0);
-				select();
+				try {
+					readModel.setNumRows(0);
+					select();
+				} catch (SQLException e1) {
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "오류", 0);
+					e1.printStackTrace();
+				}
 			}
 		});
 		/* 선택 버튼 */
@@ -92,15 +97,20 @@ public class DeleteTableFrame extends TableFrame {
 				if (result == 0) {
 					int result2 = JOptionPane.showConfirmDialog(sp, "정말 삭제하시겠습니까?", "확인", JOptionPane.YES_NO_OPTION);
 					if (result2 == 0) {
-						delete();
-						select();
-						table.setModel(readModel);
-						cfm.setEnabled(false);
-						can.setEnabled(false);
-						sel.setEnabled(true);
-						cmb.setEnabled(true);
-						inp.setEditable(true);
-						src.setEnabled(true);
+						try {
+							delete();
+							select();
+							table.setModel(readModel);
+							cfm.setEnabled(false);
+							can.setEnabled(false);
+							sel.setEnabled(true);
+							cmb.setEnabled(true);
+							inp.setEditable(true);
+							src.setEnabled(true);
+						} catch (SQLException e1) {
+							JOptionPane.showMessageDialog(null, e1.getMessage(), "오류", 0);
+							e1.printStackTrace();
+						}
 					}
 				}
 			}
@@ -109,16 +119,21 @@ public class DeleteTableFrame extends TableFrame {
 		can.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				readModel2.setNumRows(0);
-				select();
-				table.setModel(readModel);
+				try {
+					readModel2.setNumRows(0);
+					select();
+					table.setModel(readModel);
 
-				cfm.setEnabled(false);
-				can.setEnabled(false);
-				sel.setEnabled(true);
-				cmb.setEnabled(true);
-				inp.setEditable(true);
-				src.setEnabled(true);
+					cfm.setEnabled(false);
+					can.setEnabled(false);
+					sel.setEnabled(true);
+					cmb.setEnabled(true);
+					inp.setEditable(true);
+					src.setEnabled(true);
+				} catch (SQLException e1) {
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "오류", 0);
+					e1.printStackTrace();
+				}
 			}
 		});
 		select();
@@ -145,36 +160,28 @@ public class DeleteTableFrame extends TableFrame {
 		f.setVisible(true);
 	}
 
-	public void delete() {
+	public void delete() throws SQLException {
 
-		try {
-			DeleteDAO dao = new DeleteDAO(this.name);
-			while (table.getRowCount() > 0) {
-				int ccode = Integer.parseInt(table.getValueAt(0, 0).toString());
-				dao.erase(this.name, ccode);
-				readModel2.removeRow(0);
-			}
-		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, e.getMessage(), "오류", 0);
-			e.printStackTrace();
+		DeleteDAO dao = new DeleteDAO(this.name);
+		while (table.getRowCount() > 0) {
+			int ccode = Integer.parseInt(table.getValueAt(0, 0).toString());
+			dao.erase(ccode);
+			readModel2.removeRow(0);
 		}
 
 	}
 
-	public void select() {
+	public void select() throws SQLException {
 		readModel.setNumRows(0);
-		try {
-			ReadDAO dao = new ReadDAO(this.name);
-			ArrayList<Vector<Object>> products = dao.list(this.name, cmb.getSelectedItem().toString(), inp.getText(),
-					chk.isSelected());
 
-			for (int i = 0; i < products.size(); i++) {
-				readModel.addRow(products.get(i));
-			}
-		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, e.getMessage(), "오류", 0);
-			e.printStackTrace();
+		ReadDAO dao = new ReadDAO(this.name);
+		ArrayList<Vector<Object>> products = dao.list(cmb.getSelectedItem().toString(), inp.getText(),
+				chk.isSelected());
+
+		for (int i = 0; i < products.size(); i++) {
+			readModel.addRow(products.get(i));
 		}
+
 	}
 
 	public String toString() {

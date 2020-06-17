@@ -8,9 +8,9 @@ public UpdateDAO(String tname) throws SQLException {
 		// TODO Auto-generated constructor stub
 	}
 
-	//	insert 쿼리 작성
-	public void set(String tname, Vector<Object> data) throws SQLException {
-		String query = "CALL UPDATE_" + tname + "(" + data.get(0)+ ", '";
+	//	update 쿼리 작성
+	public void set(Vector<Object> data) throws SQLException {
+		String query = "CALL UPDATE_" + name + "(" + data.get(0)+ ", '";
 		for (int i = 0; i < data.size(); i++) {
 			if (this.defrow.get(i).equals("자동입력")) {
 			} else {

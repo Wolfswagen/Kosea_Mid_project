@@ -1,7 +1,6 @@
 import java.sql.*;
 import java.util.*;
 
-
 public class InsertDAO extends TableVO {
 
 	public InsertDAO(String tname) throws SQLException {
@@ -9,8 +8,8 @@ public class InsertDAO extends TableVO {
 	}
 
 //	insert 쿼리 작성
-	public void write(String tname, Vector<Object> tuple) throws SQLException {
-		String query = "CALL INSERT_" + tname + "('";
+	public void write(Vector<Object> tuple) throws SQLException {
+		String query = "CALL INSERT_" + name + "('";
 		for (int i = 0; i < tuple.size(); i++) {
 			if (tuple.get(i).equals("자동입력")) {
 			} else {
@@ -21,8 +20,8 @@ public class InsertDAO extends TableVO {
 				}
 			}
 		}
-		rs = stmt.executeQuery(query);
 
+		rs = stmt.executeQuery(query);
 	}
 
 }
