@@ -23,6 +23,7 @@ public class ReadSalesFrame2 extends SalesFrame {
 	JButton cfm;
 
 	DefaultTableModel insertModel;
+	String scode;
 
 	public ReadSalesFrame2(String name) throws SQLException {
 		super(name);
@@ -58,8 +59,7 @@ public class ReadSalesFrame2 extends SalesFrame {
 
 			/* 테이블 수정 불가 설정 */
 			public boolean isCellEditable(int i, int c) {
-				String cname = insertModel.getColumnName(c);
-				if (cname.equals("Sales_code")) {
+				if (defrow2[c].equals("자동입력") || defrow2[c].equals("검색")) {
 					return false;
 				} else {
 					return true;
@@ -82,7 +82,7 @@ public class ReadSalesFrame2 extends SalesFrame {
 				}
 			}
 		});
-
+		/* 거래건 추가 버튼 */
 		ins.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -115,13 +115,31 @@ public class ReadSalesFrame2 extends SalesFrame {
 						try {
 							insertModel.setNumRows(0);
 							selectDetails(String.valueOf(readModel.getValueAt(table.getSelectedRow(), 0)));
-							defrow2[0] = String.valueOf(readModel.getValueAt(table.getSelectedRow(), 0));
+							scode = String.valueOf(readModel.getValueAt(table.getSelectedRow(), 0));
 							table.setModel(insertModel);
 							back.setEnabled(true);
 							add.setEnabled(true);
 							del.setEnabled(true);
 							cfm.setEnabled(true);
 							JOptionPane.showMessageDialog(sp, insertModel.getRowCount() + "개 행이 선택되었습니다.");
+						} catch (SQLException e1) {
+							JOptionPane.showMessageDialog(null, e1.getMessage(), "오류", 0);
+							e1.printStackTrace();
+						}
+					}
+				} else {
+					if (e.getClickCount() > 1) {
+						try {
+							ReadTableFrame rt = new ReadTableFrame("Products");
+							rt.back.setEnabled(false);
+							rt.noExit();
+							rt.initFrame();
+							rt.f.addWindowListener(new WindowAdapter() {
+								public void windowClosed(WindowEvent e) {
+									insertModel.setValueAt(rt.getCode(), table.getSelectedRow(), 1);
+								}
+							});
+
 						} catch (SQLException e1) {
 							JOptionPane.showMessageDialog(null, e1.getMessage(), "오류", 0);
 							e1.printStackTrace();
@@ -137,6 +155,7 @@ public class ReadSalesFrame2 extends SalesFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				insertModel.addRow(defrow2);
+				insertModel.setValueAt(scode, insertModel.getRowCount() - 1, 0);
 			}
 		});
 
@@ -158,7 +177,6 @@ public class ReadSalesFrame2 extends SalesFrame {
 
 		/* 입력 버튼 */
 		cfm.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int result = 0;
@@ -197,13 +215,6 @@ public class ReadSalesFrame2 extends SalesFrame {
 					JOptionPane.showMessageDialog(null, e1.getMessage(), "오류", 0);
 					e1.printStackTrace();
 				}
-			}
-		});
-
-		/* 윈도우 종료 버튼 */
-		f.addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent e) {
-				System.exit(0);
 			}
 		});
 		select();

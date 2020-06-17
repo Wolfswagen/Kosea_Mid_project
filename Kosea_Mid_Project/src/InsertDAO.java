@@ -20,7 +20,7 @@ public class InsertDAO extends TableVO {
 				}
 			}
 		}
-
+		System.out.println(query);
 		rs = stmt.executeQuery(query);
 	}
 

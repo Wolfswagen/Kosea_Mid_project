@@ -26,8 +26,7 @@ public class InsertSalesFrame extends SalesFrame {
 
 			/* 테이블 수정 불가 설정 */
 			public boolean isCellEditable(int i, int c) {
-				String cname = insertModel.getColumnName(c);
-				if (cname.equals("Sales_code")) {
+				if (defrow[c].equals("자동입력") || defrow[c].equals("검색")) {
 					return false;
 				} else {
 					return true;
@@ -70,6 +69,28 @@ public class InsertSalesFrame extends SalesFrame {
 				}
 			}
 		});
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (e.getClickCount() > 1) {
+					try {
+						ReadTableFrame rt = new ReadTableFrame("Customers");
+						rt.back.setEnabled(false);
+						rt.noExit();
+						rt.initFrame();
+						rt.f.addWindowListener(new WindowAdapter() {
+							public void windowClosed(WindowEvent e) {
+								insertModel.setValueAt(rt.getCode(), table.getSelectedRow(), 4);
+							}
+						});
+
+					} catch (SQLException e1) {
+						JOptionPane.showMessageDialog(null, e1.getMessage(), "오류", 0);
+						e1.printStackTrace();
+					}
+				}
+			}
+		});
 
 		/* 뒤로 가기 */
 		back.addActionListener(new ActionListener() {
@@ -78,14 +99,16 @@ public class InsertSalesFrame extends SalesFrame {
 			public void actionPerformed(ActionEvent e) {
 				f.dispose();
 			}
-
 		});
+		f.removeWindowListener(f.getWindowListeners()[0]);
 
+		/* 윈도우 종료 버튼 */
 		f.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				f.dispose();
 			}
 		});
+
 	}
 
 	public void initFrame() {
@@ -103,7 +126,11 @@ public class InsertSalesFrame extends SalesFrame {
 
 //	insert 쿼리 작성
 	public void insert() throws SQLException {
-		InsertDAO dao = new InsertDAO(this.name);
+		insert(this.name);
+	}
+
+	public void insert(String name) throws SQLException {
+		InsertDAO dao = new InsertDAO(name);
 		while (table.getRowCount() > 0) {
 			Vector<Object> data = new Vector<Object>();
 

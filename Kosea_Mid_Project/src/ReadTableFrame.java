@@ -13,6 +13,7 @@ public class ReadTableFrame extends TableFrame {
 	JTextField inp;
 	JButton cfm;
 	JCheckBox chk;
+	String p_code;
 
 	public ReadTableFrame(String name) throws SQLException {
 		super(name);
@@ -43,8 +44,19 @@ public class ReadTableFrame extends TableFrame {
 				}
 			}
 		});
-		select();
 
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (e.getClickCount() > 1) {
+					p_code = table.getValueAt(table.getSelectedRow(), 0).toString();
+					System.out.println(p_code +" read table");
+					f.dispose();
+				}
+			}
+		});
+
+		select();
 	}
 
 	public void initFrame() {
@@ -70,11 +82,25 @@ public class ReadTableFrame extends TableFrame {
 		for (int i = 0; i < products.size(); i++) {
 			readModel.addRow(products.get(i));
 		}
-
 	}
 
 	public String toString() {
 		return "Read " + this.name;
+	}
+
+	public String getCode() {
+		return p_code;
+	}
+
+	public void noExit() {
+		f.removeWindowListener(f.getWindowListeners()[0]);
+
+		/* 윈도우 종료 버튼 */
+		f.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				f.dispose();
+			}
+		});
 	}
 
 }

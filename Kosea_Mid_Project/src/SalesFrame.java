@@ -1,3 +1,5 @@
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 import java.util.Vector;
 
@@ -53,14 +55,18 @@ public abstract class SalesFrame {
 			}
 		};
 
-
-
 		table = new JTable();
 		table.getTableHeader().setReorderingAllowed(false);
 		sp = new JScrollPane(table);
 
 //		이벤트 설정
 
+		/* 윈도우 종료 버튼 */
+		f.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				System.exit(0);
+			}
+		});
 	}
 
 //	frame 시작
