@@ -60,6 +60,7 @@ public class TableVO {
 		}
 //		[SALES_CODE, PRODUCT_CODE, PRODUCT_COLOR, PRODUCT_SIZE, PRODUCT_AMOUNT, REFUND_AMOUNT]
 		if (name.equals("Sales_details")) {
+			defrow.set(0, "거래번호");
 			defrow.add("검색");
 			defrow.add("");
 			defrow.add("");

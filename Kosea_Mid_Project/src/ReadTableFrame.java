@@ -50,7 +50,6 @@ public class ReadTableFrame extends TableFrame {
 			public void mouseClicked(MouseEvent e) {
 				if (e.getClickCount() > 1) {
 					p_code = table.getValueAt(table.getSelectedRow(), 0).toString();
-					System.out.println(p_code +" read table");
 					f.dispose();
 				}
 			}

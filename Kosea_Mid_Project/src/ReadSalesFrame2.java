@@ -59,7 +59,7 @@ public class ReadSalesFrame2 extends SalesFrame {
 
 			/* 테이블 수정 불가 설정 */
 			public boolean isCellEditable(int i, int c) {
-				if (defrow2[c].equals("자동입력") || defrow2[c].equals("검색")) {
+				if (defrow2[c].equals("자동입력") || defrow2[c].equals("검색") || defrow2[c].equals("거래번호")) {
 					return false;
 				} else {
 					return true;
@@ -194,7 +194,7 @@ public class ReadSalesFrame2 extends SalesFrame {
 						select();
 						table.setModel(readModel);
 
-					} catch (SQLException e1) {
+					} catch (Exception e1) {
 						JOptionPane.showMessageDialog(null, e1.getMessage(), "오류", 0);
 						e1.printStackTrace();
 					}

@@ -11,16 +11,24 @@ public class InsertDAO extends TableVO {
 	public void write(Vector<Object> tuple) throws SQLException {
 		String query = "CALL INSERT_" + name + "('";
 		for (int i = 0; i < tuple.size(); i++) {
-			if (tuple.get(i).equals("자동입력")) {
+			if (this.defrow.get(i).equals("자동입력")) {
 			} else {
 				if (i < tuple.size() - 1) {
-					query += tuple.get(i) + "', '";
+					if (Objects.isNull(tuple.get(i))) {
+						query += "', '";
+					} else {
+						query += tuple.get(i) + "', '";
+					}
+
 				} else {
-					query += tuple.get(i) + "')";
+					if (Objects.isNull(tuple.get(i))) {
+						query += "')";
+					} else {
+						query += tuple.get(i) + "')";
+					}
 				}
 			}
 		}
-		System.out.println(query);
 		rs = stmt.executeQuery(query);
 	}
 
