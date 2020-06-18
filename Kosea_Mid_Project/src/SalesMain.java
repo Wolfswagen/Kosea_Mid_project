@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 public class SalesMain {
 	static JFrame f;
-	JComboBox<String> choice;
+	JLabel lab;
 	JButton read;
 	JButton create;
 	JButton update;
@@ -16,20 +16,19 @@ public class SalesMain {
 		f = new JFrame("Sales");
 		f.setLayout(new FlowLayout());
 		f.setSize(500, 100);
+		lab = new JLabel("거래 관리");
 		f.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				System.exit(0);
 			}
 		});
 
-		choice = new JComboBox<String>(new String[] { "Sales", "Refunds" });
-
 		read = new JButton("조회");
 		read.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					ReadSalesFrame rt = new ReadSalesFrame(choice.getSelectedItem().toString());
+					ReadSalesFrame rt = new ReadSalesFrame("Sales");
 					rt.initFrame();
 				} catch (SQLException e1) {
 					JOptionPane.showMessageDialog(null, e1.getMessage(), "오류", 0);
@@ -97,7 +96,7 @@ public class SalesMain {
 	}
 
 	public void initFrame() {
-		f.add(choice);
+		f.add(lab);
 		f.add(read);
 		f.add(create);
 		f.add(update);
