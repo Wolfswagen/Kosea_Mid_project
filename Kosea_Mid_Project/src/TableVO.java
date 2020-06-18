@@ -49,16 +49,15 @@ public class TableVO {
 			defrow.add("");
 		}
 		if (name.equals("Sales")) {
-			defrow.add("자동입력");
-			defrow.add("자동입력");
-			defrow.add("자동입력");
+			defrow.add("날짜");
+			defrow.add("날짜");
+			defrow.add("날짜");
 			defrow.add("검색");
 			defrow.add("0");
 			defrow.add("");
 			defrow.add("스마트스토어");
 			defrow.add("");
 		}
-//		[SALES_CODE, PRODUCT_CODE, PRODUCT_COLOR, PRODUCT_SIZE, PRODUCT_AMOUNT, REFUND_AMOUNT]
 		if (name.equals("Sales_details")) {
 			defrow.set(0, "거래번호");
 			defrow.add("검색");

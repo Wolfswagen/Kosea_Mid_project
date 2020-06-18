@@ -7,7 +7,7 @@ import java.util.Vector;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-public class DeleteTableFrame extends TableFrame {
+public class DeleteSalesFrame extends SalesFrame {
 //  상단 패널(카테고리/검색창/검색버튼/부분검색)
 	JComboBox<String> cmb;
 	JTextField inp;
@@ -22,8 +22,9 @@ public class DeleteTableFrame extends TableFrame {
 	JButton can;
 
 	DefaultTableModel readModel2;
+	String scode;
 
-	public DeleteTableFrame(String name) throws SQLException {
+	public DeleteSalesFrame(String name) throws SQLException {
 		super(name);
 		readModel2 = new DefaultTableModel(column, 0) {
 			private static final long serialVersionUID = -4113365722825486170L;
@@ -39,6 +40,7 @@ public class DeleteTableFrame extends TableFrame {
 		inp = new JTextField("", 40);
 		src = new JButton("검색");
 		chk = new JCheckBox("부분 검색");
+		back = new JButton("뒤로");
 		up = new JPanel();
 
 		/* 하단 패널부 초기화 */
@@ -136,6 +138,36 @@ public class DeleteTableFrame extends TableFrame {
 				}
 			}
 		});
+
+		/* 뒤로 가기 */
+		back.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				SalesMain.f.setVisible(true);
+				f.dispose();
+			}
+		});
+		/* 마우스 선택 */
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (table.getModel().equals(readModel)) {
+					if (e.getClickCount() > 1) {
+						try {
+							DeletePopUp dp = new DeletePopUp(name + "_details",
+									table.getValueAt(table.getSelectedRow(), 0).toString());
+							dp.initFrame();
+						} catch (SQLException e1) {
+							JOptionPane.showMessageDialog(null, e1.getMessage(), "오류", 0);
+							e1.printStackTrace();
+						}
+
+					}
+				}
+			}
+		});
+
 		select();
 	}
 
@@ -171,18 +203,16 @@ public class DeleteTableFrame extends TableFrame {
 
 	public void select() throws SQLException {
 		readModel.setNumRows(0);
-
 		ReadDAO dao = new ReadDAO(this.name);
 		ArrayList<Vector<Object>> products = dao.list(cmb.getSelectedItem().toString(), inp.getText(),
 				chk.isSelected());
-
 		for (int i = 0; i < products.size(); i++) {
 			readModel.addRow(products.get(i));
 		}
 	}
 
 	public String toString() {
-		return "Read " + this.name;
+		return "Delete " + this.name;
 	}
 
 }

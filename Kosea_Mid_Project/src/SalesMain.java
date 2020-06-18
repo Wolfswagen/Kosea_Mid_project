@@ -3,8 +3,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.sql.SQLException;
 
-public class MainFrame2 {
-	JFrame f;
+public class SalesMain {
+	static JFrame f;
 	JComboBox<String> choice;
 	JButton read;
 	JButton create;
@@ -12,8 +12,8 @@ public class MainFrame2 {
 	JButton delete;
 	JButton exit;
 
-	public MainFrame2() {
-		f = new JFrame("Main");
+	public SalesMain() {
+		f = new JFrame("Sales");
 		f.setLayout(new FlowLayout());
 		f.setSize(500, 100);
 		f.addWindowListener(new WindowAdapter() {
@@ -22,14 +22,14 @@ public class MainFrame2 {
 			}
 		});
 
-		choice = new JComboBox<String>(new String[] { "Products", "Customers", });
+		choice = new JComboBox<String>(new String[] { "Sales", "Refunds" });
 
 		read = new JButton("조회");
 		read.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					ReadTableFrame rt = new ReadTableFrame(choice.getSelectedItem().toString());
+					ReadSalesFrame rt = new ReadSalesFrame(choice.getSelectedItem().toString());
 					rt.initFrame();
 				} catch (SQLException e1) {
 					JOptionPane.showMessageDialog(null, e1.getMessage(), "오류", 0);
@@ -44,7 +44,7 @@ public class MainFrame2 {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					InsertTableFrame it = new InsertTableFrame(choice.getSelectedItem().toString());
+					InsertSalesFrame it = new InsertSalesFrame("Sales");
 					it.initFrame();
 				} catch (SQLException e1) {
 					JOptionPane.showMessageDialog(null, e1.getMessage(), "오류", 0);
@@ -60,7 +60,7 @@ public class MainFrame2 {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					UpdateTableFrame ut = new UpdateTableFrame(choice.getSelectedItem().toString());
+					UpdateSalesFrame ut = new UpdateSalesFrame("Sales");
 					ut.initFrame();
 				} catch (SQLException e1) {
 					JOptionPane.showMessageDialog(null, e1.getMessage(), "오류", 0);
@@ -75,7 +75,7 @@ public class MainFrame2 {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					DeleteTableFrame dt = new DeleteTableFrame(choice.getSelectedItem().toString());
+					DeleteSalesFrame dt = new DeleteSalesFrame("Sales");
 					dt.initFrame();
 				} catch (SQLException e1) {
 					JOptionPane.showMessageDialog(null, e1.getMessage(), "오류", 0);
@@ -108,7 +108,7 @@ public class MainFrame2 {
 	}
 
 	public static void main(String[] args) {
-		MainFrame2 sf = new MainFrame2();
+		SalesMain sf = new SalesMain();
 		sf.initFrame();
 	}
 

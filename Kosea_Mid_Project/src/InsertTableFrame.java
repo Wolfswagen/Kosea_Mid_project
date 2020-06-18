@@ -97,7 +97,7 @@ public class InsertTableFrame extends TableFrame {
 		while (table.getRowCount() > 0) {
 			Vector<Object> data = new Vector<Object>();
 			for (int i = 0; i < dao.column.size(); i++) {
-				data.add(table.getValueAt(0, i));
+				data.add(table.getValueAt(table.getSelectedRow(), i));
 			}
 			dao.write(data);
 			insertModel.removeRow(0);

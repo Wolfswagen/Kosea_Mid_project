@@ -7,12 +7,7 @@ import java.util.Vector;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-public class DeleteTableFrame extends TableFrame {
-//  상단 패널(카테고리/검색창/검색버튼/부분검색)
-	JComboBox<String> cmb;
-	JTextField inp;
-	JButton src;
-	JCheckBox chk;
+public class DeletePopUp extends SalesFrame {
 	JPanel up;
 
 //	하단 패널(선택/수정/취소)
@@ -22,9 +17,11 @@ public class DeleteTableFrame extends TableFrame {
 	JButton can;
 
 	DefaultTableModel readModel2;
+	String scode;
 
-	public DeleteTableFrame(String name) throws SQLException {
+	public DeletePopUp(String name, String scode) throws SQLException {
 		super(name);
+		this.scode = scode;
 		readModel2 = new DefaultTableModel(column, 0) {
 			private static final long serialVersionUID = -4113365722825486170L;
 
@@ -35,11 +32,9 @@ public class DeleteTableFrame extends TableFrame {
 		};
 //		초기화 블럭
 		/* 상단 패널부 초기화 */
-		cmb = new JComboBox<String>(column);
-		inp = new JTextField("", 40);
-		src = new JButton("검색");
-		chk = new JCheckBox("부분 검색");
+		back = new JButton("뒤로");
 		up = new JPanel();
+		up.setLayout(new FlowLayout(FlowLayout.RIGHT, 30, 5));
 
 		/* 하단 패널부 초기화 */
 		cfm = new JButton("삭제");
@@ -55,19 +50,6 @@ public class DeleteTableFrame extends TableFrame {
 //		초기화 블럭 끝
 
 //		이벤트 설정
-		/* 검색 버튼 이벤트 */
-		src.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				try {
-					readModel.setNumRows(0);
-					select();
-				} catch (SQLException e1) {
-					JOptionPane.showMessageDialog(null, e1.getMessage(), "오류", 0);
-					e1.printStackTrace();
-				}
-			}
-		});
 		/* 선택 버튼 */
 		sel.addActionListener(new ActionListener() {
 			@Override
@@ -81,9 +63,6 @@ public class DeleteTableFrame extends TableFrame {
 					cfm.setEnabled(true);
 					can.setEnabled(true);
 					sel.setEnabled(false);
-					cmb.setEnabled(false);
-					inp.setEditable(false);
-					src.setEnabled(false);
 				}
 				JOptionPane.showMessageDialog(sp, readModel2.getRowCount() + "개 행이 선택되었습니다.");
 			}
@@ -99,14 +78,11 @@ public class DeleteTableFrame extends TableFrame {
 					if (result2 == 0) {
 						try {
 							delete();
-							select();
+							selectDetails();
 							table.setModel(readModel);
 							cfm.setEnabled(false);
 							can.setEnabled(false);
 							sel.setEnabled(true);
-							cmb.setEnabled(true);
-							inp.setEditable(true);
-							src.setEnabled(true);
 						} catch (SQLException e1) {
 							JOptionPane.showMessageDialog(null, e1.getMessage(), "오류", 0);
 							e1.printStackTrace();
@@ -121,30 +97,41 @@ public class DeleteTableFrame extends TableFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					readModel2.setNumRows(0);
-					select();
+					selectDetails();
 					table.setModel(readModel);
 
 					cfm.setEnabled(false);
 					can.setEnabled(false);
 					sel.setEnabled(true);
-					cmb.setEnabled(true);
-					inp.setEditable(true);
-					src.setEnabled(true);
 				} catch (SQLException e1) {
 					JOptionPane.showMessageDialog(null, e1.getMessage(), "오류", 0);
 					e1.printStackTrace();
 				}
 			}
 		});
-		select();
+
+		/* 뒤로 가기 */
+		back.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				f.dispose();
+			}
+		});
+
+		/* 윈도우 종료 버튼 */
+		f.removeWindowListener(f.getWindowListeners()[0]);
+		f.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				f.dispose();
+			}
+		});
+
+		selectDetails();
 	}
 
 	public void initFrame() {
 		/* 패널부 출력 */
-		up.add(cmb);
-		up.add(inp);
-		up.add(src);
-		up.add(chk);
 		up.add(back);
 
 		dp.add(sel);
@@ -163,26 +150,21 @@ public class DeleteTableFrame extends TableFrame {
 
 		DeleteDAO dao = new DeleteDAO(this.name);
 		while (table.getRowCount() > 0) {
-			int ccode = Integer.parseInt(table.getValueAt(0, 0).toString());
-			dao.erase(ccode);
+			dao.erase(table.getValueAt(0, 0).toString(), table.getValueAt(0, 1).toString());
 			readModel2.removeRow(0);
 		}
 	}
 
-	public void select() throws SQLException {
+	public void selectDetails() throws SQLException {
 		readModel.setNumRows(0);
-
 		ReadDAO dao = new ReadDAO(this.name);
-		ArrayList<Vector<Object>> products = dao.list(cmb.getSelectedItem().toString(), inp.getText(),
-				chk.isSelected());
-
+		ArrayList<Vector<Object>> products = dao.list(column.get(0), scode, false);
 		for (int i = 0; i < products.size(); i++) {
 			readModel.addRow(products.get(i));
 		}
 	}
 
 	public String toString() {
-		return "Read " + this.name;
+		return "Delete " + this.name;
 	}
-
 }

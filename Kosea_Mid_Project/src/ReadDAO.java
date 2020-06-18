@@ -21,7 +21,6 @@ public class ReadDAO extends TableVO {
 				query = "SELECT * FROM " + name + " WHERE " + atr + " = '" + inp + "' ORDER BY " + this.column.get(0);
 			}
 		}
-
 		rs = stmt.executeQuery(query);
 		while (rs.next()) {
 			Vector<Object> data = new Vector<Object>();

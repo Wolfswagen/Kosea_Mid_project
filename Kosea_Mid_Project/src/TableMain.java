@@ -3,8 +3,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.sql.SQLException;
 
-public class MainFrame {
-	JFrame f;
+public class TableMain {
+	static JFrame f;
 	JComboBox<String> choice;
 	JButton read;
 	JButton create;
@@ -12,8 +12,8 @@ public class MainFrame {
 	JButton delete;
 	JButton exit;
 
-	public MainFrame() {
-		f = new JFrame("Main");
+	public TableMain() {
+		f = new JFrame("Table");
 		f.setLayout(new FlowLayout());
 		f.setSize(500, 100);
 		f.addWindowListener(new WindowAdapter() {
@@ -108,7 +108,7 @@ public class MainFrame {
 	}
 
 	public static void main(String[] args) {
-		MainFrame sf = new MainFrame();
+		TableMain sf = new TableMain();
 		sf.initFrame();
 	}
 

@@ -1,3 +1,4 @@
+
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.SQLException;
@@ -10,7 +11,7 @@ public abstract class SalesFrame {
 	JFrame f;
 //  테이블 
 	DefaultTableModel readModel;
-	DefaultTableModel readModel2;
+
 	JButton back;
 	JScrollPane sp;
 	JTable table;
@@ -19,34 +20,17 @@ public abstract class SalesFrame {
 	String[] defrow;
 	String name;
 
-	Vector<String> column2;
-	String[] defrow2;
-	String name2;
-
 	public SalesFrame(String name) throws SQLException {
 //		초기화 블럭
-		this.name = name + "_Customers_Details";
-		name2 = name + "_Products_Details";
+		this.name = name;
 		column = setColumn(this.name);
-		column2 = setColumn(name2);
-
 		defrow = setDefrow(this.name);
-		defrow2 = setDefrow(name2);
 
 		f = new JFrame(this.toString());
 		f.setSize(1500, 500);
 
 		/* 테이블 초기화 */
 		readModel = new DefaultTableModel(column, 0) {
-			private static final long serialVersionUID = -4113365722825486170L;
-
-			/* 테이블 수정 불가 설정 */
-			public boolean isCellEditable(int i, int c) {
-				return false;
-			}
-		};
-
-		readModel2 = new DefaultTableModel(column2, 0) {
 			private static final long serialVersionUID = -4113365722825486170L;
 
 			/* 테이블 수정 불가 설정 */
@@ -64,9 +48,11 @@ public abstract class SalesFrame {
 		/* 윈도우 종료 버튼 */
 		f.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
-				System.exit(0);
+				SalesMain.f.setVisible(true);
+				f.dispose();
 			}
 		});
+
 	}
 
 //	frame 시작

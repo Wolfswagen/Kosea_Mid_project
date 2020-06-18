@@ -45,16 +45,6 @@ public class ReadTableFrame extends TableFrame {
 			}
 		});
 
-		table.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if (e.getClickCount() > 1) {
-					p_code = table.getValueAt(table.getSelectedRow(), 0).toString();
-					f.dispose();
-				}
-			}
-		});
-
 		select();
 	}
 
@@ -93,11 +83,31 @@ public class ReadTableFrame extends TableFrame {
 
 	public void noExit() {
 		f.removeWindowListener(f.getWindowListeners()[0]);
+		back.removeActionListener(back.getActionListeners()[0]);
 
 		/* 윈도우 종료 버튼 */
 		f.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
+
+			}
+		});
+
+		back.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
 				f.dispose();
+			}
+
+		});
+
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (e.getClickCount() > 1) {
+					p_code = table.getValueAt(table.getSelectedRow(), 0).toString();
+					f.dispose();
+				}
 			}
 		});
 	}

@@ -61,15 +61,15 @@ public abstract class TableFrame {
 		back.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				MainFrame sf = new MainFrame();
-				sf.initFrame();
+				TableMain.f.setVisible(true);
 				f.dispose();
 			}
 		});
 		/* 윈도우 종료 버튼 */
 		f.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
-				System.exit(0);
+				TableMain.f.setVisible(true);
+				f.dispose();
 			}
 		});
 
