@@ -7,7 +7,7 @@ import java.util.Vector;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-public class DeleteSalesFrame extends SalesFrame {
+public class FinishDeleteFrame extends SalesFrame {
 //  상단 패널(카테고리/검색창/검색버튼/부분검색)
 	JComboBox<String> cmb;
 	JTextField inp;
@@ -18,13 +18,14 @@ public class DeleteSalesFrame extends SalesFrame {
 //	하단 패널(선택/수정/취소)
 	JPanel dp;
 	JButton sel;
+	JButton fin;
 	JButton cfm;
 	JButton can;
 
 	DefaultTableModel readModel2;
 	String scode;
 
-	public DeleteSalesFrame(String name) throws SQLException {
+	public FinishDeleteFrame(String name) throws SQLException {
 		super(name);
 		readModel2 = new DefaultTableModel(column, 0) {
 			private static final long serialVersionUID = -4113365722825486170L;
@@ -44,6 +45,8 @@ public class DeleteSalesFrame extends SalesFrame {
 		up = new JPanel();
 
 		/* 하단 패널부 초기화 */
+		fin = new JButton("종결");
+		fin.setEnabled(false);
 		cfm = new JButton("삭제");
 		cfm.setEnabled(false);
 		sel = new JButton("선택");
@@ -81,6 +84,7 @@ public class DeleteSalesFrame extends SalesFrame {
 					}
 					table.setModel(readModel2);
 					cfm.setEnabled(true);
+					fin.setEnabled(true);
 					can.setEnabled(true);
 					sel.setEnabled(false);
 					cmb.setEnabled(false);
@@ -91,11 +95,40 @@ public class DeleteSalesFrame extends SalesFrame {
 			}
 		});
 
+		/* 종결 버튼 */
+		fin.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int result = JOptionPane.showConfirmDialog(sp,
+						"선택된 거래 " + readModel2.getRowCount() + " 건을 완료 처리합니다. 진행하시겠습니까?", "확인",
+						JOptionPane.YES_NO_OPTION);
+				if (result == 0) {
+					try {
+						finish();
+						select();
+						table.setModel(readModel);
+						cfm.setEnabled(false);
+						fin.setEnabled(false);
+						can.setEnabled(false);
+						sel.setEnabled(true);
+						cmb.setEnabled(true);
+						inp.setEditable(true);
+						src.setEnabled(true);
+					} catch (SQLException e1) {
+						JOptionPane.showMessageDialog(null, e1.getMessage(), "오류", 0);
+						e1.printStackTrace();
+					}
+				}
+			}
+		});
+
 		/* 삭제 버튼 */
 		cfm.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int result = JOptionPane.showConfirmDialog(sp, "삭제하시겠습니까?", "확인", JOptionPane.YES_NO_OPTION);
+				int result = JOptionPane.showConfirmDialog(sp,
+						"선택된 거래 " + readModel2.getRowCount() + " 건이 모두 삭제됩니다. 삭제하시겠습니까?", "확인",
+						JOptionPane.YES_NO_OPTION);
 				if (result == 0) {
 					int result2 = JOptionPane.showConfirmDialog(sp, "정말 삭제하시겠습니까?", "확인", JOptionPane.YES_NO_OPTION);
 					if (result2 == 0) {
@@ -104,6 +137,7 @@ public class DeleteSalesFrame extends SalesFrame {
 							select();
 							table.setModel(readModel);
 							cfm.setEnabled(false);
+							fin.setEnabled(false);
 							can.setEnabled(false);
 							sel.setEnabled(true);
 							cmb.setEnabled(true);
@@ -117,6 +151,7 @@ public class DeleteSalesFrame extends SalesFrame {
 				}
 			}
 		});
+
 		/* 취소 버튼 */
 		can.addActionListener(new ActionListener() {
 			@Override
@@ -127,6 +162,7 @@ public class DeleteSalesFrame extends SalesFrame {
 					table.setModel(readModel);
 
 					cfm.setEnabled(false);
+					fin.setEnabled(false);
 					can.setEnabled(false);
 					sel.setEnabled(true);
 					cmb.setEnabled(true);
@@ -180,6 +216,7 @@ public class DeleteSalesFrame extends SalesFrame {
 		up.add(back);
 
 		dp.add(sel);
+		dp.add(fin);
 		dp.add(cfm);
 		dp.add(can);
 
@@ -192,11 +229,19 @@ public class DeleteSalesFrame extends SalesFrame {
 	}
 
 	public void delete() throws SQLException {
-
 		DeleteDAO dao = new DeleteDAO(this.name);
 		while (table.getRowCount() > 0) {
 			int ccode = Integer.parseInt(table.getValueAt(0, 0).toString());
 			dao.erase(ccode);
+			readModel2.removeRow(0);
+		}
+	}
+
+	public void finish() throws SQLException {
+		FinishDAO dao = new FinishDAO(this.name);
+		while (table.getRowCount() > 0) {
+			int ccode = Integer.parseInt(table.getValueAt(0, 0).toString());
+			dao.end(ccode);
 			readModel2.removeRow(0);
 		}
 	}

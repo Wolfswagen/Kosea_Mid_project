@@ -25,6 +25,7 @@ public class ReadTableFrame extends TableFrame {
 		chk = new JCheckBox("부분 검색");
 		p = new JPanel();
 		cmb = new JComboBox<String>(column);
+
 		/* 테이블 모델설정 */
 		table.setModel(readModel);
 
@@ -44,7 +45,6 @@ public class ReadTableFrame extends TableFrame {
 				}
 			}
 		});
-
 		select();
 	}
 

@@ -5,25 +5,25 @@ import java.sql.SQLException;
 
 public class SalesMain {
 	static JFrame f;
-	JLabel lab;
 	JButton read;
 	JButton create;
 	JButton update;
 	JButton delete;
+	JButton refund;
+
 	JButton exit;
 
 	public SalesMain() {
 		f = new JFrame("Sales");
 		f.setLayout(new FlowLayout());
-		f.setSize(500, 100);
-		lab = new JLabel("거래 관리");
+		f.setSize(800, 100);
 		f.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				System.exit(0);
 			}
 		});
 
-		read = new JButton("조회");
+		read = new JButton("거래건 조회");
 		read.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -38,7 +38,7 @@ public class SalesMain {
 			}
 		});
 
-		create = new JButton("입력");
+		create = new JButton("거래건 추가");
 		create.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -49,12 +49,11 @@ public class SalesMain {
 					JOptionPane.showMessageDialog(null, e1.getMessage(), "오류", 0);
 					e1.printStackTrace();
 				}
-
 				f.dispose();
 			}
 		});
 
-		update = new JButton("수정");
+		update = new JButton("거래건 삭제");
 		update.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -69,18 +68,33 @@ public class SalesMain {
 			}
 		});
 
-		delete = new JButton("삭제");
+		delete = new JButton("거래건 제거");
 		delete.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					DeleteSalesFrame dt = new DeleteSalesFrame("Sales");
+					FinishDeleteFrame dt = new FinishDeleteFrame("Sales");
 					dt.initFrame();
 				} catch (SQLException e1) {
 					JOptionPane.showMessageDialog(null, e1.getMessage(), "오류", 0);
 					e1.printStackTrace();
 				}
 
+				f.dispose();
+			}
+		});
+
+		refund = new JButton("환불/교환");
+		refund.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					RefundSalesFrame dt = new RefundSalesFrame("Refunds");
+					dt.initFrame();
+				} catch (SQLException e1) {
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "오류", 0);
+					e1.printStackTrace();
+				}
 				f.dispose();
 			}
 		});
@@ -96,19 +110,14 @@ public class SalesMain {
 	}
 
 	public void initFrame() {
-		f.add(lab);
 		f.add(read);
 		f.add(create);
 		f.add(update);
 		f.add(delete);
+		f.add(refund);
 		f.add(exit);
 
 		f.setVisible(true);
-	}
-
-	public static void main(String[] args) {
-		SalesMain sf = new SalesMain();
-		sf.initFrame();
 	}
 
 }

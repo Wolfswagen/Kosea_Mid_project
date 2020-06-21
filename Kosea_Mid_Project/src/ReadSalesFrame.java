@@ -90,7 +90,6 @@ public class ReadSalesFrame extends SalesFrame {
 					}
 				}
 			}
-
 		});
 
 		/* 뒤로 가기 */

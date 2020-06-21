@@ -15,7 +15,7 @@ public class TableMain {
 	public TableMain() {
 		f = new JFrame("Table");
 		f.setLayout(new FlowLayout());
-		f.setSize(500, 100);
+		f.setSize(800, 100);
 		f.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				System.exit(0);
@@ -105,11 +105,6 @@ public class TableMain {
 		f.add(exit);
 
 		f.setVisible(true);
-	}
-
-	public static void main(String[] args) {
-		TableMain sf = new TableMain();
-		sf.initFrame();
 	}
 
 }

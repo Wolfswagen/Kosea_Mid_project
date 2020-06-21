@@ -31,6 +31,8 @@ public class TableVO {
 		if (name.equals("Products")) {
 			defrow.add("OUTER");
 			defrow.add("");
+			defrow.add("");
+			defrow.add("");
 			defrow.add("판매중");
 			defrow.add("0");
 			defrow.add("0");
@@ -61,10 +63,8 @@ public class TableVO {
 		if (name.equals("Sales_details")) {
 			defrow.set(0, "거래번호");
 			defrow.add("검색");
-			defrow.add("");
-			defrow.add("");
 			defrow.add("0");
-			defrow.add("0");
+			defrow.add("환불");
 		}
 	}
 

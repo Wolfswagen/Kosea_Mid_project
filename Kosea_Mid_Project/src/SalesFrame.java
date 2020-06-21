@@ -48,8 +48,8 @@ public abstract class SalesFrame {
 		/* 윈도우 종료 버튼 */
 		f.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
-//				SalesMain.f.setVisible(true);
-//				f.dispose();
+				SalesMain.f.setVisible(true);
+				f.dispose();
 			}
 		});
 

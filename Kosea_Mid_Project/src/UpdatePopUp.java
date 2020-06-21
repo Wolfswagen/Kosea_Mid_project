@@ -46,7 +46,7 @@ public class UpdatePopUp extends SalesFrame {
 
 			/* 테이블 수정 불가 설정 */
 			public boolean isCellEditable(int i, int c) {
-				if (defrow[c].equals("자동입력") || defrow[c].equals("검색") || defrow[c].equals("거래번호")) {
+				if (defrow[c].equals("자동입력") || defrow[c].equals("검색") || defrow[c].equals("거래번호") || defrow[c].equals("환불")) {
 					return false;
 				} else {
 					return true;

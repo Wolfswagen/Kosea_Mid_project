@@ -97,7 +97,7 @@ public class InsertTableFrame extends TableFrame {
 		while (table.getRowCount() > 0) {
 			Vector<Object> data = new Vector<Object>();
 			for (int i = 0; i < dao.column.size(); i++) {
-				data.add(table.getValueAt(table.getSelectedRow(), i));
+				data.add(table.getValueAt(0, i));
 			}
 			dao.write(data);
 			insertModel.removeRow(0);
@@ -108,8 +108,8 @@ public class InsertTableFrame extends TableFrame {
 	public void setCellComboBox() {
 		addCellComboBox(table.getColumnModel().getColumn(1),
 				new String[] { "OUTER", "TOP", "BOTTOM", "ONEPIECE", "SHOES", "ACC", "SUMMER" });
-		addCellComboBox(table.getColumnModel().getColumn(3), new String[] { "판매중", "품절" });
-		addCellComboBox(table.getColumnModel().getColumn(10), new String[] { "조건부 무료", "무료" });
+		addCellComboBox(table.getColumnModel().getColumn(5), new String[] { "판매중", "품절" });
+		addCellComboBox(table.getColumnModel().getColumn(12), new String[] { "조건부 무료", "무료" });
 	}
 
 	public String toString() {

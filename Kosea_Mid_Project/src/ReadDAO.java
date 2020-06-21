@@ -8,11 +8,15 @@ public class ReadDAO extends TableVO {
 	}
 
 	public ArrayList<Vector<Object>> list(String atr, String inp, boolean partial) throws SQLException {
+		return list(atr, inp, partial, this.column.get(0));
+	}
+
+	public ArrayList<Vector<Object>> list(String atr, String inp, boolean partial, String order) throws SQLException {
 		ArrayList<Vector<Object>> list = new ArrayList<Vector<Object>>();
 		String query = "";
 
 		if (inp.isEmpty()) {
-			query = "SELECT * FROM " + name + " ORDER BY " + this.column.get(0);
+			query = "SELECT * FROM " + name + " ORDER BY " + order;
 		} else {
 			if (partial) {
 				query = "SELECT * FROM " + name + " WHERE (" + atr + " LIKE '%" + inp + "' OR " + atr + " LIKE '" + inp
@@ -29,7 +33,6 @@ public class ReadDAO extends TableVO {
 			}
 			list.add(data);
 		}
-
 		return list;
 	}
 

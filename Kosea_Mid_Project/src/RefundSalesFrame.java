@@ -19,14 +19,14 @@ public class RefundSalesFrame extends SalesFrame {
 	JPanel dp;
 	JComboBox<String> cho;
 	JButton cfm;
-	JButton add;
+	JButton rcan;
 
 	DefaultTableModel readModel2;
 	Vector<String> column2;
 	String[] defrow2;
 	String name2;
 
-	Vector<Object> list;
+	String scode;
 
 	public RefundSalesFrame(String name) throws SQLException {
 		super(name);
@@ -44,11 +44,13 @@ public class RefundSalesFrame extends SalesFrame {
 		up = new JPanel();
 		back = new JButton("뒤로");
 
-		/* 상단 패널부 초기화 */
-		cho = new JComboBox<String>(new String[] { "환불", "교환" });
+		/* 하단 패널부 초기화 */
+		cho = new JComboBox<String>(new String[] { "고객 부담", "업체 부담" });
 		cho.setEnabled(false);
 		cfm = new JButton("확인");
 		cfm.setEnabled(false);
+		rcan = new JButton("환불/교환 취소");
+		rcan.setEnabled(false);
 		dp = new JPanel();
 		dp.setLayout(new FlowLayout(FlowLayout.RIGHT, 30, 5));
 
@@ -68,7 +70,11 @@ public class RefundSalesFrame extends SalesFrame {
 
 			/* 테이블 수정 불가 설정 */
 			public boolean isCellEditable(int i, int c) {
-				return false;
+				if (c == column2.size() - 2) {
+					return true;
+				} else {
+					return false;
+				}
 			}
 		};
 //		초기화 블럭 끝
@@ -96,11 +102,17 @@ public class RefundSalesFrame extends SalesFrame {
 					if (e.getClickCount() > 1) {
 						try {
 							readModel2.setNumRows(0);
+							scode = readModel.getValueAt(table.getSelectedRow(), 0).toString();
+							if (readModel.getValueAt(table.getSelectedRow(), 6).toString().contains("환불")) {
+								rcan.setEnabled(true);
+							} else {
+								cho.setEnabled(true);
+								cfm.setEnabled(true);
+							}
 							selectDetails(String.valueOf(readModel.getValueAt(table.getSelectedRow(), 0)), name2);
 							table.setModel(readModel2);
 							JOptionPane.showMessageDialog(sp, readModel2.getRowCount() + "개 행이 선택되었습니다.");
-							cho.setEnabled(true);
-							cfm.setEnabled(true);
+
 						} catch (SQLException e1) {
 							JOptionPane.showMessageDialog(null, e1.getMessage(), "오류", 0);
 							e1.printStackTrace();
@@ -108,30 +120,47 @@ public class RefundSalesFrame extends SalesFrame {
 					}
 				}
 			}
-
 		});
-		/* 뒤로 가기 */
+
+		/* 확인 버튼 */
 		cfm.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Vector<Object> param = new Vector<Object>();
-				param.add(readModel2.getValueAt(table.getSelectedRow(), 2));
-				param.add(readModel2.getValueAt(table.getSelectedRow(), 3));
-				param.add(readModel2.getValueAt(table.getSelectedRow(), 4));
-				param.add(readModel2.getValueAt(table.getSelectedRow(), 6));
-				param.add(cho.getSelectedItem());
-				RefundPopUp rp = new RefundPopUp(param);
-				rp.initFrame();
-				list = new Vector<Object>();
-				rp.f.addWindowListener(new WindowAdapter() {
-					public void windowClosed(WindowEvent e) {
-						for (int i = 0; i < rp.data.size(); i++) {
-							list.add(rp.data.get(i));
-						}
-						System.out.println(list);
-					}
-					
-				});
+				Vector<Object> data = new Vector<Object>();
+				data.add(scode);
+				data.add("");
+				data.add("");
+				data.add(cho.getSelectedItem());
+				try {
+					refund(data);
+					cho.setEnabled(false);
+					cfm.setEnabled(false);
+					rcan.setEnabled(false);
+					select();
+					table.setModel(readModel);
+				} catch (SQLException e1) {
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "오류", 0);
+					e1.printStackTrace();
+				}
+			}
+
+		});
+
+		/* 확인 버튼 */
+		rcan.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					cancelRefund();
+					cho.setEnabled(false);
+					cfm.setEnabled(false);
+					rcan.setEnabled(false);
+					select();
+					table.setModel(readModel);
+				} catch (SQLException e1) {
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "오류", 0);
+					e1.printStackTrace();
+				}
 			}
 
 		});
@@ -142,8 +171,8 @@ public class RefundSalesFrame extends SalesFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (table.getModel().equals(readModel)) {
-//					SalesMain.f.setVisible(true);
-//					f.dispose();
+					SalesMain.f.setVisible(true);
+					f.dispose();
 				} else {
 					try {
 						readModel.setNumRows(0);
@@ -151,6 +180,7 @@ public class RefundSalesFrame extends SalesFrame {
 						table.setModel(readModel);
 						cho.setEnabled(false);
 						cfm.setEnabled(false);
+						rcan.setEnabled(false);
 					} catch (SQLException e1) {
 						JOptionPane.showMessageDialog(null, e1.getMessage(), "오류", 0);
 						e1.printStackTrace();
@@ -173,6 +203,7 @@ public class RefundSalesFrame extends SalesFrame {
 
 		dp.add(cho);
 		dp.add(cfm);
+		dp.add(rcan);
 
 		/* 프레임 출력 */
 		f.add(up, BorderLayout.NORTH);
@@ -201,12 +232,25 @@ public class RefundSalesFrame extends SalesFrame {
 		}
 	}
 
-	public String toString() {
-		return "Refunds";
+	public void refund(Vector<Object> data) throws SQLException {
+		RefundDAO dao = new RefundDAO(name);
+		while (table.getRowCount() > 0) {
+			data.set(1, table.getValueAt(0, 1));
+			data.set(2, table.getValueAt(0, 6));
+			dao.insertRefund(data);
+			readModel2.removeRow(0);
+		}
 	}
 
-	public static void main(String[] args) throws SQLException {
-		RefundSalesFrame r = new RefundSalesFrame("Refunds");
-		r.initFrame();
+	public void cancelRefund() throws SQLException {
+		RefundDAO dao = new RefundDAO(name);
+		while (table.getRowCount() > 0) {
+			dao.cancelRefund(scode, table.getValueAt(0, 1).toString());
+			readModel2.removeRow(0);
+		}
+	}
+
+	public String toString() {
+		return "Refunds";
 	}
 }

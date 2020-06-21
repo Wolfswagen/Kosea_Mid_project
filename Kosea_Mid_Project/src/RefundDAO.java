@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.util.Vector;
 
 public class RefundDAO extends TableVO {
 
@@ -6,15 +7,21 @@ public class RefundDAO extends TableVO {
 		super(tname);
 	}
 
-	// delete Äõ¸® ÀÛ¼º
-	public void erase(int ccode) throws SQLException {
-		String query = "DELETE FROM " + name + " WHERE " + column.get(0) + " = " + ccode;
-		stmt.executeQuery(query);
+	public void insertRefund(Vector<Object> tuple) throws SQLException {
+		String query = "CALL REFUND ('";
+		for (int i = 0; i < tuple.size(); i++) {
+			if (i < tuple.size() - 1) {
+				query += tuple.get(i) + "', '";
+
+			} else {
+				query += tuple.get(i) + "')";
+			}
+		}
+		rs = stmt.executeQuery(query);
 	}
 
-	public void erase(String scode, String pcode) throws SQLException {
-		String query = "DELETE FROM " + name + " WHERE " + column.get(0) + " = " + scode + " and " + column.get(1) + " = "
-				+ pcode;
-		stmt.executeQuery(query);
+	public void cancelRefund(String scode, String pcode) throws SQLException {
+		String query = "CALL CANCEL_REFUND ('" + scode + "', '" + pcode + "')";
+		rs = stmt.executeQuery(query);
 	}
 }
