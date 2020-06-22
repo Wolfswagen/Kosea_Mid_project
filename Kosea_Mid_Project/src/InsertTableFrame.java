@@ -37,6 +37,7 @@ public class InsertTableFrame extends TableFrame {
 				insertModel.addRow(defrow);
 			}
 		});
+		
 		/* 행삭제 버튼 */
 		del.addActionListener(new ActionListener() {
 			@Override
@@ -55,7 +56,6 @@ public class InsertTableFrame extends TableFrame {
 
 		/* 입력 버튼 */
 		cfm.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int result = 0;
@@ -65,7 +65,6 @@ public class InsertTableFrame extends TableFrame {
 						insert();
 						insertModel.setNumRows(0);
 						insertModel.addRow(defrow);
-
 					} catch (SQLException e1) {
 						JOptionPane.showMessageDialog(null, e1.getMessage(), "오류", 0);
 						e1.printStackTrace();

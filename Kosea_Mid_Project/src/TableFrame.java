@@ -25,7 +25,8 @@ public abstract class TableFrame {
 		this.defrow = setDefrow();
 
 		f = new JFrame(this.toString());
-		f.setSize(1000, 500);
+		f.setSize(900, 500);
+		f.setLocationRelativeTo(null);
 
 		/* 테이블 초기화 */
 		readModel = new DefaultTableModel(column, 0) {

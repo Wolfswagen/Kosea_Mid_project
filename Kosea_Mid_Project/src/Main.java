@@ -13,6 +13,7 @@ public class Main {
 		f = new JFrame("Main");
 		f.setLayout(new FlowLayout());
 		f.setSize(500, 100);
+		f.setLocationRelativeTo(null);
 		f.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				System.exit(0);

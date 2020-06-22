@@ -16,6 +16,7 @@ public class TableMain {
 		f = new JFrame("Table");
 		f.setLayout(new FlowLayout());
 		f.setSize(800, 100);
+		f.setLocationRelativeTo(null);
 		f.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				System.exit(0);
@@ -86,11 +87,12 @@ public class TableMain {
 			}
 		});
 
-		exit = new JButton("종료");
+		exit = new JButton("뒤로");
 		exit.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
+				Main.f.setVisible(true);
+				f.dispose();
 			}
 		});
 

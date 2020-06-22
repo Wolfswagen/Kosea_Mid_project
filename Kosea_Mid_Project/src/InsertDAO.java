@@ -21,7 +21,7 @@ public class InsertDAO extends TableVO {
 					}
 
 				} else {
-					if (Objects.isNull(tuple.get(i))) {
+					if (Objects.isNull(tuple.get(i)) || this.defrow.get(i).equals("È¯ºÒ")) {
 						query += "')";
 					} else {
 						query += tuple.get(i) + "')";

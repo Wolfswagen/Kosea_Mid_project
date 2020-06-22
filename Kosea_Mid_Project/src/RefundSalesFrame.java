@@ -146,7 +146,7 @@ public class RefundSalesFrame extends SalesFrame {
 
 		});
 
-		/* 확인 버튼 */
+		/* 환불 취소 버튼 */
 		rcan.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

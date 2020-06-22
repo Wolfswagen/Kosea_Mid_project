@@ -2,6 +2,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Vector;
 
 import javax.swing.*;
@@ -52,8 +53,9 @@ public class UpdateSalesFrame extends SalesFrame {
 			private static final long serialVersionUID = -4113365722825486170L;
 
 			/* 테이블 수정 불가 설정 */
+			/* 테이블 수정 불가 설정 */
 			public boolean isCellEditable(int i, int c) {
-				if (defrow[c].equals("자동입력")) {
+				if (defrow[c].equals("자동입력") || defrow[c].equals("검색")) {
 					return false;
 				} else {
 					return true;
@@ -117,7 +119,6 @@ public class UpdateSalesFrame extends SalesFrame {
 						JOptionPane.showMessageDialog(null, e1.getMessage(), "오류", 0);
 						e1.printStackTrace();
 					}
-
 				}
 			}
 		});
@@ -130,7 +131,6 @@ public class UpdateSalesFrame extends SalesFrame {
 					insertModel.setNumRows(0);
 					select();
 					table.setModel(readModel);
-
 					cfm.setEnabled(false);
 					can.setEnabled(false);
 					sel.setEnabled(true);
@@ -168,6 +168,27 @@ public class UpdateSalesFrame extends SalesFrame {
 							e1.printStackTrace();
 						}
 
+					}
+				} else {
+					if (e.getClickCount() > 1) {
+						try {
+							ReadTableFrame rt = new ReadTableFrame("Customers");
+							rt.noExit();
+							rt.initFrame();
+							rt.f.addWindowListener(new WindowAdapter() {
+								public void windowClosed(WindowEvent e) {
+									if (Objects.isNull(rt.getCode())) {
+
+									} else {
+										insertModel.setValueAt(rt.getCode(), table.getSelectedRow(), 4);
+									}
+								}
+							});
+
+						} catch (SQLException e1) {
+							JOptionPane.showMessageDialog(null, e1.getMessage(), "오류", 0);
+							e1.printStackTrace();
+						}
 					}
 				}
 			}

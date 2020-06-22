@@ -2,6 +2,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Vector;
 
 import javax.swing.*;
@@ -46,7 +47,8 @@ public class UpdatePopUp extends SalesFrame {
 
 			/* 테이블 수정 불가 설정 */
 			public boolean isCellEditable(int i, int c) {
-				if (defrow[c].equals("자동입력") || defrow[c].equals("검색") || defrow[c].equals("거래번호") || defrow[c].equals("환불")) {
+				if (defrow[c].equals("자동입력") || defrow[c].equals("검색") || defrow[c].equals("거래번호")
+						|| defrow[c].equals("환불")) {
 					return false;
 				} else {
 					return true;
@@ -110,6 +112,35 @@ public class UpdatePopUp extends SalesFrame {
 				} catch (SQLException e1) {
 					JOptionPane.showMessageDialog(null, e1.getMessage(), "오류", 0);
 					e1.printStackTrace();
+				}
+			}
+		});
+
+		/* 마우스 선택 */
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (table.getModel().equals(insertModel)) {
+					if (e.getClickCount() > 1) {
+						try {
+							ReadTableFrame rt = new ReadTableFrame("Products");
+							rt.noExit();
+							rt.initFrame();
+							rt.f.addWindowListener(new WindowAdapter() {
+								public void windowClosed(WindowEvent e) {
+									if (Objects.isNull(rt.getCode())) {
+
+									} else {
+										insertModel.setValueAt(rt.getCode(), table.getSelectedRow(), 1);
+									}
+								}
+							});
+
+						} catch (SQLException e1) {
+							JOptionPane.showMessageDialog(null, e1.getMessage(), "오류", 0);
+							e1.printStackTrace();
+						}
+					}
 				}
 			}
 		});

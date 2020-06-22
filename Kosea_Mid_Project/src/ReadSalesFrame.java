@@ -144,7 +144,7 @@ public class ReadSalesFrame extends SalesFrame {
 
 	public void selectDetails(String code, String name) throws SQLException {
 		ReadDAO dao = new ReadDAO(name);
-		ArrayList<Vector<Object>> list = dao.list(column.get(0), code, false);
+		ArrayList<Vector<Object>> list = dao.list(column2.get(0), code, false);
 		for (int i = 0; i < list.size(); i++) {
 			readModel2.addRow(list.get(i));
 		}

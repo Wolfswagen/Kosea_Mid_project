@@ -66,7 +66,7 @@ public class InsertSalesFrame extends SalesFrame {
 			/* 테이블 수정 불가 설정 */
 			public boolean isCellEditable(int i, int c) {
 				if (defrow2[c].equals("자동입력") || defrow2[c].equals("검색") || defrow2[c].equals("거래번호")
-						|| defrow2[c].equals("날짜") || defrow2[2].equals("환불")) {
+						|| defrow2[c].equals("날짜") || defrow2[c].equals("환불")) {
 					return false;
 				} else {
 					return true;
@@ -127,7 +127,6 @@ public class InsertSalesFrame extends SalesFrame {
 							cmb.setEnabled(false);
 							inp.setEditable(false);
 							src.setEnabled(false);
-							back.setEnabled(true);
 							add.setEnabled(true);
 							del.setEnabled(true);
 							cfm.setEnabled(true);
@@ -203,7 +202,6 @@ public class InsertSalesFrame extends SalesFrame {
 						cmb.setEnabled(true);
 						inp.setEditable(true);
 						src.setEnabled(true);
-						back.setEnabled(false);
 						add.setEnabled(false);
 						del.setEnabled(false);
 						cfm.setEnabled(false);

@@ -17,6 +17,7 @@ public class SalesMain {
 		f = new JFrame("Sales");
 		f.setLayout(new FlowLayout());
 		f.setSize(800, 100);
+		f.setLocationRelativeTo(null);
 		f.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				System.exit(0);
@@ -53,7 +54,7 @@ public class SalesMain {
 			}
 		});
 
-		update = new JButton("거래건 삭제");
+		update = new JButton("거래건 수정");
 		update.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -68,7 +69,7 @@ public class SalesMain {
 			}
 		});
 
-		delete = new JButton("거래건 제거");
+		delete = new JButton("거래건 종결/제거");
 		delete.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -99,11 +100,12 @@ public class SalesMain {
 			}
 		});
 
-		exit = new JButton("종료");
+		exit = new JButton("뒤로");
 		exit.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
+				Main.f.setVisible(true);
+				f.dispose();
 			}
 		});
 
