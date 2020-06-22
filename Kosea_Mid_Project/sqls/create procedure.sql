@@ -128,48 +128,6 @@ END;
 
 
 
-CREATE OR REPLACE PROCEDURE refund ( s_number NUMBER, p_number NUMBER, r_amount NUMBER, s_msg varchar2 ) IS
-BEGIN
-UPDATE
-	sales s
-SET
-	s.MESSAGE =  '환불(' || s_msg || ')'
-WHERE
-	s.SALES_CODE = s_number;
-UPDATE
-	SALES_DETAILS sd
-SET
-	sd.REFUND_AMOUNT = r_amount,
-	sd.PURCHASE_AMOUNT = PURCHASE_AMOUNT - R_AMOUNT WHERE sd.Sales_code = s_number	AND sd.PRODUCT_CODE = p_number;
-END;
-
-
-
-CREATE OR REPLACE PROCEDURE cancel_refund ( s_number NUMBER, p_number NUMBER) 
-IS
-r_amount number(3);
-BEGIN
-	SELECT sd2.REFUND_AMOUNT INTO r_amount FROM SALES_DETAILS sd2 WHERE sd2.SALES_CODE = s_number AND sd2.PRODUCT_CODE = p_number;
-IF r_amount > 0 then
-UPDATE
-	sales s
-SET
-	s.MESSAGE = ' '
-WHERE
-	s.SALES_CODE = s_number;
-UPDATE
-	SALES_DETAILS sd
-SET
-	sd.PURCHASE_AMOUNT = sd.PURCHASE_AMOUNT + r_amount,
-	sd.REFUND_AMOUNT = sd.REFUND_AMOUNT - r_amount
-WHERE
-	sd.Sales_code = s_number
-	AND sd.PRODUCT_CODE = p_number;
-END IF;
-END;
-
-
-
 CREATE OR REPLACE PROCEDURE finish_sales ( s_code NUMBER )
 IS
 	c_amount number(3);
@@ -195,3 +153,43 @@ BEGIN
 		UPDATE sales s SET s.NOTE = '/완료' , s.SHIP_DATE = SYSDATE WHERE s.SALES_CODE = s_code; 
 END;
 
+
+
+
+CREATE OR REPLACE PROCEDURE KOSEA.cancel_refund ( s_number NUMBER, p_number NUMBER) 
+IS
+r_amount number(3);
+BEGIN
+	SELECT sd2.REFUND_AMOUNT INTO r_amount FROM SALES_DETAILS sd2 WHERE sd2.SALES_CODE = s_number AND sd2.PRODUCT_CODE = p_number;
+UPDATE
+	sales s
+SET
+	s.MESSAGE = ' '
+WHERE
+	s.SALES_CODE = s_number;
+UPDATE
+	SALES_DETAILS sd
+SET
+	sd.PURCHASE_AMOUNT = sd.PURCHASE_AMOUNT + r_amount,
+	sd.REFUND_AMOUNT = sd.REFUND_AMOUNT - r_amount
+WHERE
+	sd.Sales_code = s_number
+	AND sd.PRODUCT_CODE = p_number;
+END;
+
+
+
+CREATE OR REPLACE PROCEDURE KOSEA.refund ( s_number NUMBER, p_number NUMBER, r_amount NUMBER, s_msg varchar2 ) IS
+BEGIN
+UPDATE
+	sales s
+SET
+	s.MESSAGE =  '환불(' || s_msg || ')'
+WHERE
+	s.SALES_CODE = s_number;
+UPDATE
+	SALES_DETAILS sd
+SET
+	sd.REFUND_AMOUNT = sd.REFUND_AMOUNT + r_amount,
+	sd.PURCHASE_AMOUNT = sd.PURCHASE_AMOUNT - R_AMOUNT WHERE sd.Sales_code = s_number	AND sd.PRODUCT_CODE = p_number;
+END;
