@@ -187,9 +187,10 @@ public class UpdateTableFrame extends TableFrame {
 	public void setCellComboBox() {
 		addCellComboBox(table.getColumnModel().getColumn(1),
 				new String[] { "OUTER", "TOP", "BOTTOM", "ONEPIECE", "SHOES", "ACC", "SUMMER" });
-		addCellComboBox(table.getColumnModel().getColumn(3), new String[] { "판매중", "품절" });
-		addCellComboBox(table.getColumnModel().getColumn(10), new String[] { "조건부 무료", "무료" });
+		addCellComboBox(table.getColumnModel().getColumn(5), new String[] { "판매중", "품절" });
+		addCellComboBox(table.getColumnModel().getColumn(12), new String[] { "조건부 무료", "무료" });
 	}
+
 	
 	public void noExit() {
 		f.removeWindowListener(f.getWindowListeners()[0]);

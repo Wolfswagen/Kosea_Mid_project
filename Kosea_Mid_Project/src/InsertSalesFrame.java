@@ -113,8 +113,11 @@ public class InsertSalesFrame extends SalesFrame {
 				}
 			}
 		});
+
 		/* 마우스 선택 */
 		table.addMouseListener(new MouseAdapter() {
+			int cnt = 0;
+
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (table.getModel() == readModel) {
@@ -124,6 +127,7 @@ public class InsertSalesFrame extends SalesFrame {
 							selectDetails(String.valueOf(readModel.getValueAt(table.getSelectedRow(), 0)), name2);
 							scode = String.valueOf(readModel.getValueAt(table.getSelectedRow(), 0));
 							table.setModel(insertModel);
+							cnt = table.getRowCount();
 							cmb.setEnabled(false);
 							inp.setEditable(false);
 							ins.setEnabled(false);
@@ -139,7 +143,7 @@ public class InsertSalesFrame extends SalesFrame {
 					}
 
 				} else {
-					if (insertModel.getValueAt(table.getSelectedRow(), 1).toString().equals("검색")) {
+					if (table.getSelectedRow() >= cnt) {
 						if (e.getClickCount() > 1) {
 							try {
 								ReadTableFrame rt = new ReadTableFrame("Products");
@@ -148,12 +152,8 @@ public class InsertSalesFrame extends SalesFrame {
 								rt.f.addWindowListener(new WindowAdapter() {
 									public void windowClosed(WindowEvent e) {
 										if (Objects.isNull(rt.getCode())) {
-
 										} else {
-											if (insertModel.getValueAt(table.getSelectedRow(), 1).toString()
-													.equals("검색")) {
-												insertModel.setValueAt(rt.getCode(), table.getSelectedRow(), 1);
-											}
+											insertModel.setValueAt(rt.getCode(), table.getSelectedRow(), 1);
 										}
 									}
 								});

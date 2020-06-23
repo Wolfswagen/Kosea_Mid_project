@@ -115,7 +115,6 @@ public class ReadTableFrame extends TableFrame {
 		});
 
 		back.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				f.dispose();
