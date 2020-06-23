@@ -215,100 +215,28 @@ END;
 
 
 
-CREATE OR REPLACE
-PROCEDURE KOSEA.finish_sales ( s_code NUMBER ) IS c_amount NUMBER(3);
-
-c_refund NUMBER(7);
-
-c_message varchar(100);
+CREATE OR REPLACE PROCEDURE KOSEA.finish_sales ( s_code NUMBER ) 
+IS 
+	c_amount NUMBER(3);
+	c_refund NUMBER(7);
+	c_message varchar(100);
 BEGIN
-	SELECT
-	s2.note
-INTO
-	c_message
-FROM
-	SALES s2
-WHERE
-	s2.SALES_CODE = s_code;
-IF
-	c_message NOT LIKE '%완료%'
-	OR c_message IS NULL THEN
-SELECT
-	rcd.TOTAL_REFUND
-INTO
-	c_refund
-FROM
-	REFUNDS_CUSTOMERS_DETAILS rcd
-WHERE
-	rcd.SALES_CODE = s_code;
-
-FOR p_list IN (
-SELECT
-	*
-FROM
-	SALES_DETAILS sd
-WHERE
-	sd.SALES_CODE = s_code)
-LOOP
-IF
-		c_refund > 0 THEN
-SELECT
-	sd2.REFUND_AMOUNT
-INTO
-	c_amount
-FROM
-	SALES_DETAILS sd2
-WHERE
-	sd2.PRODUCT_CODE = p_list.product_code
-	AND sd2.SALES_CODE = s_code;
-
-UPDATE
-	products p
-SET
-	p.AMOUNT = p.amount + c_amount
-WHERE
-	p.PRODUCT_CODE = p_list.product_code;
-
-UPDATE
-	sales s
-SET
-	s.NOTE = '환불 완료' ,
-	s.SHIP_DATE = SYSDATE
-WHERE
-	s.SALES_CODE = s_code;
-ELSE
-SELECT
-	sd2.PURCHASE_AMOUNT
-INTO
-	c_amount
-FROM
-	SALES_DETAILS sd2
-WHERE
-	sd2.PRODUCT_CODE = p_list.product_code
-	AND sd2.SALES_CODE = s_code;
-
-UPDATE
-	products p
-SET
-	p.AMOUNT = p.amount - c_amount
-WHERE
-	p.PRODUCT_CODE = p_list.product_code;
-
-UPDATE
-	sales s
-SET
-	s.NOTE = '거래 완료' ,
-	s.SHIP_DATE = SYSDATE
-WHERE
-	s.SALES_CODE = s_code;
-END
-IF;
-END
-LOOP;
-END
-IF;
+	SELECT	s2.note INTO c_message FROM SALES s2 WHERE s2.SALES_CODE = s_code;
+	IF c_message NOT LIKE '%완료%' OR c_message IS NULL THEN SELECT rcd.TOTAL_REFUND INTO c_refund FROM REFUNDS_CUSTOMERS_DETAILS rcd WHERE rcd.SALES_CODE = s_code;
+	FOR p_list IN (SELECT * FROM SALES_DETAILS sd WHERE sd.SALES_CODE = s_code)
+		LOOP
+			IF c_refund > 0 THEN
+				SELECT sd2.REFUND_AMOUNT INTO c_amount FROM SALES_DETAILS sd2 WHERE sd2.PRODUCT_CODE = p_list.product_code AND sd2.SALES_CODE = s_code;
+				UPDATE products p SET p.AMOUNT = p.amount + c_amount WHERE p.PRODUCT_CODE = p_list.product_code;
+				UPDATE sales s SET s.NOTE = '환불 완료' , s.SHIP_DATE = SYSDATE WHERE s.SALES_CODE = s_code;
+			ELSE
+				SELECT sd2.PURCHASE_AMOUNT INTO c_amount FROM SALES_DETAILS sd2 WHERE sd2.PRODUCT_CODE = p_list.product_code AND sd2.SALES_CODE = s_code;
+				UPDATE products p SET p.AMOUNT = p.amount - c_amount WHERE p.PRODUCT_CODE = p_list.product_code;
+				UPDATE sales s SET s.NOTE = '거래 완료' , s.SHIP_DATE = SYSDATE WHERE s.SALES_CODE = s_code;
+			END IF;
+		END LOOP;
+	END IF;
 END;
-
 
 
 
