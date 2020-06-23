@@ -13,6 +13,8 @@ public class ReadTableFrame extends TableFrame {
 	JTextField inp;
 	JButton cfm;
 	JCheckBox chk;
+	JButton imp;
+
 	String p_code;
 
 	public ReadTableFrame(String name) throws SQLException {
@@ -20,11 +22,13 @@ public class ReadTableFrame extends TableFrame {
 
 //		초기화 블럭 시작
 		/* 패널부 초기화 */
-		inp = new JTextField("", 40);
+		inp = new JTextField("", 30);
 		cfm = new JButton("검색");
 		chk = new JCheckBox("부분 검색");
 		p = new JPanel();
 		cmb = new JComboBox<String>(column);
+		imp = new JButton("입고");
+		imp.setEnabled(false);
 
 		/* 테이블 모델설정 */
 		table.setModel(readModel);
@@ -45,11 +49,29 @@ public class ReadTableFrame extends TableFrame {
 				}
 			}
 		});
+		/* 입고 버튼 이벤트 */
+		if (this.name.equals("Products")) {
+			imp.setEnabled(true);
+			imp.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					try {
+						ImportTablePopUp im = new ImportTablePopUp("import_" + name);
+						im.initFrame();
+					} catch (SQLException e1) {
+						JOptionPane.showMessageDialog(null, e1.getMessage(), "오류", 0);
+						e1.printStackTrace();
+					}
+				}
+			});
+		}
 		select();
 	}
 
+//	프레임 출력
 	public void initFrame() {
 		/* 패널부 출력 */
+		p.add(imp);
 		p.add(cmb);
 		p.add(inp);
 		p.add(cfm);
@@ -110,6 +132,6 @@ public class ReadTableFrame extends TableFrame {
 				}
 			}
 		});
+		imp.setEnabled(false);
 	}
-
 }

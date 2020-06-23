@@ -37,7 +37,7 @@ public class InsertTableFrame extends TableFrame {
 				insertModel.addRow(defrow);
 			}
 		});
-		
+
 		/* 행삭제 버튼 */
 		del.addActionListener(new ActionListener() {
 			@Override
@@ -70,7 +70,6 @@ public class InsertTableFrame extends TableFrame {
 						e1.printStackTrace();
 					}
 				}
-
 			}
 		});
 	}

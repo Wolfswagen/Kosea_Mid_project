@@ -27,7 +27,7 @@ public abstract class SalesFrame {
 		defrow = setDefrow(this.name);
 
 		f = new JFrame(this.toString());
-		f.setSize(1000, 500);
+		f.setSize(1200, 500);
 		f.setLocationRelativeTo(null);
 
 		/* 테이블 초기화 */

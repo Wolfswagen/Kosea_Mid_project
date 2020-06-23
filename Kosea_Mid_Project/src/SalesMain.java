@@ -69,7 +69,7 @@ public class SalesMain {
 			}
 		});
 
-		delete = new JButton("거래건 종결/제거");
+		delete = new JButton("거래건 종결/삭제");
 		delete.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -85,7 +85,7 @@ public class SalesMain {
 			}
 		});
 
-		refund = new JButton("환불/교환");
+		refund = new JButton("환불");
 		refund.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

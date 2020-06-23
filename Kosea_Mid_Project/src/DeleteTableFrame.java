@@ -93,7 +93,9 @@ public class DeleteTableFrame extends TableFrame {
 		cfm.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int result = JOptionPane.showConfirmDialog(sp, "삭제하시겠습니까?", "확인", JOptionPane.YES_NO_OPTION);
+				int result = JOptionPane.showConfirmDialog(sp,
+						"선택된 항목 " + readModel2.getRowCount() + " 건을 삭제합니다. 진행하시겠습니까?", "확인",
+						JOptionPane.YES_NO_OPTION);
 				if (result == 0) {
 					int result2 = JOptionPane.showConfirmDialog(sp, "정말 삭제하시겠습니까?", "확인", JOptionPane.YES_NO_OPTION);
 					if (result2 == 0) {

@@ -2,6 +2,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Vector;
 
 import javax.swing.*;
@@ -103,8 +104,18 @@ public class RefundSalesFrame extends SalesFrame {
 						try {
 							readModel2.setNumRows(0);
 							scode = readModel.getValueAt(table.getSelectedRow(), 0).toString();
-							if (readModel.getValueAt(table.getSelectedRow(), 6).toString().contains("환불")) {
-								rcan.setEnabled(true);
+							String message;
+							if (Objects.isNull(table.getValueAt(table.getSelectedRow(), 7))) {
+								message = "";
+							} else {
+								message = table.getValueAt(table.getSelectedRow(), 7).toString();
+							}
+							if (message.contains("환불")) {
+								if (message.contains("완료")) {
+									return;
+								} else {
+									rcan.setEnabled(true);
+								}
 							} else {
 								cho.setEnabled(true);
 								cfm.setEnabled(true);

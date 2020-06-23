@@ -159,6 +159,18 @@ public class UpdateTableFrame extends TableFrame {
 			insertModel.removeRow(0);
 		}
 	}
+	
+	public void importProduct() throws SQLException {
+		UpdateDAO dao = new UpdateDAO(this.name);
+		while (table.getRowCount() > 0) {
+			Vector<Object> data = new Vector<Object>();
+			for (int i = 0; i < column.size(); i++) {
+				data.add(table.getValueAt(0, i));
+			}
+			dao.set(data);
+			insertModel.removeRow(0);
+		}
+	}
 
 	public void select() throws SQLException {
 		readModel.setNumRows(0);
@@ -177,6 +189,53 @@ public class UpdateTableFrame extends TableFrame {
 				new String[] { "OUTER", "TOP", "BOTTOM", "ONEPIECE", "SHOES", "ACC", "SUMMER" });
 		addCellComboBox(table.getColumnModel().getColumn(3), new String[] { "판매중", "품절" });
 		addCellComboBox(table.getColumnModel().getColumn(10), new String[] { "조건부 무료", "무료" });
+	}
+	
+	public void noExit() {
+		f.removeWindowListener(f.getWindowListeners()[0]);
+		back.removeActionListener(back.getActionListeners()[0]);
+		cfm.removeActionListener(cfm.getActionListeners()[0]);
+
+		/* 윈도우 종료 버튼 */
+		f.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+
+			}
+		});
+
+		back.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				f.dispose();
+			}
+
+		});
+		cfm.setText("입고");
+		/* 수정 버튼 */
+		cfm.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int result = 0;
+				result = JOptionPane.showConfirmDialog(sp, "수정하시겠습니까?", "확인", JOptionPane.YES_NO_OPTION);
+				if (result == 0) {
+					try {
+						update();
+						select();
+						table.setModel(readModel);
+						cfm.setEnabled(false);
+						can.setEnabled(false);
+						sel.setEnabled(true);
+						cmb.setEnabled(true);
+						inp.setEditable(true);
+						src.setEnabled(true);
+					} catch (SQLException e1) {
+						JOptionPane.showMessageDialog(null, e1.getMessage(), "오류", 0);
+						e1.printStackTrace();
+					}
+				}
+			}
+		});
+		
 	}
 
 	public String toString() {

@@ -34,4 +34,9 @@ public class UpdateDAO extends TableVO {
 		}
 		stmt.executeQuery(query);
 	}
+
+	public void getIn(String code, String amount) throws SQLException {
+		String query = "CALL Import_product('" + code + "', '" + amount + "')";
+		stmt.executeQuery(query);
+	}
 }

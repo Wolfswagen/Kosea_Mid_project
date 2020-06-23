@@ -8,28 +8,23 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 public class DeletePopUp extends SalesFrame {
+//	상단 패널(뒤로)
 	JPanel up;
 
-//	하단 패널(선택/수정/취소)
+//	하단 패널(선택/삭제/취소)
 	JPanel dp;
 	JButton sel;
 	JButton cfm;
 	JButton can;
 
 	DefaultTableModel readModel2;
+
 	String scode;
 
 	public DeletePopUp(String name, String scode) throws SQLException {
 		super(name);
 		this.scode = scode;
-		readModel2 = new DefaultTableModel(column, 0) {
-			private static final long serialVersionUID = -4113365722825486170L;
 
-			/* 테이블 수정 불가 설정 */
-			public boolean isCellEditable(int i, int c) {
-				return false;
-			}
-		};
 //		초기화 블럭
 		/* 상단 패널부 초기화 */
 		back = new JButton("뒤로");
@@ -47,6 +42,14 @@ public class DeletePopUp extends SalesFrame {
 
 		/* 테이블 모델 초기화 */
 		table.setModel(readModel);
+		readModel2 = new DefaultTableModel(column, 0) {
+			private static final long serialVersionUID = -4113365722825486170L;
+
+			/* 테이블 수정 불가 설정 */
+			public boolean isCellEditable(int i, int c) {
+				return false;
+			}
+		};
 //		초기화 블럭 끝
 
 //		이벤트 설정
@@ -72,7 +75,8 @@ public class DeletePopUp extends SalesFrame {
 		cfm.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int result = JOptionPane.showConfirmDialog(sp, "삭제하시겠습니까?", "확인", JOptionPane.YES_NO_OPTION);
+				int result = JOptionPane.showConfirmDialog(sp,
+						"선택된 " + readModel2.getRowCount() + " 건을 삭제합니다. 진행하시겠습니까?", "확인", JOptionPane.YES_NO_OPTION);
 				if (result == 0) {
 					int result2 = JOptionPane.showConfirmDialog(sp, "정말 삭제하시겠습니까?", "확인", JOptionPane.YES_NO_OPTION);
 					if (result2 == 0) {

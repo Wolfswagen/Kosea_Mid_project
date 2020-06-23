@@ -25,7 +25,7 @@ public abstract class TableFrame {
 		this.defrow = setDefrow();
 
 		f = new JFrame(this.toString());
-		f.setSize(900, 500);
+		f.setSize(1200, 500);
 		f.setLocationRelativeTo(null);
 
 		/* 테이블 초기화 */
@@ -45,6 +45,19 @@ public abstract class TableFrame {
 			public boolean isCellEditable(int i, int c) {
 				String name = insertModel.getColumnName(c);
 				if (name.equals("product_code") || name.equals("register_date") || name.equals("customer_code")) {
+					return false;
+				} else {
+					return true;
+				}
+			}
+		};
+		
+		insertModel = new DefaultTableModel(column, 0) {
+			private static final long serialVersionUID = -4113365722825486170L;
+
+			/* 테이블 수정 불가 설정 */
+			public boolean isCellEditable(int i, int c) {
+				if (defrow[c].equals("자동입력") || defrow[c].equals("날짜")) {
 					return false;
 				} else {
 					return true;

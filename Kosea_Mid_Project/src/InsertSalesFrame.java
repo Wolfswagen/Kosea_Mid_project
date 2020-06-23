@@ -126,6 +126,7 @@ public class InsertSalesFrame extends SalesFrame {
 							table.setModel(insertModel);
 							cmb.setEnabled(false);
 							inp.setEditable(false);
+							ins.setEnabled(false);
 							src.setEnabled(false);
 							add.setEnabled(true);
 							del.setEnabled(true);
@@ -138,24 +139,29 @@ public class InsertSalesFrame extends SalesFrame {
 					}
 
 				} else {
-					if (e.getClickCount() > 1) {
-						try {
-							ReadTableFrame rt = new ReadTableFrame("Products");
-							rt.noExit();
-							rt.initFrame();
-							rt.f.addWindowListener(new WindowAdapter() {
-								public void windowClosed(WindowEvent e) {
-									if (Objects.isNull(rt.getCode())) {
+					if (insertModel.getValueAt(table.getSelectedRow(), 1).toString().equals("검색")) {
+						if (e.getClickCount() > 1) {
+							try {
+								ReadTableFrame rt = new ReadTableFrame("Products");
+								rt.noExit();
+								rt.initFrame();
+								rt.f.addWindowListener(new WindowAdapter() {
+									public void windowClosed(WindowEvent e) {
+										if (Objects.isNull(rt.getCode())) {
 
-									} else {
-										insertModel.setValueAt(rt.getCode(), table.getSelectedRow(), 1);
+										} else {
+											if (insertModel.getValueAt(table.getSelectedRow(), 1).toString()
+													.equals("검색")) {
+												insertModel.setValueAt(rt.getCode(), table.getSelectedRow(), 1);
+											}
+										}
 									}
-								}
-							});
+								});
 
-						} catch (SQLException e1) {
-							JOptionPane.showMessageDialog(null, e1.getMessage(), "오류", 0);
-							e1.printStackTrace();
+							} catch (SQLException e1) {
+								JOptionPane.showMessageDialog(null, e1.getMessage(), "오류", 0);
+								e1.printStackTrace();
+							}
 						}
 					}
 				}
@@ -201,6 +207,7 @@ public class InsertSalesFrame extends SalesFrame {
 						insertModel.addRow(defrow);
 						cmb.setEnabled(true);
 						inp.setEditable(true);
+						ins.setEnabled(true);
 						src.setEnabled(true);
 						add.setEnabled(false);
 						del.setEnabled(false);
@@ -230,6 +237,7 @@ public class InsertSalesFrame extends SalesFrame {
 						cmb.setEnabled(true);
 						inp.setEditable(true);
 						src.setEnabled(true);
+						ins.setEnabled(true);
 						add.setEnabled(false);
 						del.setEnabled(false);
 						cfm.setEnabled(false);

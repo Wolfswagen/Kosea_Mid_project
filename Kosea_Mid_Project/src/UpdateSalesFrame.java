@@ -167,7 +167,6 @@ public class UpdateSalesFrame extends SalesFrame {
 							JOptionPane.showMessageDialog(null, e1.getMessage(), "¿À·ù", 0);
 							e1.printStackTrace();
 						}
-
 					}
 				} else {
 					if (e.getClickCount() > 1) {
