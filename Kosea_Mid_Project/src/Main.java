@@ -6,7 +6,6 @@ public class Main {
 	static JFrame f;
 	JButton table;
 	JButton sales;
-
 	JButton exit;
 
 	public Main() {

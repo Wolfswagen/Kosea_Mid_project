@@ -11,5 +11,4 @@ public class FinishDAO extends TableVO {
 		String query = "call finish_sales(" + ccode + ")";
 		stmt.executeQuery(query);
 	}
-
 }
