@@ -47,11 +47,9 @@ public class Main {
 				System.exit(0);
 			}
 		});
-
 	}
 
 	public void initFrame() {
-
 		f.add(table);
 		f.add(sales);
 		f.add(exit);
@@ -63,5 +61,4 @@ public class Main {
 		Main sf = new Main();
 		sf.initFrame();
 	}
-
 }
