@@ -10,7 +10,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 public class InsertSalesFrame extends SalesFrame {
-	// »ó´Ü ÆĞ³Î(Ä«Å×°í¸®/°Ë»öÃ¢/°Ë»ö¹öÆ°/ºÎºĞ°Ë»ö)
+	// ìƒë‹¨ íŒ¨ë„(ì¹´í…Œê³ ë¦¬/ê²€ìƒ‰ì°½/ê²€ìƒ‰ë²„íŠ¼/ë¶€ë¶„ê²€ìƒ‰)
 	JComboBox<String> cmb;
 	JTextField inp;
 	JButton src;
@@ -18,7 +18,7 @@ public class InsertSalesFrame extends SalesFrame {
 	JCheckBox chk;
 	JPanel up;
 
-//		ÇÏ´Ü ÆĞ³Î(¼±ÅÃ/¼öÁ¤/Ãë¼Ò)
+//		í•˜ë‹¨ íŒ¨ë„(ì„ íƒ/ìˆ˜ì •/ì·¨ì†Œ)
 	JPanel dp;
 	JButton add;
 	JButton del;
@@ -37,46 +37,46 @@ public class InsertSalesFrame extends SalesFrame {
 		this.column2 = setColumn(name2);
 		this.defrow2 = setDefrow(name2);
 
-//			ÃÊ±âÈ­ ºí·°
-		/* »ó´Ü ÆĞ³ÎºÎ ÃÊ±âÈ­ */
+//			ì´ˆê¸°í™” ë¸”ëŸ­
+		/* ìƒë‹¨ íŒ¨ë„ë¶€ ì´ˆê¸°í™” */
 		cmb = new JComboBox<String>(column);
 		inp = new JTextField("", 40);
-		src = new JButton("°Ë»ö");
-		chk = new JCheckBox("ºÎºĞ °Ë»ö");
-		ins = new JButton("½Å±Ô °Å·¡°Ç");
-		back = new JButton("µÚ·Î");
+		src = new JButton("ê²€ìƒ‰");
+		chk = new JCheckBox("ë¶€ë¶„ ê²€ìƒ‰");
+		ins = new JButton("ì‹ ê·œ ê±°ë˜ê±´");
+		back = new JButton("ë’¤ë¡œ");
 		up = new JPanel();
 
-		/* ÇÏ´Ü ÆĞ³ÎºÎ ÃÊ±âÈ­ */
-		add = new JButton("ÇàÃß°¡");
+		/* í•˜ë‹¨ íŒ¨ë„ë¶€ ì´ˆê¸°í™” */
+		add = new JButton("í–‰ì¶”ê°€");
 		add.setEnabled(false);
-		del = new JButton("Çà»èÁ¦");
+		del = new JButton("í–‰ì‚­ì œ");
 		del.setEnabled(false);
-		cfm = new JButton("ÀÔ·Â");
+		cfm = new JButton("ì…ë ¥");
 		cfm.setEnabled(false);
 		dp = new JPanel();
 		dp.setLayout(new FlowLayout(FlowLayout.RIGHT, 30, 5));
 
-		/* Å×ÀÌºí ¸ğµ¨ ÃÊ±âÈ­ */
+		/* í…Œì´ë¸” ëª¨ë¸ ì´ˆê¸°í™” */
 		table.setModel(readModel);
 
 		insertModel = new DefaultTableModel(column2, 0) {
 			private static final long serialVersionUID = -4113365722825486170L;
 
-			/* Å×ÀÌºí ¼öÁ¤ ºÒ°¡ ¼³Á¤ */
+			/* í…Œì´ë¸” ìˆ˜ì • ë¶ˆê°€ ì„¤ì • */
 			public boolean isCellEditable(int i, int c) {
-				if (defrow2[c].equals("ÀÚµ¿ÀÔ·Â") || defrow2[c].equals("°Ë»ö") || defrow2[c].equals("°Å·¡¹øÈ£")
-						|| defrow2[c].equals("³¯Â¥") || defrow2[c].equals("È¯ºÒ")) {
+				if (defrow2[c].equals("ìë™ì…ë ¥") || defrow2[c].equals("ê²€ìƒ‰") || defrow2[c].equals("ê±°ë˜ë²ˆí˜¸")
+						|| defrow2[c].equals("ë‚ ì§œ") || defrow2[c].equals("í™˜ë¶ˆ")) {
 					return false;
 				} else {
 					return true;
 				}
 			}
 		};
-//			ÃÊ±âÈ­ ºí·° ³¡
+//			ì´ˆê¸°í™” ë¸”ëŸ­ ë
 
-//			ÀÌº¥Æ® ¼³Á¤
-		/* °Ë»ö ¹öÆ° ÀÌº¥Æ® */
+//			ì´ë²¤íŠ¸ ì„¤ì •
+		/* ê²€ìƒ‰ ë²„íŠ¼ ì´ë²¤íŠ¸ */
 		src.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -84,12 +84,12 @@ public class InsertSalesFrame extends SalesFrame {
 				try {
 					select();
 				} catch (SQLException e1) {
-					JOptionPane.showMessageDialog(null, e1.getMessage(), "¿À·ù", 0);
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "ì˜¤ë¥˜", 0);
 					e1.printStackTrace();
 				}
 			}
 		});
-		/* °Å·¡°Ç Ãß°¡ ¹öÆ° */
+		/* ê±°ë˜ê±´ ì¶”ê°€ ë²„íŠ¼ */
 		ins.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -101,20 +101,20 @@ public class InsertSalesFrame extends SalesFrame {
 							try {
 								select();
 							} catch (SQLException e1) {
-								JOptionPane.showMessageDialog(null, e1.getMessage(), "¿À·ù", 0);
+								JOptionPane.showMessageDialog(null, e1.getMessage(), "ì˜¤ë¥˜", 0);
 								e1.printStackTrace();
 							}
 						}
 					});
 					ip.initFrame();
 				} catch (SQLException e1) {
-					JOptionPane.showMessageDialog(null, e1.getMessage(), "¿À·ù", 0);
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "ì˜¤ë¥˜", 0);
 					e1.printStackTrace();
 				}
 			}
 		});
 
-		/* ¸¶¿ì½º ¼±ÅÃ */
+		/* ë§ˆìš°ìŠ¤ ì„ íƒ */
 		table.addMouseListener(new MouseAdapter() {
 			int cnt = 0;
 
@@ -135,9 +135,9 @@ public class InsertSalesFrame extends SalesFrame {
 							add.setEnabled(true);
 							del.setEnabled(true);
 							cfm.setEnabled(true);
-							JOptionPane.showMessageDialog(sp, insertModel.getRowCount() + "°³ ÇàÀÌ ¼±ÅÃµÇ¾ú½À´Ï´Ù.");
+							JOptionPane.showMessageDialog(sp, insertModel.getRowCount() + "ê°œ í–‰ì´ ì„ íƒë˜ì—ˆìŠµë‹ˆë‹¤.");
 						} catch (SQLException e1) {
-							JOptionPane.showMessageDialog(null, e1.getMessage(), "¿À·ù", 0);
+							JOptionPane.showMessageDialog(null, e1.getMessage(), "ì˜¤ë¥˜", 0);
 							e1.printStackTrace();
 						}
 					}
@@ -159,7 +159,7 @@ public class InsertSalesFrame extends SalesFrame {
 								});
 
 							} catch (SQLException e1) {
-								JOptionPane.showMessageDialog(null, e1.getMessage(), "¿À·ù", 0);
+								JOptionPane.showMessageDialog(null, e1.getMessage(), "ì˜¤ë¥˜", 0);
 								e1.printStackTrace();
 							}
 						}
@@ -169,7 +169,7 @@ public class InsertSalesFrame extends SalesFrame {
 
 		});
 
-		/* ÇàÃß°¡ ¹öÆ° */
+		/* í–‰ì¶”ê°€ ë²„íŠ¼ */
 		add.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -178,7 +178,7 @@ public class InsertSalesFrame extends SalesFrame {
 			}
 		});
 
-		/* Çà»èÁ¦ ¹öÆ° */
+		/* í–‰ì‚­ì œ ë²„íŠ¼ */
 		del.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -194,12 +194,12 @@ public class InsertSalesFrame extends SalesFrame {
 			}
 		});
 
-		/* ÀÔ·Â ¹öÆ° */
+		/* ì…ë ¥ ë²„íŠ¼ */
 		cfm.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int result = 0;
-				result = JOptionPane.showConfirmDialog(sp, "ÀÔ·ÂÇÏ½Ã°Ú½À´Ï±î?", "È®ÀÎ", JOptionPane.YES_NO_OPTION);
+				result = JOptionPane.showConfirmDialog(sp, "ì…ë ¥í•˜ì‹œê² ìŠµë‹ˆê¹Œ?", "í™•ì¸", JOptionPane.YES_NO_OPTION);
 				if (result == 0) {
 					try {
 						insertDetails(insertModel.getValueAt(0, 0).toString(), name2);
@@ -217,7 +217,7 @@ public class InsertSalesFrame extends SalesFrame {
 						table.setModel(readModel);
 
 					} catch (Exception e1) {
-						JOptionPane.showMessageDialog(null, e1.getMessage(), "¿À·ù", 0);
+						JOptionPane.showMessageDialog(null, e1.getMessage(), "ì˜¤ë¥˜", 0);
 						e1.printStackTrace();
 					}
 				}
@@ -225,7 +225,7 @@ public class InsertSalesFrame extends SalesFrame {
 			}
 		});
 
-		/* µÚ·Î °¡±â */
+		/* ë’¤ë¡œ ê°€ê¸° */
 		back.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -242,7 +242,7 @@ public class InsertSalesFrame extends SalesFrame {
 						del.setEnabled(false);
 						cfm.setEnabled(false);
 					} catch (SQLException e1) {
-						JOptionPane.showMessageDialog(null, e1.getMessage(), "¿À·ù", 0);
+						JOptionPane.showMessageDialog(null, e1.getMessage(), "ì˜¤ë¥˜", 0);
 						e1.printStackTrace();
 					}
 				} else {
@@ -255,7 +255,7 @@ public class InsertSalesFrame extends SalesFrame {
 	}
 
 	public void initFrame() {
-		/* ÆĞ³ÎºÎ Ãâ·Â */
+		/* íŒ¨ë„ë¶€ ì¶œë ¥ */
 		up.add(cmb);
 		up.add(inp);
 		up.add(src);
@@ -267,7 +267,7 @@ public class InsertSalesFrame extends SalesFrame {
 		dp.add(del);
 		dp.add(cfm);
 
-		/* ÇÁ·¹ÀÓ Ãâ·Â */
+		/* í”„ë ˆì„ ì¶œë ¥ */
 		f.add(up, BorderLayout.NORTH);
 		f.add(sp, BorderLayout.CENTER);
 		f.add(dp, BorderLayout.SOUTH);

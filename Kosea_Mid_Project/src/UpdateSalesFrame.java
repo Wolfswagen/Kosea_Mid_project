@@ -9,14 +9,14 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 public class UpdateSalesFrame extends SalesFrame {
-//  »ó´Ü ÆĞ³Î(Ä«Å×°í¸®/°Ë»öÃ¢/°Ë»ö¹öÆ°/ºÎºĞ°Ë»ö)
+//  ìƒë‹¨ íŒ¨ë„(ì¹´í…Œê³ ë¦¬/ê²€ìƒ‰ì°½/ê²€ìƒ‰ë²„íŠ¼/ë¶€ë¶„ê²€ìƒ‰)
 	JComboBox<String> cmb;
 	JTextField inp;
 	JButton src;
 	JCheckBox chk;
 	JPanel up;
 
-//	ÇÏ´Ü ÆĞ³Î(¼±ÅÃ/¼öÁ¤/Ãë¼Ò)
+//	í•˜ë‹¨ íŒ¨ë„(ì„ íƒ/ìˆ˜ì •/ì·¨ì†Œ)
 	JPanel dp;
 	JButton sel;
 	JButton cfm;
@@ -28,44 +28,44 @@ public class UpdateSalesFrame extends SalesFrame {
 	public UpdateSalesFrame(String name) throws SQLException {
 		super(name);
 
-//		ÃÊ±âÈ­ ºí·°
-		/* »ó´Ü ÆĞ³ÎºÎ ÃÊ±âÈ­ */
+//		ì´ˆê¸°í™” ë¸”ëŸ­
+		/* ìƒë‹¨ íŒ¨ë„ë¶€ ì´ˆê¸°í™” */
 		cmb = new JComboBox<String>(column);
 		inp = new JTextField("", 40);
-		src = new JButton("°Ë»ö");
-		chk = new JCheckBox("ºÎºĞ °Ë»ö");
-		back = new JButton("µÚ·Î");
+		src = new JButton("ê²€ìƒ‰");
+		chk = new JCheckBox("ë¶€ë¶„ ê²€ìƒ‰");
+		back = new JButton("ë’¤ë¡œ");
 		up = new JPanel();
 
-		/* ÇÏ´Ü ÆĞ³ÎºÎ ÃÊ±âÈ­ */
-		cfm = new JButton("¼öÁ¤");
+		/* í•˜ë‹¨ íŒ¨ë„ë¶€ ì´ˆê¸°í™” */
+		cfm = new JButton("ìˆ˜ì •");
 		cfm.setEnabled(false);
-		sel = new JButton("¼±ÅÃ");
-		can = new JButton("Ãë¼Ò");
+		sel = new JButton("ì„ íƒ");
+		can = new JButton("ì·¨ì†Œ");
 		can.setEnabled(false);
 		dp = new JPanel();
 		dp.setLayout(new FlowLayout(FlowLayout.RIGHT, 30, 5));
 
-		/* Å×ÀÌºí ¸ğµ¨ ÃÊ±âÈ­ */
+		/* í…Œì´ë¸” ëª¨ë¸ ì´ˆê¸°í™” */
 		table.setModel(readModel);
 
 		insertModel = new DefaultTableModel(column, 0) {
 			private static final long serialVersionUID = -4113365722825486170L;
 
-			/* Å×ÀÌºí ¼öÁ¤ ºÒ°¡ ¼³Á¤ */
-			/* Å×ÀÌºí ¼öÁ¤ ºÒ°¡ ¼³Á¤ */
+			/* í…Œì´ë¸” ìˆ˜ì • ë¶ˆê°€ ì„¤ì • */
+			/* í…Œì´ë¸” ìˆ˜ì • ë¶ˆê°€ ì„¤ì • */
 			public boolean isCellEditable(int i, int c) {
-				if (defrow[c].equals("ÀÚµ¿ÀÔ·Â") || defrow[c].equals("°Ë»ö")) {
+				if (defrow[c].equals("ìë™ì…ë ¥") || defrow[c].equals("ê²€ìƒ‰")) {
 					return false;
 				} else {
 					return true;
 				}
 			}
 		};
-//		ÃÊ±âÈ­ ºí·° ³¡
+//		ì´ˆê¸°í™” ë¸”ëŸ­ ë
 
-//		ÀÌº¥Æ® ¼³Á¤
-		/* °Ë»ö ¹öÆ° ÀÌº¥Æ® */
+//		ì´ë²¤íŠ¸ ì„¤ì •
+		/* ê²€ìƒ‰ ë²„íŠ¼ ì´ë²¤íŠ¸ */
 		src.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -73,12 +73,12 @@ public class UpdateSalesFrame extends SalesFrame {
 					readModel.setNumRows(0);
 					select();
 				} catch (SQLException e1) {
-					JOptionPane.showMessageDialog(null, e1.getMessage(), "¿À·ù", 0);
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "ì˜¤ë¥˜", 0);
 					e1.printStackTrace();
 				}
 			}
 		});
-		/* ¼±ÅÃ ¹öÆ° */
+		/* ì„ íƒ ë²„íŠ¼ */
 		sel.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -95,15 +95,15 @@ public class UpdateSalesFrame extends SalesFrame {
 					inp.setEditable(false);
 					src.setEnabled(false);
 				}
-				JOptionPane.showMessageDialog(sp, insertModel.getRowCount() + "°³ ÇàÀÌ ¼±ÅÃµÇ¾ú½À´Ï´Ù.");
+				JOptionPane.showMessageDialog(sp, insertModel.getRowCount() + "ê°œ í–‰ì´ ì„ íƒë˜ì—ˆìŠµë‹ˆë‹¤.");
 			}
 		});
 
-		/* ¼öÁ¤ ¹öÆ° */
+		/* ìˆ˜ì • ë²„íŠ¼ */
 		cfm.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int result = JOptionPane.showConfirmDialog(sp, "¼öÁ¤ÇÏ½Ã°Ú½À´Ï±î?", "È®ÀÎ", JOptionPane.YES_NO_OPTION);
+				int result = JOptionPane.showConfirmDialog(sp, "ìˆ˜ì •í•˜ì‹œê² ìŠµë‹ˆê¹Œ?", "í™•ì¸", JOptionPane.YES_NO_OPTION);
 				if (result == 0) {
 					try {
 						update();
@@ -116,14 +116,14 @@ public class UpdateSalesFrame extends SalesFrame {
 						inp.setEditable(true);
 						src.setEnabled(true);
 					} catch (SQLException e1) {
-						JOptionPane.showMessageDialog(null, e1.getMessage(), "¿À·ù", 0);
+						JOptionPane.showMessageDialog(null, e1.getMessage(), "ì˜¤ë¥˜", 0);
 						e1.printStackTrace();
 					}
 				}
 			}
 		});
 
-		/* Ãë¼Ò ¹öÆ° */
+		/* ì·¨ì†Œ ë²„íŠ¼ */
 		can.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -138,13 +138,13 @@ public class UpdateSalesFrame extends SalesFrame {
 					inp.setEditable(true);
 					src.setEnabled(true);
 				} catch (SQLException e1) {
-					JOptionPane.showMessageDialog(null, e1.getMessage(), "¿À·ù", 0);
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "ì˜¤ë¥˜", 0);
 					e1.printStackTrace();
 				}
 			}
 		});
 
-		/* µÚ·Î °¡±â */
+		/* ë’¤ë¡œ ê°€ê¸° */
 		back.addActionListener(new ActionListener() {
 
 			@Override
@@ -153,7 +153,7 @@ public class UpdateSalesFrame extends SalesFrame {
 				f.dispose();
 			}
 		});
-		/* ¸¶¿ì½º ¼±ÅÃ */
+		/* ë§ˆìš°ìŠ¤ ì„ íƒ */
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -164,7 +164,7 @@ public class UpdateSalesFrame extends SalesFrame {
 									table.getValueAt(table.getSelectedRow(), 0).toString());
 							up.initFrame();
 						} catch (SQLException e1) {
-							JOptionPane.showMessageDialog(null, e1.getMessage(), "¿À·ù", 0);
+							JOptionPane.showMessageDialog(null, e1.getMessage(), "ì˜¤ë¥˜", 0);
 							e1.printStackTrace();
 						}
 					}
@@ -185,7 +185,7 @@ public class UpdateSalesFrame extends SalesFrame {
 							});
 
 						} catch (SQLException e1) {
-							JOptionPane.showMessageDialog(null, e1.getMessage(), "¿À·ù", 0);
+							JOptionPane.showMessageDialog(null, e1.getMessage(), "ì˜¤ë¥˜", 0);
 							e1.printStackTrace();
 						}
 					}
@@ -197,7 +197,7 @@ public class UpdateSalesFrame extends SalesFrame {
 	}
 
 	public void initFrame() {
-		/* ÆĞ³ÎºÎ Ãâ·Â */
+		/* íŒ¨ë„ë¶€ ì¶œë ¥ */
 		up.add(cmb);
 		up.add(inp);
 		up.add(src);
@@ -208,7 +208,7 @@ public class UpdateSalesFrame extends SalesFrame {
 		dp.add(cfm);
 		dp.add(can);
 
-		/* ÇÁ·¹ÀÓ Ãâ·Â */
+		/* í”„ë ˆì„ ì¶œë ¥ */
 		f.add(up, BorderLayout.NORTH);
 		f.add(sp, BorderLayout.CENTER);
 		f.add(dp, BorderLayout.SOUTH);
@@ -216,7 +216,7 @@ public class UpdateSalesFrame extends SalesFrame {
 		f.setVisible(true);
 	}
 
-//	update Äõ¸® ÀÛ¼º
+//	update ì¿¼ë¦¬ ì‘ì„±
 	public void update() throws SQLException {
 		UpdateDAO dao = new UpdateDAO(this.name);
 		while (table.getRowCount() > 0) {

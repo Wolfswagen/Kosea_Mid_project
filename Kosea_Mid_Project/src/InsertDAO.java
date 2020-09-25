@@ -7,11 +7,11 @@ public class InsertDAO extends TableVO {
 		super(tname);
 	}
 
-//	insert Äõ¸® ÀÛ¼º
+//	insert ì¿¼ë¦¬ ìž‘ì„±
 	public void write(Vector<Object> tuple) throws SQLException {
 		String query = "CALL INSERT_" + name + "('";
 		for (int i = 0; i < tuple.size(); i++) {
-			if (this.defrow.get(i).equals("ÀÚµ¿ÀÔ·Â") || this.defrow.get(i).equals("³¯Â¥")) {
+			if (this.defrow.get(i).equals("ìžë™ìž…ë ¥") || this.defrow.get(i).equals("ë‚ ì§œ")) {
 			} else {
 				if (i < tuple.size() - 1) {
 					if (Objects.isNull(tuple.get(i))) {
@@ -21,7 +21,7 @@ public class InsertDAO extends TableVO {
 					}
 
 				} else {
-					if (Objects.isNull(tuple.get(i)) || this.defrow.get(i).equals("È¯ºÒ")) {
+					if (Objects.isNull(tuple.get(i)) || this.defrow.get(i).equals("í™˜ë¶ˆ")) {
 						query += "')";
 					} else {
 						query += tuple.get(i) + "')";

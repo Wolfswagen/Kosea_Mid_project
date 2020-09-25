@@ -9,7 +9,7 @@ import javax.swing.table.*;
 public abstract class TableFrame {
 	JFrame f;
 	JButton back;
-//  Å×ÀÌºí 
+//  í…Œì´ë¸” 
 	DefaultTableModel readModel;
 	DefaultTableModel insertModel;
 	JScrollPane sp;
@@ -19,7 +19,7 @@ public abstract class TableFrame {
 	String name;
 
 	public TableFrame(String name) throws SQLException {
-//		ÃÊ±âÈ­ ºí·°
+//		ì´ˆê¸°í™” ë¸”ëŸ­
 		this.name = name;
 		this.column = setColumn();
 		this.defrow = setDefrow();
@@ -28,11 +28,11 @@ public abstract class TableFrame {
 		f.setSize(1200, 500);
 		f.setLocationRelativeTo(null);
 
-		/* Å×ÀÌºí ÃÊ±âÈ­ */
+		/* í…Œì´ë¸” ì´ˆê¸°í™” */
 		readModel = new DefaultTableModel(column, 0) {
 			private static final long serialVersionUID = -4113365722825486170L;
 
-			/* Å×ÀÌºí ¼öÁ¤ ºÒ°¡ ¼³Á¤ */
+			/* í…Œì´ë¸” ìˆ˜ì • ë¶ˆê°€ ì„¤ì • */
 			public boolean isCellEditable(int i, int c) {
 				return false;
 			}
@@ -41,7 +41,7 @@ public abstract class TableFrame {
 		insertModel = new DefaultTableModel(column, 0) {
 			private static final long serialVersionUID = -4113365722825486170L;
 
-			/* Å×ÀÌºí ¼öÁ¤ ºÒ°¡ ¼³Á¤ */
+			/* í…Œì´ë¸” ìˆ˜ì • ë¶ˆê°€ ì„¤ì • */
 			public boolean isCellEditable(int i, int c) {
 				String name = insertModel.getColumnName(c);
 				if (name.equals("product_code") || name.equals("register_date") || name.equals("customer_code")) {
@@ -55,9 +55,9 @@ public abstract class TableFrame {
 		insertModel = new DefaultTableModel(column, 0) {
 			private static final long serialVersionUID = -4113365722825486170L;
 
-			/* Å×ÀÌºí ¼öÁ¤ ºÒ°¡ ¼³Á¤ */
+			/* í…Œì´ë¸” ìˆ˜ì • ë¶ˆê°€ ì„¤ì • */
 			public boolean isCellEditable(int i, int c) {
-				if (defrow[c].equals("ÀÚµ¿ÀÔ·Â") || defrow[c].equals("³¯Â¥")) {
+				if (defrow[c].equals("ìë™ì…ë ¥") || defrow[c].equals("ë‚ ì§œ")) {
 					return false;
 				} else {
 					return true;
@@ -69,9 +69,9 @@ public abstract class TableFrame {
 		table.getTableHeader().setReorderingAllowed(false);
 		sp = new JScrollPane(table);
 
-//		ÀÌº¥Æ® ¼³Á¤
-		/* µÚ·Î ¹öÆ° */
-		back = new JButton("µÚ·Î");
+//		ì´ë²¤íŠ¸ ì„¤ì •
+		/* ë’¤ë¡œ ë²„íŠ¼ */
+		back = new JButton("ë’¤ë¡œ");
 		back.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -79,7 +79,7 @@ public abstract class TableFrame {
 				f.dispose();
 			}
 		});
-		/* À©µµ¿ì Á¾·á ¹öÆ° */
+		/* ìœˆë„ìš° ì¢…ë£Œ ë²„íŠ¼ */
 		f.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				TableMain.f.setVisible(true);
@@ -89,7 +89,7 @@ public abstract class TableFrame {
 
 	}
 
-//	frame ½ÃÀÛ
+//	frame ì‹œì‘
 	public abstract void initFrame();
 
 	public Vector<String> setColumn() throws SQLException {
@@ -111,7 +111,7 @@ public abstract class TableFrame {
 		return row;
 	}
 
-//	table combobox Ãß°¡
+//	table combobox ì¶”ê°€
 	public void addCellComboBox(TableColumn column, String[] tpl) {
 		JComboBox<String> comboBox = new JComboBox<String>(tpl);
 		column.setCellEditor(new DefaultCellEditor(comboBox));

@@ -8,10 +8,10 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 public class DeletePopUp extends SalesFrame {
-//	»ó´Ü ÆĞ³Î(µÚ·Î)
+//	ìƒë‹¨ íŒ¨ë„(ë’¤ë¡œ)
 	JPanel up;
 
-//	ÇÏ´Ü ÆĞ³Î(¼±ÅÃ/»èÁ¦/Ãë¼Ò)
+//	í•˜ë‹¨ íŒ¨ë„(ì„ íƒ/ì‚­ì œ/ì·¨ì†Œ)
 	JPanel dp;
 	JButton sel;
 	JButton cfm;
@@ -25,35 +25,35 @@ public class DeletePopUp extends SalesFrame {
 		super(name);
 		this.scode = scode;
 
-//		ÃÊ±âÈ­ ºí·°
-		/* »ó´Ü ÆĞ³ÎºÎ ÃÊ±âÈ­ */
-		back = new JButton("µÚ·Î");
+//		ì´ˆê¸°í™” ë¸”ëŸ­
+		/* ìƒë‹¨ íŒ¨ë„ë¶€ ì´ˆê¸°í™” */
+		back = new JButton("ë’¤ë¡œ");
 		up = new JPanel();
 		up.setLayout(new FlowLayout(FlowLayout.RIGHT, 30, 5));
 
-		/* ÇÏ´Ü ÆĞ³ÎºÎ ÃÊ±âÈ­ */
-		cfm = new JButton("»èÁ¦");
+		/* í•˜ë‹¨ íŒ¨ë„ë¶€ ì´ˆê¸°í™” */
+		cfm = new JButton("ì‚­ì œ");
 		cfm.setEnabled(false);
-		sel = new JButton("¼±ÅÃ");
-		can = new JButton("Ãë¼Ò");
+		sel = new JButton("ì„ íƒ");
+		can = new JButton("ì·¨ì†Œ");
 		can.setEnabled(false);
 		dp = new JPanel();
 		dp.setLayout(new FlowLayout(FlowLayout.RIGHT, 30, 5));
 
-		/* Å×ÀÌºí ¸ğµ¨ ÃÊ±âÈ­ */
+		/* í…Œì´ë¸” ëª¨ë¸ ì´ˆê¸°í™” */
 		table.setModel(readModel);
 		readModel2 = new DefaultTableModel(column, 0) {
 			private static final long serialVersionUID = -4113365722825486170L;
 
-			/* Å×ÀÌºí ¼öÁ¤ ºÒ°¡ ¼³Á¤ */
+			/* í…Œì´ë¸” ìˆ˜ì • ë¶ˆê°€ ì„¤ì • */
 			public boolean isCellEditable(int i, int c) {
 				return false;
 			}
 		};
-//		ÃÊ±âÈ­ ºí·° ³¡
+//		ì´ˆê¸°í™” ë¸”ëŸ­ ë
 
-//		ÀÌº¥Æ® ¼³Á¤
-		/* ¼±ÅÃ ¹öÆ° */
+//		ì´ë²¤íŠ¸ ì„¤ì •
+		/* ì„ íƒ ë²„íŠ¼ */
 		sel.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -67,18 +67,18 @@ public class DeletePopUp extends SalesFrame {
 					can.setEnabled(true);
 					sel.setEnabled(false);
 				}
-				JOptionPane.showMessageDialog(sp, readModel2.getRowCount() + "°³ ÇàÀÌ ¼±ÅÃµÇ¾ú½À´Ï´Ù.");
+				JOptionPane.showMessageDialog(sp, readModel2.getRowCount() + "ê°œ í–‰ì´ ì„ íƒë˜ì—ˆìŠµë‹ˆë‹¤.");
 			}
 		});
 
-		/* »èÁ¦ ¹öÆ° */
+		/* ì‚­ì œ ë²„íŠ¼ */
 		cfm.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int result = JOptionPane.showConfirmDialog(sp,
-						"¼±ÅÃµÈ " + readModel2.getRowCount() + " °ÇÀ» »èÁ¦ÇÕ´Ï´Ù. ÁøÇàÇÏ½Ã°Ú½À´Ï±î?", "È®ÀÎ", JOptionPane.YES_NO_OPTION);
+						"ì„ íƒëœ " + readModel2.getRowCount() + " ê±´ì„ ì‚­ì œí•©ë‹ˆë‹¤. ì§„í–‰í•˜ì‹œê² ìŠµë‹ˆê¹Œ?", "í™•ì¸", JOptionPane.YES_NO_OPTION);
 				if (result == 0) {
-					int result2 = JOptionPane.showConfirmDialog(sp, "Á¤¸» »èÁ¦ÇÏ½Ã°Ú½À´Ï±î?", "È®ÀÎ", JOptionPane.YES_NO_OPTION);
+					int result2 = JOptionPane.showConfirmDialog(sp, "ì •ë§ ì‚­ì œí•˜ì‹œê² ìŠµë‹ˆê¹Œ?", "í™•ì¸", JOptionPane.YES_NO_OPTION);
 					if (result2 == 0) {
 						try {
 							delete();
@@ -88,14 +88,14 @@ public class DeletePopUp extends SalesFrame {
 							can.setEnabled(false);
 							sel.setEnabled(true);
 						} catch (SQLException e1) {
-							JOptionPane.showMessageDialog(null, e1.getMessage(), "¿À·ù", 0);
+							JOptionPane.showMessageDialog(null, e1.getMessage(), "ì˜¤ë¥˜", 0);
 							e1.printStackTrace();
 						}
 					}
 				}
 			}
 		});
-		/* Ãë¼Ò ¹öÆ° */
+		/* ì·¨ì†Œ ë²„íŠ¼ */
 		can.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -108,13 +108,13 @@ public class DeletePopUp extends SalesFrame {
 					can.setEnabled(false);
 					sel.setEnabled(true);
 				} catch (SQLException e1) {
-					JOptionPane.showMessageDialog(null, e1.getMessage(), "¿À·ù", 0);
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "ì˜¤ë¥˜", 0);
 					e1.printStackTrace();
 				}
 			}
 		});
 
-		/* µÚ·Î °¡±â */
+		/* ë’¤ë¡œ ê°€ê¸° */
 		back.addActionListener(new ActionListener() {
 
 			@Override
@@ -123,7 +123,7 @@ public class DeletePopUp extends SalesFrame {
 			}
 		});
 
-		/* À©µµ¿ì Á¾·á ¹öÆ° */
+		/* ìœˆë„ìš° ì¢…ë£Œ ë²„íŠ¼ */
 		f.removeWindowListener(f.getWindowListeners()[0]);
 		f.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
@@ -135,14 +135,14 @@ public class DeletePopUp extends SalesFrame {
 	}
 
 	public void initFrame() {
-		/* ÆĞ³ÎºÎ Ãâ·Â */
+		/* íŒ¨ë„ë¶€ ì¶œë ¥ */
 		up.add(back);
 
 		dp.add(sel);
 		dp.add(cfm);
 		dp.add(can);
 
-		/* ÇÁ·¹ÀÓ Ãâ·Â */
+		/* í”„ë ˆì„ ì¶œë ¥ */
 		f.add(up, BorderLayout.NORTH);
 		f.add(sp, BorderLayout.CENTER);
 		f.add(dp, BorderLayout.SOUTH);

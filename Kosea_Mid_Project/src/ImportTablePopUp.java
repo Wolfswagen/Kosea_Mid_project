@@ -6,7 +6,7 @@ import java.util.*;
 import javax.swing.*;
 
 public class ImportTablePopUp extends TableFrame {
-//  »ó´Ü ÆĞ³Î(Ä«Å×°í¸®/°Ë»öÃ¢/°Ë»ö¹öÆ°/ºÎºĞ°Ë»ö)
+//  ìƒë‹¨ íŒ¨ë„(ì¹´í…Œê³ ë¦¬/ê²€ìƒ‰ì°½/ê²€ìƒ‰ë²„íŠ¼/ë¶€ë¶„ê²€ìƒ‰)
 	JComboBox<String> cmb;
 	JTextField inp;
 	JButton src;
@@ -15,21 +15,21 @@ public class ImportTablePopUp extends TableFrame {
 
 	public ImportTablePopUp(String name) throws SQLException {
 		super(name);
-//		ÃÊ±âÈ­ ºí·° ½Ã
-		/* »ó´Ü ÆĞ³ÎºÎ ÃÊ±âÈ­ */
+//		ì´ˆê¸°í™” ë¸”ëŸ­ ì‹œ
+		/* ìƒë‹¨ íŒ¨ë„ë¶€ ì´ˆê¸°í™” */
 		cmb = new JComboBox<String>(column);
 		inp = new JTextField("", 40);
-		src = new JButton("°Ë»ö");
-		chk = new JCheckBox("ºÎºĞ °Ë»ö");
+		src = new JButton("ê²€ìƒ‰");
+		chk = new JCheckBox("ë¶€ë¶„ ê²€ìƒ‰");
 		up = new JPanel();
 
-		/* Å×ÀÌºí ¸ğµ¨ ÃÊ±âÈ­ */
+		/* í…Œì´ë¸” ëª¨ë¸ ì´ˆê¸°í™” */
 		table.setModel(readModel);
 
-//		ÃÊ±âÈ­ ºí·° ³¡
+//		ì´ˆê¸°í™” ë¸”ëŸ­ ë
 
-//		ÀÌº¥Æ® ¼³Á¤
-		/* °Ë»ö ¹öÆ° ÀÌº¥Æ® */
+//		ì´ë²¤íŠ¸ ì„¤ì •
+		/* ê²€ìƒ‰ ë²„íŠ¼ ì´ë²¤íŠ¸ */
 		src.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -37,23 +37,23 @@ public class ImportTablePopUp extends TableFrame {
 				try {
 					select();
 				} catch (SQLException e1) {
-					JOptionPane.showMessageDialog(null, e1.getMessage(), "¿À·ù", 0);
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "ì˜¤ë¥˜", 0);
 					e1.printStackTrace();
 				}
 			}
 		});
 
-		/* ¸¶¿ì½º ¼±ÅÃ */
+		/* ë§ˆìš°ìŠ¤ ì„ íƒ */
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (e.getClickCount() > 1) {
-					String amount = JOptionPane.showInputDialog("ÀÔ°í ¼ö·®");
+					String amount = JOptionPane.showInputDialog("ì…ê³  ìˆ˜ëŸ‰");
 					try {
 						importProduct(table.getValueAt(table.getSelectedRow(), 0).toString(), amount);
 						select();
 					} catch (SQLException e1) {
-						JOptionPane.showMessageDialog(null, e1.getMessage(), "¿À·ù", 0);
+						JOptionPane.showMessageDialog(null, e1.getMessage(), "ì˜¤ë¥˜", 0);
 						e1.printStackTrace();
 					}
 				}
@@ -63,7 +63,7 @@ public class ImportTablePopUp extends TableFrame {
 		f.removeWindowListener(f.getWindowListeners()[0]);
 		back.removeActionListener(back.getActionListeners()[0]);
 
-		/* À©µµ¿ì Á¾·á ¹öÆ° */
+		/* ìœˆë„ìš° ì¢…ë£Œ ë²„íŠ¼ */
 		f.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				f.dispose();
@@ -80,21 +80,21 @@ public class ImportTablePopUp extends TableFrame {
 	}
 
 	public void initFrame() {
-		/* ÆĞ³ÎºÎ Ãâ·Â */
+		/* íŒ¨ë„ë¶€ ì¶œë ¥ */
 		up.add(cmb);
 		up.add(inp);
 		up.add(src);
 		up.add(chk);
 		up.add(back);
 
-		/* ÇÁ·¹ÀÓ Ãâ·Â */
+		/* í”„ë ˆì„ ì¶œë ¥ */
 		f.add(up, BorderLayout.NORTH);
 		f.add(sp, BorderLayout.CENTER);
 
 		f.setVisible(true);
 	}
 
-//	import Äõ¸® ÀÛ¼º
+//	import ì¿¼ë¦¬ ì‘ì„±
 	public void importProduct(String code, String amount) throws SQLException {
 		UpdateDAO dao = new UpdateDAO(this.name);
 		dao.getIn(code, amount);

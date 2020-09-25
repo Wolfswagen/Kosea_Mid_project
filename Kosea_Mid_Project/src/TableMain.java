@@ -25,7 +25,7 @@ public class TableMain {
 
 		choice = new JComboBox<String>(new String[] { "Products", "Customers" });
 
-		read = new JButton("Á¶È¸");
+		read = new JButton("ì¡°íšŒ");
 		read.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -33,14 +33,14 @@ public class TableMain {
 					ReadTableFrame rt = new ReadTableFrame(choice.getSelectedItem().toString());
 					rt.initFrame();
 				} catch (SQLException e1) {
-					JOptionPane.showMessageDialog(null, e1.getMessage(), "¿À·ù", 0);
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "ì˜¤ë¥˜", 0);
 					e1.printStackTrace();
 				}
 				f.dispose();
 			}
 		});
 
-		create = new JButton("ÀÔ·Â");
+		create = new JButton("ìž…ë ¥");
 		create.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -48,7 +48,7 @@ public class TableMain {
 					InsertTableFrame it = new InsertTableFrame(choice.getSelectedItem().toString());
 					it.initFrame();
 				} catch (SQLException e1) {
-					JOptionPane.showMessageDialog(null, e1.getMessage(), "¿À·ù", 0);
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "ì˜¤ë¥˜", 0);
 					e1.printStackTrace();
 				}
 
@@ -56,7 +56,7 @@ public class TableMain {
 			}
 		});
 
-		update = new JButton("¼öÁ¤");
+		update = new JButton("ìˆ˜ì •");
 		update.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -64,14 +64,14 @@ public class TableMain {
 					UpdateTableFrame ut = new UpdateTableFrame(choice.getSelectedItem().toString());
 					ut.initFrame();
 				} catch (SQLException e1) {
-					JOptionPane.showMessageDialog(null, e1.getMessage(), "¿À·ù", 0);
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "ì˜¤ë¥˜", 0);
 					e1.printStackTrace();
 				}
 				f.dispose();
 			}
 		});
 
-		delete = new JButton("»èÁ¦");
+		delete = new JButton("ì‚­ì œ");
 		delete.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -79,7 +79,7 @@ public class TableMain {
 					DeleteTableFrame dt = new DeleteTableFrame(choice.getSelectedItem().toString());
 					dt.initFrame();
 				} catch (SQLException e1) {
-					JOptionPane.showMessageDialog(null, e1.getMessage(), "¿À·ù", 0);
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "ì˜¤ë¥˜", 0);
 					e1.printStackTrace();
 				}
 
@@ -87,7 +87,7 @@ public class TableMain {
 			}
 		});
 
-		exit = new JButton("µÚ·Î");
+		exit = new JButton("ë’¤ë¡œ");
 		exit.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

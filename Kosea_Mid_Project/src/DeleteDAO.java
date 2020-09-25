@@ -6,13 +6,13 @@ public class DeleteDAO extends TableVO {
 		super(tname);
 	}
 
-	// delete Äõ¸® ÀÛ¼º
+	// delete ì¿¼ë¦¬ ì‘ì„±
 	public void erase(int ccode) throws SQLException {
 		String query = "DELETE FROM " + name + " WHERE " + column.get(0) + " = " + ccode;
 		stmt.executeQuery(query);
 	}
 	
-	// delete Äõ¸® ÀÛ¼º(±âº»Å° 2°³ÀÎ °æ¿ì)
+	// delete ì¿¼ë¦¬ ì‘ì„±(ê¸°ë³¸í‚¤ 2ê°œì¸ ê²½ìš°)
 	public void erase(String scode, String pcode) throws SQLException {
 		String query = "DELETE FROM " + name + " WHERE " + column.get(0) + " = " + scode + " and " + column.get(1) + " = "
 				+ pcode;

@@ -11,7 +11,7 @@ import javax.swing.table.DefaultTableModel;
 public class UpdatePopUp extends SalesFrame {
 	JPanel up;
 
-//	ÇÏ´Ü ÆĞ³Î(¼±ÅÃ/¼öÁ¤/Ãë¼Ò)
+//	í•˜ë‹¨ íŒ¨ë„(ì„ íƒ/ìˆ˜ì •/ì·¨ì†Œ)
 	JPanel dp;
 	JButton sel;
 	JButton cfm;
@@ -23,42 +23,42 @@ public class UpdatePopUp extends SalesFrame {
 	public UpdatePopUp(String name, String scode) throws SQLException {
 		super(name);
 
-//		ÃÊ±âÈ­ ºí·°
-		/* »ó´Ü ÆĞ³ÎºÎ ÃÊ±âÈ­ */
-		back = new JButton("µÚ·Î");
+//		ì´ˆê¸°í™” ë¸”ëŸ­
+		/* ìƒë‹¨ íŒ¨ë„ë¶€ ì´ˆê¸°í™” */
+		back = new JButton("ë’¤ë¡œ");
 		up = new JPanel();
 		up.setLayout(new FlowLayout(FlowLayout.RIGHT, 30, 5));
 
-		/* ÇÏ´Ü ÆĞ³ÎºÎ ÃÊ±âÈ­ */
-		cfm = new JButton("¼öÁ¤");
+		/* í•˜ë‹¨ íŒ¨ë„ë¶€ ì´ˆê¸°í™” */
+		cfm = new JButton("ìˆ˜ì •");
 		cfm.setEnabled(false);
-		sel = new JButton("¼±ÅÃ");
-		can = new JButton("Ãë¼Ò");
+		sel = new JButton("ì„ íƒ");
+		can = new JButton("ì·¨ì†Œ");
 		can.setEnabled(false);
 		dp = new JPanel();
 		dp.setLayout(new FlowLayout(FlowLayout.RIGHT, 30, 5));
 
-		/* Å×ÀÌºí ¸ğµ¨ ÃÊ±âÈ­ */
+		/* í…Œì´ë¸” ëª¨ë¸ ì´ˆê¸°í™” */
 		table.setModel(readModel);
 
 		this.scode = scode;
 		insertModel = new DefaultTableModel(column, 0) {
 			private static final long serialVersionUID = -4113365722825486170L;
 
-			/* Å×ÀÌºí ¼öÁ¤ ºÒ°¡ ¼³Á¤ */
+			/* í…Œì´ë¸” ìˆ˜ì • ë¶ˆê°€ ì„¤ì • */
 			public boolean isCellEditable(int i, int c) {
-				if (defrow[c].equals("ÀÚµ¿ÀÔ·Â") || defrow[c].equals("°Ë»ö") || defrow[c].equals("°Å·¡¹øÈ£")
-						|| defrow[c].equals("È¯ºÒ")) {
+				if (defrow[c].equals("ìë™ì…ë ¥") || defrow[c].equals("ê²€ìƒ‰") || defrow[c].equals("ê±°ë˜ë²ˆí˜¸")
+						|| defrow[c].equals("í™˜ë¶ˆ")) {
 					return false;
 				} else {
 					return true;
 				}
 			}
 		};
-//		ÃÊ±âÈ­ ºí·° ³¡
+//		ì´ˆê¸°í™” ë¸”ëŸ­ ë
 
-//		ÀÌº¥Æ® ¼³Á¤
-		/* ¼±ÅÃ ¹öÆ° */
+//		ì´ë²¤íŠ¸ ì„¤ì •
+		/* ì„ íƒ ë²„íŠ¼ */
 		sel.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -72,15 +72,15 @@ public class UpdatePopUp extends SalesFrame {
 					can.setEnabled(true);
 					sel.setEnabled(false);
 				}
-				JOptionPane.showMessageDialog(sp, insertModel.getRowCount() + "°³ ÇàÀÌ ¼±ÅÃµÇ¾ú½À´Ï´Ù.");
+				JOptionPane.showMessageDialog(sp, insertModel.getRowCount() + "ê°œ í–‰ì´ ì„ íƒë˜ì—ˆìŠµë‹ˆë‹¤.");
 			}
 		});
 
-		/* ¼öÁ¤ ¹öÆ° */
+		/* ìˆ˜ì • ë²„íŠ¼ */
 		cfm.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int result = JOptionPane.showConfirmDialog(sp, "¼öÁ¤ÇÏ½Ã°Ú½À´Ï±î?", "È®ÀÎ", JOptionPane.YES_NO_OPTION);
+				int result = JOptionPane.showConfirmDialog(sp, "ìˆ˜ì •í•˜ì‹œê² ìŠµë‹ˆê¹Œ?", "í™•ì¸", JOptionPane.YES_NO_OPTION);
 				if (result == 0) {
 					try {
 						update();
@@ -90,14 +90,14 @@ public class UpdatePopUp extends SalesFrame {
 						can.setEnabled(false);
 						sel.setEnabled(true);
 					} catch (SQLException e1) {
-						JOptionPane.showMessageDialog(null, e1.getMessage(), "¿À·ù", 0);
+						JOptionPane.showMessageDialog(null, e1.getMessage(), "ì˜¤ë¥˜", 0);
 						e1.printStackTrace();
 					}
 				}
 			}
 
 		});
-		/* Ãë¼Ò ¹öÆ° */
+		/* ì·¨ì†Œ ë²„íŠ¼ */
 		can.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -110,13 +110,13 @@ public class UpdatePopUp extends SalesFrame {
 					can.setEnabled(false);
 					sel.setEnabled(true);
 				} catch (SQLException e1) {
-					JOptionPane.showMessageDialog(null, e1.getMessage(), "¿À·ù", 0);
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "ì˜¤ë¥˜", 0);
 					e1.printStackTrace();
 				}
 			}
 		});
 
-		/* ¸¶¿ì½º ¼±ÅÃ */
+		/* ë§ˆìš°ìŠ¤ ì„ íƒ */
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -137,7 +137,7 @@ public class UpdatePopUp extends SalesFrame {
 							});
 
 						} catch (SQLException e1) {
-							JOptionPane.showMessageDialog(null, e1.getMessage(), "¿À·ù", 0);
+							JOptionPane.showMessageDialog(null, e1.getMessage(), "ì˜¤ë¥˜", 0);
 							e1.printStackTrace();
 						}
 					}
@@ -145,7 +145,7 @@ public class UpdatePopUp extends SalesFrame {
 			}
 		});
 
-		/* µÚ·Î °¡±â */
+		/* ë’¤ë¡œ ê°€ê¸° */
 		back.addActionListener(new ActionListener() {
 
 			@Override
@@ -154,7 +154,7 @@ public class UpdatePopUp extends SalesFrame {
 			}
 		});
 
-		/* À©µµ¿ì Á¾·á ¹öÆ° */
+		/* ìœˆë„ìš° ì¢…ë£Œ ë²„íŠ¼ */
 		f.removeWindowListener(f.getWindowListeners()[0]);
 		f.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
@@ -166,14 +166,14 @@ public class UpdatePopUp extends SalesFrame {
 	}
 
 	public void initFrame() {
-		/* ÆĞ³ÎºÎ Ãâ·Â */
+		/* íŒ¨ë„ë¶€ ì¶œë ¥ */
 		up.add(back);
 
 		dp.add(sel);
 		dp.add(cfm);
 		dp.add(can);
 
-		/* ÇÁ·¹ÀÓ Ãâ·Â */
+		/* í”„ë ˆì„ ì¶œë ¥ */
 		f.add(up, BorderLayout.NORTH);
 		f.add(sp, BorderLayout.CENTER);
 		f.add(dp, BorderLayout.SOUTH);

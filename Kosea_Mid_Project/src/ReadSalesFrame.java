@@ -8,7 +8,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 public class ReadSalesFrame extends SalesFrame {
-//  »ó´Ü ÆĞ³Î(Ä«Å×°í¸®/°Ë»öÃ¢/°Ë»ö¹öÆ°/ºÎºĞ°Ë»ö)
+//  ìƒë‹¨ íŒ¨ë„(ì¹´í…Œê³ ë¦¬/ê²€ìƒ‰ì°½/ê²€ìƒ‰ë²„íŠ¼/ë¶€ë¶„ê²€ìƒ‰)
 	JComboBox<String> cmb;
 	JTextField inp;
 	JButton src;
@@ -27,20 +27,20 @@ public class ReadSalesFrame extends SalesFrame {
 		this.name2 = name + "_Products_Details";
 		this.column2 = setColumn(name2);
 
-//		ÃÊ±âÈ­ ºí·°
-		/* »ó´Ü ÆĞ³ÎºÎ ÃÊ±âÈ­ */
+//		ì´ˆê¸°í™” ë¸”ëŸ­
+		/* ìƒë‹¨ íŒ¨ë„ë¶€ ì´ˆê¸°í™” */
 		cmb = new JComboBox<String>(column);
 		inp = new JTextField("", 40);
-		src = new JButton("°Ë»ö");
-		chk = new JCheckBox("ºÎºĞ °Ë»ö");
+		src = new JButton("ê²€ìƒ‰");
+		chk = new JCheckBox("ë¶€ë¶„ ê²€ìƒ‰");
 		up = new JPanel();
-		back = new JButton("µÚ·Î");
+		back = new JButton("ë’¤ë¡œ");
 
-		/* Å×ÀÌºí ¸ğµ¨ ÃÊ±âÈ­ */
+		/* í…Œì´ë¸” ëª¨ë¸ ì´ˆê¸°í™” */
 		readModel = new DefaultTableModel(column, 0) {
 			private static final long serialVersionUID = -4113365722825486170L;
 
-			/* Å×ÀÌºí ¼öÁ¤ ºÒ°¡ ¼³Á¤ */
+			/* í…Œì´ë¸” ìˆ˜ì • ë¶ˆê°€ ì„¤ì • */
 			public boolean isCellEditable(int i, int c) {
 				return false;
 			}
@@ -50,15 +50,15 @@ public class ReadSalesFrame extends SalesFrame {
 		readModel2 = new DefaultTableModel(column2, 0) {
 			private static final long serialVersionUID = -4113365722825486170L;
 
-			/* Å×ÀÌºí ¼öÁ¤ ºÒ°¡ ¼³Á¤ */
+			/* í…Œì´ë¸” ìˆ˜ì • ë¶ˆê°€ ì„¤ì • */
 			public boolean isCellEditable(int i, int c) {
 				return false;
 			}
 		};
-//		ÃÊ±âÈ­ ºí·° ³¡
+//		ì´ˆê¸°í™” ë¸”ëŸ­ ë
 
-//		ÀÌº¥Æ® ¼³Á¤
-		/* °Ë»ö ¹öÆ° ÀÌº¥Æ® */
+//		ì´ë²¤íŠ¸ ì„¤ì •
+		/* ê²€ìƒ‰ ë²„íŠ¼ ì´ë²¤íŠ¸ */
 		src.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -66,13 +66,13 @@ public class ReadSalesFrame extends SalesFrame {
 				try {
 					select();
 				} catch (SQLException e1) {
-					JOptionPane.showMessageDialog(null, e1.getMessage(), "¿À·ù", 0);
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "ì˜¤ë¥˜", 0);
 					e1.printStackTrace();
 				}
 			}
 		});
 
-		/* ¸¶¿ì½º ¼±ÅÃ */
+		/* ë§ˆìš°ìŠ¤ ì„ íƒ */
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -82,9 +82,9 @@ public class ReadSalesFrame extends SalesFrame {
 							readModel2.setNumRows(0);
 							selectDetails(String.valueOf(readModel.getValueAt(table.getSelectedRow(), 0)), name2);
 							table.setModel(readModel2);
-							JOptionPane.showMessageDialog(sp, readModel2.getRowCount() + "°³ ÇàÀÌ ¼±ÅÃµÇ¾ú½À´Ï´Ù.");
+							JOptionPane.showMessageDialog(sp, readModel2.getRowCount() + "ê°œ í–‰ì´ ì„ íƒë˜ì—ˆìŠµë‹ˆë‹¤.");
 						} catch (SQLException e1) {
-							JOptionPane.showMessageDialog(null, e1.getMessage(), "¿À·ù", 0);
+							JOptionPane.showMessageDialog(null, e1.getMessage(), "ì˜¤ë¥˜", 0);
 							e1.printStackTrace();
 						}
 					}
@@ -92,7 +92,7 @@ public class ReadSalesFrame extends SalesFrame {
 			}
 		});
 
-		/* µÚ·Î °¡±â */
+		/* ë’¤ë¡œ ê°€ê¸° */
 		back.addActionListener(new ActionListener() {
 
 			@Override
@@ -106,7 +106,7 @@ public class ReadSalesFrame extends SalesFrame {
 						select();
 						table.setModel(readModel);
 					} catch (SQLException e1) {
-						JOptionPane.showMessageDialog(null, e1.getMessage(), "¿À·ù", 0);
+						JOptionPane.showMessageDialog(null, e1.getMessage(), "ì˜¤ë¥˜", 0);
 						e1.printStackTrace();
 					}
 				}
@@ -117,14 +117,14 @@ public class ReadSalesFrame extends SalesFrame {
 	}
 
 	public void initFrame() {
-		/* ÆĞ³ÎºÎ Ãâ·Â */
+		/* íŒ¨ë„ë¶€ ì¶œë ¥ */
 		up.add(cmb);
 		up.add(inp);
 		up.add(src);
 		up.add(chk);
 		up.add(back);
 
-		/* ÇÁ·¹ÀÓ Ãâ·Â */
+		/* í”„ë ˆì„ ì¶œë ¥ */
 		f.add(up, BorderLayout.NORTH);
 		f.add(sp, BorderLayout.CENTER);
 

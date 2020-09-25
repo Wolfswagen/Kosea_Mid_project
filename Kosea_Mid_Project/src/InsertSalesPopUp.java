@@ -7,7 +7,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 public class InsertSalesPopUp extends SalesFrame {
-//  ÆĞ³Î(¼öÁ¤/Çà Ãß°¡/Çà »èÁ¦)
+//  íŒ¨ë„(ìˆ˜ì •/í–‰ ì¶”ê°€/í–‰ ì‚­ì œ)
 	JPanel p;
 	JButton cfm;
 	DefaultTableModel insertModel;
@@ -20,9 +20,9 @@ public class InsertSalesPopUp extends SalesFrame {
 		insertModel = new DefaultTableModel(column, 0) {
 			private static final long serialVersionUID = -4113365722825486170L;
 
-			/* Å×ÀÌºí ¼öÁ¤ ºÒ°¡ ¼³Á¤ */
+			/* í…Œì´ë¸” ìˆ˜ì • ë¶ˆê°€ ì„¤ì • */
 			public boolean isCellEditable(int i, int c) {
-				if (defrow[c].equals("ÀÚµ¿ÀÔ·Â") || defrow[c].equals("°Ë»ö") || defrow[c].equals("³¯Â¥")) {
+				if (defrow[c].equals("ìë™ì…ë ¥") || defrow[c].equals("ê²€ìƒ‰") || defrow[c].equals("ë‚ ì§œ")) {
 					return false;
 				} else {
 					return true;
@@ -31,35 +31,35 @@ public class InsertSalesPopUp extends SalesFrame {
 		};
 		
 		
-		back = new JButton("µÚ·Î");
+		back = new JButton("ë’¤ë¡œ");
 
-//		ÃÊ±âÈ­ ºí·°
-		/* ÆĞ³ÎºÎ ÃÊ±âÈ­ */
-		cfm = new JButton("ÀÔ·Â");
+//		ì´ˆê¸°í™” ë¸”ëŸ­
+		/* íŒ¨ë„ë¶€ ì´ˆê¸°í™” */
+		cfm = new JButton("ì…ë ¥");
 		p = new JPanel();
 		p.setLayout(new FlowLayout(FlowLayout.RIGHT, 30, 5));
-		/* Å×ÀÌºí ¸ğµ¨ ÃÊ±âÈ­ */
+		/* í…Œì´ë¸” ëª¨ë¸ ì´ˆê¸°í™” */
 		table.setModel(insertModel);
 		insertModel.addRow(defrow);
 
-//		ÀÌº¥Æ® ¼³Á¤
-		/* ÀÔ·Â ¹öÆ° */
+//		ì´ë²¤íŠ¸ ì„¤ì •
+		/* ì…ë ¥ ë²„íŠ¼ */
 		cfm.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int result = 0;
-				result = JOptionPane.showConfirmDialog(sp, "ÀÔ·ÂÇÏ½Ã°Ú½À´Ï±î?", "È®ÀÎ", JOptionPane.YES_NO_OPTION);
+				result = JOptionPane.showConfirmDialog(sp, "ì…ë ¥í•˜ì‹œê² ìŠµë‹ˆê¹Œ?", "í™•ì¸", JOptionPane.YES_NO_OPTION);
 				if (result == 0) {
 					try {
 						insert();
 						insertModel.setNumRows(0);
 						insertModel.addRow(defrow);
 						table.setModel(insertModel);
-						JOptionPane.showMessageDialog(null, "ÀÔ·ÂÀÌ ¿Ï·áµÇ¾ú½À´Ï´Ù.", "È®ÀÎ", 1);
+						JOptionPane.showMessageDialog(null, "ì…ë ¥ì´ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.", "í™•ì¸", 1);
 						f.dispose();
 					} catch (Exception e1) {
-						JOptionPane.showMessageDialog(null, e1.getMessage(), "¿À·ù", 0);
+						JOptionPane.showMessageDialog(null, e1.getMessage(), "ì˜¤ë¥˜", 0);
 						e1.printStackTrace();
 					}
 
@@ -81,14 +81,14 @@ public class InsertSalesPopUp extends SalesFrame {
 						});
 
 					} catch (SQLException e1) {
-						JOptionPane.showMessageDialog(null, e1.getMessage(), "¿À·ù", 0);
+						JOptionPane.showMessageDialog(null, e1.getMessage(), "ì˜¤ë¥˜", 0);
 						e1.printStackTrace();
 					}
 				}
 			}
 		});
 
-		/* µÚ·Î °¡±â */
+		/* ë’¤ë¡œ ê°€ê¸° */
 		back.addActionListener(new ActionListener() {
 
 			@Override
@@ -98,7 +98,7 @@ public class InsertSalesPopUp extends SalesFrame {
 		});
 		f.removeWindowListener(f.getWindowListeners()[0]);
 
-		/* À©µµ¿ì Á¾·á ¹öÆ° */
+		/* ìœˆë„ìš° ì¢…ë£Œ ë²„íŠ¼ */
 		f.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				f.dispose();
@@ -108,19 +108,19 @@ public class InsertSalesPopUp extends SalesFrame {
 	}
 
 	public void initFrame() {
-		/* ÆĞ³ÎºÎ Ãâ·Â */
+		/* íŒ¨ë„ë¶€ ì¶œë ¥ */
 
 		p.add(cfm);
 		p.add(back);
 
-		/* ÇÁ·¹ÀÓ Ãâ·Â */
+		/* í”„ë ˆì„ ì¶œë ¥ */
 		f.add(sp, BorderLayout.CENTER);
 		f.add(p, BorderLayout.NORTH);
 
 		f.setVisible(true);
 	}
 
-//	insert Äõ¸® ÀÛ¼º
+//	insert ì¿¼ë¦¬ ì‘ì„±
 	public void insert() throws SQLException {
 		insert(this.name);
 	}

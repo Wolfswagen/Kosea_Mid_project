@@ -19,7 +19,7 @@ public class Main {
 			}
 		});
 
-		table = new JButton("ªÛ«∞/∞Ì∞¥ ¡§∫∏");
+		table = new JButton("ÏÉÅÌíà/Í≥†Í∞ù Ï†ïÎ≥¥");
 		table.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -29,7 +29,7 @@ public class Main {
 			}
 		});
 
-		sales = new JButton("∞≈∑° ¡§∫∏");
+		sales = new JButton("Í±∞Îûò Ï†ïÎ≥¥");
 		sales.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -40,7 +40,7 @@ public class Main {
 			}
 		});
 
-		exit = new JButton("¡æ∑·");
+		exit = new JButton("Ï¢ÖÎ£å");
 		exit.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

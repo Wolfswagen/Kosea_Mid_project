@@ -6,7 +6,7 @@ public class FinishDAO extends TableVO {
 		super(tname);
 	}
 
-	// delete Äõ¸® ÀÛ¼º
+	// delete ì¿¼ë¦¬ ìž‘ì„±
 	public void end(int ccode) throws SQLException {
 		String query = "call finish_sales(" + ccode + ")";
 		stmt.executeQuery(query);

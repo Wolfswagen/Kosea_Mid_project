@@ -6,14 +6,14 @@ import java.util.*;
 import javax.swing.*;
 
 public class UpdateTableFrame extends TableFrame {
-//  »ó´Ü ÆĞ³Î(Ä«Å×°í¸®/°Ë»öÃ¢/°Ë»ö¹öÆ°/ºÎºĞ°Ë»ö)
+//  ìƒë‹¨ íŒ¨ë„(ì¹´í…Œê³ ë¦¬/ê²€ìƒ‰ì°½/ê²€ìƒ‰ë²„íŠ¼/ë¶€ë¶„ê²€ìƒ‰)
 	JComboBox<String> cmb;
 	JTextField inp;
 	JButton src;
 	JCheckBox chk;
 	JPanel up;
 
-//	ÇÏ´Ü ÆĞ³Î(¼±ÅÃ/¼öÁ¤/Ãë¼Ò)
+//	í•˜ë‹¨ íŒ¨ë„(ì„ íƒ/ìˆ˜ì •/ì·¨ì†Œ)
 	JPanel dp;
 	JButton sel;
 	JButton cfm;
@@ -21,29 +21,29 @@ public class UpdateTableFrame extends TableFrame {
 
 	public UpdateTableFrame(String name) throws SQLException {
 		super(name);
-//		ÃÊ±âÈ­ ºí·° ½Ã
-		/* »ó´Ü ÆĞ³ÎºÎ ÃÊ±âÈ­ */
+//		ì´ˆê¸°í™” ë¸”ëŸ­ ì‹œ
+		/* ìƒë‹¨ íŒ¨ë„ë¶€ ì´ˆê¸°í™” */
 		cmb = new JComboBox<String>(column);
 		inp = new JTextField("", 40);
-		src = new JButton("°Ë»ö");
-		chk = new JCheckBox("ºÎºĞ °Ë»ö");
+		src = new JButton("ê²€ìƒ‰");
+		chk = new JCheckBox("ë¶€ë¶„ ê²€ìƒ‰");
 		up = new JPanel();
 
-		/* ÇÏ´Ü ÆĞ³ÎºÎ ÃÊ±âÈ­ */
-		cfm = new JButton("¼öÁ¤");
+		/* í•˜ë‹¨ íŒ¨ë„ë¶€ ì´ˆê¸°í™” */
+		cfm = new JButton("ìˆ˜ì •");
 		cfm.setEnabled(false);
-		sel = new JButton("¼±ÅÃ");
-		can = new JButton("Ãë¼Ò");
+		sel = new JButton("ì„ íƒ");
+		can = new JButton("ì·¨ì†Œ");
 		can.setEnabled(false);
 		dp = new JPanel();
 		dp.setLayout(new FlowLayout(FlowLayout.RIGHT, 30, 5));
 
-		/* Å×ÀÌºí ¸ğµ¨ ÃÊ±âÈ­ */
+		/* í…Œì´ë¸” ëª¨ë¸ ì´ˆê¸°í™” */
 		table.setModel(readModel);
-//		ÃÊ±âÈ­ ºí·° ³¡
+//		ì´ˆê¸°í™” ë¸”ëŸ­ ë
 
-//		ÀÌº¥Æ® ¼³Á¤
-		/* °Ë»ö ¹öÆ° ÀÌº¥Æ® */
+//		ì´ë²¤íŠ¸ ì„¤ì •
+		/* ê²€ìƒ‰ ë²„íŠ¼ ì´ë²¤íŠ¸ */
 		src.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -51,12 +51,12 @@ public class UpdateTableFrame extends TableFrame {
 				try {
 					select();
 				} catch (SQLException e1) {
-					JOptionPane.showMessageDialog(null, e1.getMessage(), "¿À·ù", 0);
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "ì˜¤ë¥˜", 0);
 					e1.printStackTrace();
 				}
 			}
 		});
-		/* ¼±ÅÃ ¹öÆ° */
+		/* ì„ íƒ ë²„íŠ¼ */
 		sel.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -76,16 +76,16 @@ public class UpdateTableFrame extends TableFrame {
 					inp.setEditable(false);
 					src.setEnabled(false);
 				}
-				JOptionPane.showMessageDialog(sp, insertModel.getRowCount() + "°³ ÇàÀÌ ¼±ÅÃµÇ¾ú½À´Ï´Ù.");
+				JOptionPane.showMessageDialog(sp, insertModel.getRowCount() + "ê°œ í–‰ì´ ì„ íƒë˜ì—ˆìŠµë‹ˆë‹¤.");
 			}
 		});
 
-		/* ¼öÁ¤ ¹öÆ° */
+		/* ìˆ˜ì • ë²„íŠ¼ */
 		cfm.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int result = 0;
-				result = JOptionPane.showConfirmDialog(sp, "¼öÁ¤ÇÏ½Ã°Ú½À´Ï±î?", "È®ÀÎ", JOptionPane.YES_NO_OPTION);
+				result = JOptionPane.showConfirmDialog(sp, "ìˆ˜ì •í•˜ì‹œê² ìŠµë‹ˆê¹Œ?", "í™•ì¸", JOptionPane.YES_NO_OPTION);
 				if (result == 0) {
 					try {
 						update();
@@ -98,13 +98,13 @@ public class UpdateTableFrame extends TableFrame {
 						inp.setEditable(true);
 						src.setEnabled(true);
 					} catch (SQLException e1) {
-						JOptionPane.showMessageDialog(null, e1.getMessage(), "¿À·ù", 0);
+						JOptionPane.showMessageDialog(null, e1.getMessage(), "ì˜¤ë¥˜", 0);
 						e1.printStackTrace();
 					}
 				}
 			}
 		});
-		/* Ãë¼Ò ¹öÆ° */
+		/* ì·¨ì†Œ ë²„íŠ¼ */
 		can.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -119,7 +119,7 @@ public class UpdateTableFrame extends TableFrame {
 					inp.setEditable(true);
 					src.setEnabled(true);
 				} catch (SQLException e1) {
-					JOptionPane.showMessageDialog(null, e1.getMessage(), "¿À·ù", 0);
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "ì˜¤ë¥˜", 0);
 					e1.printStackTrace();
 				}
 			}
@@ -128,7 +128,7 @@ public class UpdateTableFrame extends TableFrame {
 	}
 
 	public void initFrame() {
-		/* ÆĞ³ÎºÎ Ãâ·Â */
+		/* íŒ¨ë„ë¶€ ì¶œë ¥ */
 		up.add(cmb);
 		up.add(inp);
 		up.add(src);
@@ -139,7 +139,7 @@ public class UpdateTableFrame extends TableFrame {
 		dp.add(cfm);
 		dp.add(can);
 
-		/* ÇÁ·¹ÀÓ Ãâ·Â */
+		/* í”„ë ˆì„ ì¶œë ¥ */
 		f.add(up, BorderLayout.NORTH);
 		f.add(sp, BorderLayout.CENTER);
 		f.add(dp, BorderLayout.SOUTH);
@@ -147,7 +147,7 @@ public class UpdateTableFrame extends TableFrame {
 		f.setVisible(true);
 	}
 
-//	update Äõ¸® ÀÛ¼º
+//	update ì¿¼ë¦¬ ì‘ì„±
 	public void update() throws SQLException {
 		UpdateDAO dao = new UpdateDAO(this.name);
 		while (table.getRowCount() > 0) {
@@ -187,8 +187,8 @@ public class UpdateTableFrame extends TableFrame {
 	public void setCellComboBox() {
 		addCellComboBox(table.getColumnModel().getColumn(1),
 				new String[] { "OUTER", "TOP", "BOTTOM", "ONEPIECE", "SHOES", "ACC", "SUMMER" });
-		addCellComboBox(table.getColumnModel().getColumn(5), new String[] { "ÆÇ¸ÅÁß", "Ç°Àı" });
-		addCellComboBox(table.getColumnModel().getColumn(12), new String[] { "Á¶°ÇºÎ ¹«·á", "¹«·á" });
+		addCellComboBox(table.getColumnModel().getColumn(5), new String[] { "íŒë§¤ì¤‘", "í’ˆì ˆ" });
+		addCellComboBox(table.getColumnModel().getColumn(12), new String[] { "ì¡°ê±´ë¶€ ë¬´ë£Œ", "ë¬´ë£Œ" });
 	}
 
 	
@@ -197,7 +197,7 @@ public class UpdateTableFrame extends TableFrame {
 		back.removeActionListener(back.getActionListeners()[0]);
 		cfm.removeActionListener(cfm.getActionListeners()[0]);
 
-		/* À©µµ¿ì Á¾·á ¹öÆ° */
+		/* ìœˆë„ìš° ì¢…ë£Œ ë²„íŠ¼ */
 		f.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 
@@ -211,13 +211,13 @@ public class UpdateTableFrame extends TableFrame {
 			}
 
 		});
-		cfm.setText("ÀÔ°í");
-		/* ¼öÁ¤ ¹öÆ° */
+		cfm.setText("ì…ê³ ");
+		/* ìˆ˜ì • ë²„íŠ¼ */
 		cfm.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int result = 0;
-				result = JOptionPane.showConfirmDialog(sp, "¼öÁ¤ÇÏ½Ã°Ú½À´Ï±î?", "È®ÀÎ", JOptionPane.YES_NO_OPTION);
+				result = JOptionPane.showConfirmDialog(sp, "ìˆ˜ì •í•˜ì‹œê² ìŠµë‹ˆê¹Œ?", "í™•ì¸", JOptionPane.YES_NO_OPTION);
 				if (result == 0) {
 					try {
 						update();
@@ -230,7 +230,7 @@ public class UpdateTableFrame extends TableFrame {
 						inp.setEditable(true);
 						src.setEnabled(true);
 					} catch (SQLException e1) {
-						JOptionPane.showMessageDialog(null, e1.getMessage(), "¿À·ù", 0);
+						JOptionPane.showMessageDialog(null, e1.getMessage(), "ì˜¤ë¥˜", 0);
 						e1.printStackTrace();
 					}
 				}

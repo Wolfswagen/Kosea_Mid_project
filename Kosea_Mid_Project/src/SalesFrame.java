@@ -9,7 +9,7 @@ import javax.swing.table.*;
 
 public abstract class SalesFrame {
 	JFrame f;
-//  Å×ÀÌºí 
+//  í…Œì´ë¸” 
 	DefaultTableModel readModel;
 
 	JButton back;
@@ -21,7 +21,7 @@ public abstract class SalesFrame {
 	String name;
 
 	public SalesFrame(String name) throws SQLException {
-//		ÃÊ±âÈ­ ºí·°
+//		ì´ˆê¸°í™” ë¸”ëŸ­
 		this.name = name;
 		column = setColumn(this.name);
 		defrow = setDefrow(this.name);
@@ -30,11 +30,11 @@ public abstract class SalesFrame {
 		f.setSize(1200, 500);
 		f.setLocationRelativeTo(null);
 
-		/* Å×ÀÌºí ÃÊ±âÈ­ */
+		/* í…Œì´ë¸” ì´ˆê¸°í™” */
 		readModel = new DefaultTableModel(column, 0) {
 			private static final long serialVersionUID = -4113365722825486170L;
 
-			/* Å×ÀÌºí ¼öÁ¤ ºÒ°¡ ¼³Á¤ */
+			/* í…Œì´ë¸” ìˆ˜ì • ë¶ˆê°€ ì„¤ì • */
 			public boolean isCellEditable(int i, int c) {
 				return false;
 			}
@@ -44,9 +44,9 @@ public abstract class SalesFrame {
 		table.getTableHeader().setReorderingAllowed(false);
 		sp = new JScrollPane(table);
 
-//		ÀÌº¥Æ® ¼³Á¤
+//		ì´ë²¤íŠ¸ ì„¤ì •
 
-		/* À©µµ¿ì Á¾·á ¹öÆ° */
+		/* ìœˆë„ìš° ì¢…ë£Œ ë²„íŠ¼ */
 		f.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				SalesMain.f.setVisible(true);
@@ -56,7 +56,7 @@ public abstract class SalesFrame {
 
 	}
 
-//	frame ½ÃÀÛ
+//	frame ì‹œì‘
 	public abstract void initFrame();
 
 	public Vector<String> setColumn(String table) throws SQLException {

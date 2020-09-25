@@ -27,20 +27,20 @@ public class TableVO {
 			column.add(md.getString("column_name"));
 		}
 
-		defrow.add("ÀÚµ¿ÀÔ·Â");
+		defrow.add("ìë™ì…ë ¥");
 		if (name.equals("Products")) {
 			defrow.add("OUTER");
 			defrow.add("");
 			defrow.add("");
 			defrow.add("");
-			defrow.add("ÆÇ¸ÅÁß");
+			defrow.add("íŒë§¤ì¤‘");
 			defrow.add("0");
 			defrow.add("0");
 			defrow.add("0");
 			defrow.add("0");
 			defrow.add("0");
-			defrow.add("ÀÚµ¿ÀÔ·Â");
-			defrow.add("Á¶°ÇºÎ ¹«·á");
+			defrow.add("ìë™ì…ë ¥");
+			defrow.add("ì¡°ê±´ë¶€ ë¬´ë£Œ");
 		}
 		if (name.equals("Customers")) {
 			defrow.add("");
@@ -51,20 +51,20 @@ public class TableVO {
 			defrow.add("");
 		}
 		if (name.equals("Sales")) {
-			defrow.add("³¯Â¥");
-			defrow.add("³¯Â¥");
-			defrow.add("³¯Â¥");
-			defrow.add("°Ë»ö");
+			defrow.add("ë‚ ì§œ");
+			defrow.add("ë‚ ì§œ");
+			defrow.add("ë‚ ì§œ");
+			defrow.add("ê²€ìƒ‰");
 			defrow.add("0");
 			defrow.add("");
-			defrow.add("½º¸¶Æ®½ºÅä¾î");
+			defrow.add("ìŠ¤ë§ˆíŠ¸ìŠ¤í† ì–´");
 			defrow.add("");
 		}
 		if (name.equals("Sales_details")) {
-			defrow.set(0, "°Å·¡¹øÈ£");
-			defrow.add("°Ë»ö");
+			defrow.set(0, "ê±°ë˜ë²ˆí˜¸");
+			defrow.add("ê²€ìƒ‰");
 			defrow.add("0");
-			defrow.add("È¯ºÒ");
+			defrow.add("í™˜ë¶ˆ");
 		}
 	}
 
@@ -75,7 +75,7 @@ public class TableVO {
 			stmt = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, e.getMessage(), "¿À·ù", 0);
+			JOptionPane.showMessageDialog(null, e.getMessage(), "ì˜¤ë¥˜", 0);
 			e.printStackTrace();
 		}
 	}

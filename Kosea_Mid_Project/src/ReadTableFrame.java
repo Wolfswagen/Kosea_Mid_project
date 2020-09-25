@@ -7,7 +7,7 @@ import javax.swing.*;
 
 public class ReadTableFrame extends TableFrame {
 
-//  ÆĞ³Î(°Ë»ö Ä«Å×°í¸® ¼±ÅÃ/°Ë»ö¾î ÀÔ·Â/°Ë»ö ¹öÆ°/ºÎºĞ °Ë»ö ¿©ºÎ)
+//  íŒ¨ë„(ê²€ìƒ‰ ì¹´í…Œê³ ë¦¬ ì„ íƒ/ê²€ìƒ‰ì–´ ì…ë ¥/ê²€ìƒ‰ ë²„íŠ¼/ë¶€ë¶„ ê²€ìƒ‰ ì—¬ë¶€)
 	JPanel p;
 	JComboBox<String> cmb;
 	JTextField inp;
@@ -20,23 +20,23 @@ public class ReadTableFrame extends TableFrame {
 	public ReadTableFrame(String name) throws SQLException {
 		super(name);
 
-//		ÃÊ±âÈ­ ºí·° ½ÃÀÛ
-		/* ÆĞ³ÎºÎ ÃÊ±âÈ­ */
+//		ì´ˆê¸°í™” ë¸”ëŸ­ ì‹œì‘
+		/* íŒ¨ë„ë¶€ ì´ˆê¸°í™” */
 		inp = new JTextField("", 30);
-		cfm = new JButton("°Ë»ö");
-		chk = new JCheckBox("ºÎºĞ °Ë»ö");
+		cfm = new JButton("ê²€ìƒ‰");
+		chk = new JCheckBox("ë¶€ë¶„ ê²€ìƒ‰");
 		p = new JPanel();
 		cmb = new JComboBox<String>(column);
-		imp = new JButton("ÀÔ°í");
+		imp = new JButton("ì…ê³ ");
 		imp.setEnabled(false);
 
-		/* Å×ÀÌºí ¸ğµ¨¼³Á¤ */
+		/* í…Œì´ë¸” ëª¨ë¸ì„¤ì • */
 		table.setModel(readModel);
 
-//		ÃÊ±âÈ­ ºí·° ³¡
+//		ì´ˆê¸°í™” ë¸”ëŸ­ ë
 
-//		ÀÌº¥Æ® ¼³Á¤
-		/* °Ë»ö ¹öÆ° ÀÌº¥Æ® */
+//		ì´ë²¤íŠ¸ ì„¤ì •
+		/* ê²€ìƒ‰ ë²„íŠ¼ ì´ë²¤íŠ¸ */
 		cfm.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -44,12 +44,12 @@ public class ReadTableFrame extends TableFrame {
 					readModel.setNumRows(0);
 					select();
 				} catch (SQLException e1) {
-					JOptionPane.showMessageDialog(null, e1.getMessage(), "¿À·ù", 0);
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "ì˜¤ë¥˜", 0);
 					e1.printStackTrace();
 				}
 			}
 		});
-		/* ÀÔ°í ¹öÆ° ÀÌº¥Æ® */
+		/* ì…ê³  ë²„íŠ¼ ì´ë²¤íŠ¸ */
 		if (this.name.equals("Products")) {
 			imp.setEnabled(true);
 			imp.addActionListener(new ActionListener() {
@@ -59,7 +59,7 @@ public class ReadTableFrame extends TableFrame {
 						ImportTablePopUp im = new ImportTablePopUp("import_" + name);
 						im.initFrame();
 					} catch (SQLException e1) {
-						JOptionPane.showMessageDialog(null, e1.getMessage(), "¿À·ù", 0);
+						JOptionPane.showMessageDialog(null, e1.getMessage(), "ì˜¤ë¥˜", 0);
 						e1.printStackTrace();
 					}
 				}
@@ -68,9 +68,9 @@ public class ReadTableFrame extends TableFrame {
 		select();
 	}
 
-//	ÇÁ·¹ÀÓ Ãâ·Â
+//	í”„ë ˆì„ ì¶œë ¥
 	public void initFrame() {
-		/* ÆĞ³ÎºÎ Ãâ·Â */
+		/* íŒ¨ë„ë¶€ ì¶œë ¥ */
 		p.add(imp);
 		p.add(cmb);
 		p.add(inp);
@@ -78,14 +78,14 @@ public class ReadTableFrame extends TableFrame {
 		p.add(chk);
 		p.add(back);
 
-		/* ÇÁ·¹ÀÓ Ãâ·Â */
+		/* í”„ë ˆì„ ì¶œë ¥ */
 		f.add(p, BorderLayout.NORTH);
 		f.add(sp, BorderLayout.CENTER);
 
 		f.setVisible(true);
 	}
 
-//	SELECT °á°ú Á¶È¸
+//	SELECT ê²°ê³¼ ì¡°íšŒ
 	public void select() throws SQLException {
 		ReadDAO dao = new ReadDAO(this.name);
 		ArrayList<Vector<Object>> products = dao.list(cmb.getSelectedItem().toString(), inp.getText(),
@@ -107,7 +107,7 @@ public class ReadTableFrame extends TableFrame {
 		f.removeWindowListener(f.getWindowListeners()[0]);
 		back.removeActionListener(back.getActionListeners()[0]);
 
-		/* À©µµ¿ì Á¾·á ¹öÆ° */
+		/* ìœˆë„ìš° ì¢…ë£Œ ë²„íŠ¼ */
 		f.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 

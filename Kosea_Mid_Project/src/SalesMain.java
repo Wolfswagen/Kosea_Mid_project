@@ -24,7 +24,7 @@ public class SalesMain {
 			}
 		});
 
-		read = new JButton("°Å·¡°Ç Á¶È¸");
+		read = new JButton("ê±°ëž˜ê±´ ì¡°íšŒ");
 		read.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -32,14 +32,14 @@ public class SalesMain {
 					ReadSalesFrame rt = new ReadSalesFrame("Sales");
 					rt.initFrame();
 				} catch (SQLException e1) {
-					JOptionPane.showMessageDialog(null, e1.getMessage(), "¿À·ù", 0);
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "ì˜¤ë¥˜", 0);
 					e1.printStackTrace();
 				}
 				f.dispose();
 			}
 		});
 
-		create = new JButton("°Å·¡°Ç Ãß°¡");
+		create = new JButton("ê±°ëž˜ê±´ ì¶”ê°€");
 		create.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -47,14 +47,14 @@ public class SalesMain {
 					InsertSalesFrame it = new InsertSalesFrame("Sales");
 					it.initFrame();
 				} catch (SQLException e1) {
-					JOptionPane.showMessageDialog(null, e1.getMessage(), "¿À·ù", 0);
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "ì˜¤ë¥˜", 0);
 					e1.printStackTrace();
 				}
 				f.dispose();
 			}
 		});
 
-		update = new JButton("°Å·¡°Ç ¼öÁ¤");
+		update = new JButton("ê±°ëž˜ê±´ ìˆ˜ì •");
 		update.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -62,14 +62,14 @@ public class SalesMain {
 					UpdateSalesFrame ut = new UpdateSalesFrame("Sales");
 					ut.initFrame();
 				} catch (SQLException e1) {
-					JOptionPane.showMessageDialog(null, e1.getMessage(), "¿À·ù", 0);
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "ì˜¤ë¥˜", 0);
 					e1.printStackTrace();
 				}
 				f.dispose();
 			}
 		});
 
-		delete = new JButton("°Å·¡°Ç Á¾°á/»èÁ¦");
+		delete = new JButton("ê±°ëž˜ê±´ ì¢…ê²°/ì‚­ì œ");
 		delete.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -77,7 +77,7 @@ public class SalesMain {
 					FinishDeleteFrame dt = new FinishDeleteFrame("Sales");
 					dt.initFrame();
 				} catch (SQLException e1) {
-					JOptionPane.showMessageDialog(null, e1.getMessage(), "¿À·ù", 0);
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "ì˜¤ë¥˜", 0);
 					e1.printStackTrace();
 				}
 
@@ -85,7 +85,7 @@ public class SalesMain {
 			}
 		});
 
-		refund = new JButton("È¯ºÒ");
+		refund = new JButton("í™˜ë¶ˆ");
 		refund.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -93,14 +93,14 @@ public class SalesMain {
 					RefundSalesFrame dt = new RefundSalesFrame("Refunds");
 					dt.initFrame();
 				} catch (SQLException e1) {
-					JOptionPane.showMessageDialog(null, e1.getMessage(), "¿À·ù", 0);
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "ì˜¤ë¥˜", 0);
 					e1.printStackTrace();
 				}
 				f.dispose();
 			}
 		});
 
-		exit = new JButton("µÚ·Î");
+		exit = new JButton("ë’¤ë¡œ");
 		exit.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

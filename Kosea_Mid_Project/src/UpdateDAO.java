@@ -8,13 +8,13 @@ public class UpdateDAO extends TableVO {
 		super(tname);
 	}
 
-	// update Äõ¸® ÀÛ¼º
+	// update ì¿¼ë¦¬ ìž‘ì„±
 	public void set(Vector<Object> data) throws SQLException {
 		String query = "CALL UPDATE_" + name + "(" + data.get(0) + ", '";
 
 		for (int i = 0; i < data.size(); i++) {
-			if (this.defrow.get(i).equals("ÀÚµ¿ÀÔ·Â") || this.defrow.get(i).equals("³¯Â¥")
-					|| this.defrow.get(i).equals("°Å·¡¹øÈ£")) {
+			if (this.defrow.get(i).equals("ìžë™ìž…ë ¥") || this.defrow.get(i).equals("ë‚ ì§œ")
+					|| this.defrow.get(i).equals("ê±°ëž˜ë²ˆí˜¸")) {
 			} else {
 				if (i < data.size() - 1) {
 					if (Objects.isNull(data.get(i))) {

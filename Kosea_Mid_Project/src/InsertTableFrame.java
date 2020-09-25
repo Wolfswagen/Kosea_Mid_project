@@ -6,7 +6,7 @@ import java.util.Vector;
 import javax.swing.*;
 
 public class InsertTableFrame extends TableFrame {
-//  ÆĞ³Î(¼öÁ¤/Çà Ãß°¡/Çà »èÁ¦)
+//  íŒ¨ë„(ìˆ˜ì •/í–‰ ì¶”ê°€/í–‰ ì‚­ì œ)
 	JPanel p;
 	JButton cfm;
 	JButton add;
@@ -14,14 +14,14 @@ public class InsertTableFrame extends TableFrame {
 
 	public InsertTableFrame(String name) throws SQLException {
 		super(name);
-//		ÃÊ±âÈ­ ºí·°
-		/* ÆĞ³ÎºÎ ÃÊ±âÈ­ */
-		cfm = new JButton("ÀÔ·Â");
-		add = new JButton("Çà Ãß°¡");
-		del = new JButton("Çà »èÁ¦");
+//		ì´ˆê¸°í™” ë¸”ëŸ­
+		/* íŒ¨ë„ë¶€ ì´ˆê¸°í™” */
+		cfm = new JButton("ì…ë ¥");
+		add = new JButton("í–‰ ì¶”ê°€");
+		del = new JButton("í–‰ ì‚­ì œ");
 		p = new JPanel();
 		p.setLayout(new FlowLayout(FlowLayout.RIGHT, 30, 5));
-		/* Å×ÀÌºí ¸ğµ¨ ÃÊ±âÈ­ */
+		/* í…Œì´ë¸” ëª¨ë¸ ì´ˆê¸°í™” */
 		table.setModel(insertModel);
 		insertModel.addRow(defrow);
 
@@ -29,8 +29,8 @@ public class InsertTableFrame extends TableFrame {
 			setCellComboBox();
 		}
 
-//		ÀÌº¥Æ® ¼³Á¤
-		/* ÇàÃß°¡ ¹öÆ° */
+//		ì´ë²¤íŠ¸ ì„¤ì •
+		/* í–‰ì¶”ê°€ ë²„íŠ¼ */
 		add.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -38,7 +38,7 @@ public class InsertTableFrame extends TableFrame {
 			}
 		});
 
-		/* Çà»èÁ¦ ¹öÆ° */
+		/* í–‰ì‚­ì œ ë²„íŠ¼ */
 		del.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -54,19 +54,19 @@ public class InsertTableFrame extends TableFrame {
 			}
 		});
 
-		/* ÀÔ·Â ¹öÆ° */
+		/* ì…ë ¥ ë²„íŠ¼ */
 		cfm.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int result = 0;
-				result = JOptionPane.showConfirmDialog(sp, "ÀÔ·ÂÇÏ½Ã°Ú½À´Ï±î?", "È®ÀÎ", JOptionPane.YES_NO_OPTION);
+				result = JOptionPane.showConfirmDialog(sp, "ì…ë ¥í•˜ì‹œê² ìŠµë‹ˆê¹Œ?", "í™•ì¸", JOptionPane.YES_NO_OPTION);
 				if (result == 0) {
 					try {
 						insert();
 						insertModel.setNumRows(0);
 						insertModel.addRow(defrow);
 					} catch (SQLException e1) {
-						JOptionPane.showMessageDialog(null, e1.getMessage(), "¿À·ù", 0);
+						JOptionPane.showMessageDialog(null, e1.getMessage(), "ì˜¤ë¥˜", 0);
 						e1.printStackTrace();
 					}
 				}
@@ -75,20 +75,20 @@ public class InsertTableFrame extends TableFrame {
 	}
 
 	public void initFrame() {
-		/* ÆĞ³ÎºÎ Ãâ·Â */
+		/* íŒ¨ë„ë¶€ ì¶œë ¥ */
 		p.add(add);
 		p.add(del);
 		p.add(cfm);
 		p.add(back);
 
-		/* ÇÁ·¹ÀÓ Ãâ·Â */
+		/* í”„ë ˆì„ ì¶œë ¥ */
 		f.add(sp, BorderLayout.CENTER);
 		f.add(p, BorderLayout.NORTH);
 
 		f.setVisible(true);
 	}
 
-//	insert Äõ¸® ÀÛ¼º
+//	insert ì¿¼ë¦¬ ì‘ì„±
 	public void insert() throws SQLException {
 
 		InsertDAO dao = new InsertDAO(this.name);
@@ -106,8 +106,8 @@ public class InsertTableFrame extends TableFrame {
 	public void setCellComboBox() {
 		addCellComboBox(table.getColumnModel().getColumn(1),
 				new String[] { "OUTER", "TOP", "BOTTOM", "ONEPIECE", "SHOES", "ACC", "SUMMER" });
-		addCellComboBox(table.getColumnModel().getColumn(5), new String[] { "ÆÇ¸ÅÁß", "Ç°Àı" });
-		addCellComboBox(table.getColumnModel().getColumn(12), new String[] { "Á¶°ÇºÎ ¹«·á", "¹«·á" });
+		addCellComboBox(table.getColumnModel().getColumn(5), new String[] { "íŒë§¤ì¤‘", "í’ˆì ˆ" });
+		addCellComboBox(table.getColumnModel().getColumn(12), new String[] { "ì¡°ê±´ë¶€ ë¬´ë£Œ", "ë¬´ë£Œ" });
 	}
 
 	public String toString() {
